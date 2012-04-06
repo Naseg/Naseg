@@ -148,8 +148,8 @@ public class Student extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     public Collection<Trip> tripsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    public Collection<UserCredential> usersCredentialsCollection;
+    public Collection<UserCredentials> usersCredentialsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    public Collection<CourseEnrollments> coursesEnrollmentsCollection;
+    public Collection<CourseEnrollment> coursesEnrollmentCollection;
 
 }

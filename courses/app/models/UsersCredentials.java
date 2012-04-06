@@ -10,7 +10,7 @@ import play.data.validation.*;
 
 @Entity
 @Table(name = "users_credentials")
-public class UserCredential extends Model {
+public class UserCredentials extends Model {
     public static final long serialVersionUID = 1L;
     @Id
     @NotNull

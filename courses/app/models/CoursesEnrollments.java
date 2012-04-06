@@ -10,7 +10,7 @@ import play.data.validation.*;
 
 @Entity
 @Table(name = "courses_enrollments")
-public class CourseEnrollments extends Model {
+public class CourseEnrollment extends Model {
     @Column(name = "enrolled_at")
     public Date enrolledAt;
     @Column(name = "updated_at")

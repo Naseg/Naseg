@@ -74,6 +74,6 @@ public class Course extends Model {
     @ManyToOne
     public Supervisor professor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
-    public Collection<CourseEnrollments> coursesEnrollmentsCollection;
+    public Collection<CourseEnrollment> coursesEnrollmentCollection;
 
 }

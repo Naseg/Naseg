@@ -24,6 +24,6 @@ public class UserRole extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRol")
-    public Collection<UserCredential> usersCredentialsCollection;
+    public Collection<UserCredentials> usersCredentialsCollection;
 
 }

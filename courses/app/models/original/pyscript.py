@@ -12,14 +12,14 @@ line_patterns = ["import",
 pl2s = { "Students" : "Student",
          "Countries" : "Country",
          "Trips" : "Trip",
-         "CoursesEnrollments" : "CourseEnrollment",
+         "Enrollments" : "Enrollment",
          "Students" : "Student",
          "Universities" : "University",
          "Courses" : "Course",
          "Supervisors" : "Supervisor",
-         "UsersCredentials" : "UserCredential",
+         "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
-         "UsersRoles" : "UserRole" }
+         "Roles" : "Role" }
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
