@@ -1,5 +1,7 @@
 @(title: String)(content: Html)
 
+@import _root_.views.html.authtoken.authenticityToken
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -86,24 +88,31 @@
 					<h3>Prova login.</h3>
 				</div>
 					<div class="modal-body">
-						       <form class="form-horizontal">
-							  <fieldset>
-							    <legend>LOGIN</legend>
-							    <div class="control-group">
-							      <label class="control-label" for="Username">Username</label>
-							      <div class="controls">
-								<input type="text" class="input-xlarge" id="Username" placeholder="username@@unitn.it">
-							      </div>
-							    </div>
-							    <div class="control-group">
-							      <label class="control-label" for="Psw">Password</label>
-							      <div class="controls">
-								<input type="text" class="input-xlarge" id="Psw" placeholder="Password">
-								<p class="help-block">UnitnItc</p>
-							      </div>
-							    </div>
-							  </fieldset>
-							</form>
+                            <form class="form-horizontal" name="formLogin" action="/login" method="POST">
+                                <!-- Aggiungo l'auth  -->
+                                @authenticityToken()
+                                <fieldset>
+                                    <legend>LOGIN</legend>
+                                    <div class="control-group">
+                                        <label class="control-label" for="Username">Username</label>
+                                        <div class="controls">
+                                            <input type="text" class="input-xlarge" id="Username" placeholder="username@@unitn.it">
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="Psw">Password</label>
+                                        <div class="controls">
+                                            <input type="password" class="input-xlarge" id="Psw" placeholder="Password">
+                                            <p class="help-block">UnitnItc</p>
+                                        </div>
+                                    </div>
+                                    <!-- Aggiunti io, bisogna far fare questa azione al pulsante di login e cancella! - fabbo  -->
+                                    <div>
+                                        <input type="reset" value="cancella">
+                                        <input type="submit" value="Login">
+                                    </div>
+                                </fieldset>
+                            </form>
 					</div>
 				<div class="modal-footer">
 					<a href="/" class="btn" onclick="closeDialog ();">Cancella</a>
