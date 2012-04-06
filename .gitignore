@@ -1,0 +1,11 @@
+# python
+*.py[co]
+*build/
+
+# vim
+*.swp
+
+*#
+*~
+
+*.bak

@@ -1,0 +1,11 @@
+@(countries: List[Country])
+
+@import helper._
+
+<h1>@countries.size() countries(s)</h1>
+
+@for(country <- countries) {
+            <li>
+                @country.name
+            </li>
+        }
