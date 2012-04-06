@@ -11,9 +11,11 @@ object ApplicationBuild extends Build {
       // Add your project dependencies here,
       "mysql" % "mysql-connector-java" % "5.1.18"
     )
-
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
-      // Add your own project settings here      
+    
+    val auth = PlayProject(
+	appName + "-auth", appVersion, path = file("modules/auth")
     )
+
+    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).dependsOn(auth)
 
 }
