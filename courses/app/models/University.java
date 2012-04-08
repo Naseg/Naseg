@@ -29,13 +29,12 @@ public class University extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "universityOfProvenance")
-    public Collection<Student> studentsCollection;
+    public Set<Student> studentsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "university")
-    public Collection<Student> studentsCollection1;
+    public Set<Student> studentsSet1;
     @JoinColumn(name = "country", referencedColumnName = "country_ID")
     @ManyToOne
     public Country country;
-
 
     public static Finder<Long,University> find = new Finder(
       Long.class, University.class

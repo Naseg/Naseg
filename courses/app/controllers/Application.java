@@ -3,7 +3,7 @@ package controllers;
 import play.*;
 import play.mvc.*;
 
-import models.Country;
+import models.*;
 import views.html.*;
 
 import play.data.Form;
@@ -17,7 +17,7 @@ public class Application extends Controller {
 
   public static Result provadb() {
     return ok(
-      provadb.render(Country.all())
+      provadb.render(Country.all(),Student.all())
       );
   }
 

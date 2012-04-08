@@ -75,8 +75,7 @@ public class Course extends Model {
     @ManyToOne
     public Supervisor professor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
-    public Collection<CourseEnrollment> coursesEnrollmentCollection;
-
+    public Set<CourseEnrollment> coursesEnrollmentSet;
 
     public static Finder<Long,Course> find = new Finder(
       Long.class, Course.class
@@ -93,4 +92,15 @@ public class Course extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }    
+
+    public static List<Course> findCourseEnrolled(Set<CourseEnrollment> enrollments) {
+      List<Course> out = new ArrayList();
+      for (Course c : Course.find.all())
+	for (CourseEnrollment e : enrollments)
+	{
+	  if (c.coursesEnrollmentSet.contains(e))
+	    out.add(c);
+	}
+      return out;
+    }
 }

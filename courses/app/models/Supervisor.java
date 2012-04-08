@@ -43,14 +43,13 @@ public class Supervisor extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fundsOwner")
-    public Collection<Student> studentsCollection;
+    public Set<Student> studentsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tutor")
-    public Collection<Student> studentsCollection1;
+    public Set<Student> studentsSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentAdvisor")
-    public Collection<Student> studentsCollection2;
+    public Set<Student> studentsSet2;
     @OneToMany(mappedBy = "professor")
-    public Collection<Course> coursesCollection;
-
+    public Set<Course> coursesSet;
 
     public static Finder<Long,Supervisor> find = new Finder(
       Long.class, Supervisor.class

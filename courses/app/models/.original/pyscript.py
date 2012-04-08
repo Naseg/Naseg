@@ -19,7 +19,8 @@ pl2s = { "Students" : "Student",
          "Supervisors" : "Supervisor",
          "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
-         "Roles" : "Role" }
+         "Roles" : "Role",
+         "Collection" : "Set"}
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
@@ -106,8 +107,22 @@ import play.data.validation.*;\n
     public static void delete(Long id) {
       find.ref(id).delete();
     }    
-}
 """ % (outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5].lower(),outputname[:-5].lower()))
+    if (filename == "Courses.java"):
+        stream.write(
+"""
+    public static List<Course> findCourseEnrolled(Set<CourseEnrollment> enrollments) {
+      List<Course> out = new ArrayList();
+      for (Course c : Course.find.all())
+	for (CourseEnrollment e : enrollments)
+	{
+	  if (c.coursesEnrollmentSet.contains(e))
+	    out.add(c);
+	}
+      return out;
+    }
+""")
+    stream.write("}\n")
     stream.close()
     #print(files[filename])
     

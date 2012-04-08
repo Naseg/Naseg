@@ -25,8 +25,7 @@ public class UserRole extends Model {
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userRol")
-    public Collection<UserCredentials> usersCredentialsCollection;
-
+    public Set<UserCredentials> usersCredentialsSet;
 
     public static Finder<Long,UserRole> find = new Finder(
       Long.class, UserRole.class

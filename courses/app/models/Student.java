@@ -147,12 +147,11 @@ public class Student extends Model {
     @ManyToOne(optional = false)
     public Supervisor currentAdvisor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    public Collection<Trip> tripsCollection;
+    public Set<Trip> tripsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    public Collection<UserCredentials> usersCredentialsCollection;
+    public Set<UserCredentials> usersCredentialsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
-    public Collection<CourseEnrollment> coursesEnrollmentCollection;
-
+    public Set<CourseEnrollment> coursesEnrollmentSet;
 
     public static Finder<Long,Student> find = new Finder(
       Long.class, Student.class

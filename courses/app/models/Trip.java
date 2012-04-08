@@ -174,7 +174,6 @@ public class Trip extends Model {
     @ManyToOne(optional = false)
     public Student student;
 
-
     public static Finder<Long,Trip> find = new Finder(
       Long.class, Trip.class
     );

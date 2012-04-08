@@ -1,11 +1,23 @@
-@(countries: List[Country])
+@(countries: List[Country], students: List[Student])
 
-@import helper._
+<h1>@countries.size() countries</h1>
 
-<h1>@countries.size() countries(s)</h1>
+@import models.Course
+@import models.CourseEnrollment
 
 @for(country <- countries) {
             <li>
                 @country.name
+            </li>
+        }
+
+<h1>@students.size() students</h1>
+
+@for(student <- students) {
+            <li>
+                @{student.firstName +" "+ student.lastName+": "}
+                @for(course <- Course.findCourseEnrolled(student.coursesEnrollmentSet)) {
+				   @{course.courseName}
+                }
             </li>
         }

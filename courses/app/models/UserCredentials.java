@@ -32,7 +32,6 @@ public class UserCredentials extends Model {
     @ManyToOne(optional = false)
     public Student user;
 
-
     public static Finder<Long,UserCredentials> find = new Finder(
       Long.class, UserCredentials.class
     );
