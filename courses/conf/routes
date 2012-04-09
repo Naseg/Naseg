@@ -4,7 +4,9 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET     /provadb		            controllers.Application.provadb()
+GET     /provadb		    controllers.Application.provadb()
+GET     /newcourse                  controllers.Application.blankCourseForm()
+POST    /newcourse                  controllers.Application.newCourse()
 POST    /login                      controllers.Application.processLogin()
 
 # Map static resources from the /public folder to the /assets URL path

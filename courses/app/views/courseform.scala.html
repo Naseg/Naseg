@@ -1,0 +1,106 @@
+@(courseForm: Form[Course])
+
+@import helper._
+@import helper.twitterBootstrap._
+    
+@helper.form(action = routes.SignUp.submit) {
+       <fieldset>
+            <legend>Account informations</legend>
+            
+            @inputText(
+                signupForm("username"), 
+                '_label -> "Username", 
+                '_help -> "Please choose a valid username.",
+                '_error -> signupForm.globalError
+            )
+            
+            @inputText(
+                signupForm("email"), '_label -> "Email",
+                '_help -> "Enter a valid email address."
+            )
+            
+            @inputPassword(
+                signupForm("password"), 
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+            
+            @inputPassword(
+                signupForm("repeatPassword"), 
+                '_label -> "Repeat password",
+                '_help -> "Please repeat your password again.",
+                '_error -> signupForm.error("password")
+            )
+            
+        </fieldset>
+        
+        <fieldset>
+            
+            <legend>Contact informations</legend>
+            
+            @select(
+                signupForm("profile.country"), 
+                options = options(Countries.list),
+                '_default -> "--- Choose a country ---",
+                '_label -> "Country",
+                '_error -> signupForm("profile.country").error.map(_.withMessage("Please select your country"))
+            )
+            
+            @textarea(
+                signupForm("profile.address"), 
+                '_label -> "Address", 'cols -> 50
+            )
+            
+            @inputText(
+                signupForm("profile.age"), 
+                '_label -> "Age", 'class -> "mini",
+                '_showConstraints -> false
+            )
+              
+        </fieldset>
+        
+        <fieldset>
+            
+            @checkbox(
+                signupForm("accept"), 
+                '_label -> None, '_text -> "You aggree the Terms and conditions",
+                '_showConstraints -> false
+            )
+            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Sign Up">
+            <a href="@routes.Application.index" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+}
+
+
+<h2>Add a new course</h2>
+    
+    @helper.form(routes.Application.newCourse()) {
+       @helper.inputText(courseForm("notes")) 
+       @helper.inputText(courseForm("institution")) 
+       @helper.inputText(courseForm("place")) 
+       @helper.inputText(courseForm("credits")) 
+       @helper.inputText(courseForm("course_name")) 
+       @helper.inputText(courseForm("accademicYear")) 
+       @helper.inputText(courseForm("is_in_manifesto")) 
+       @helper.inputText(courseForm("is_by_UNITN")) 
+       @helper.inputText(courseForm("is_paid")) 
+       @helper.inputText(courseForm("budgeted_cost")) 
+       @helper.inputText(courseForm("actual_cost")) 
+       @helper.inputText(courseForm("planned_course_period")) 
+       @helper.inputText(courseForm("are_all_marks_defined")) 
+       @helper.inputText(courseForm("url")) 
+       @helper.inputText(courseForm("is_payment_completed"))
+       @helper.inputText(courseForm("budgeted_cost")) 
+       @helper.inputText(courseForm("deleted")) 
+
+       <input type="submit" value="Create">
+        
+    }
+    
