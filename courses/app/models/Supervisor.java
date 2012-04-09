@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class Supervisor extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "supervisor_ID")
     public Integer supervisorID;
     @NotNull
@@ -66,4 +65,12 @@ public class Supervisor extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }    
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Supervisor s: Supervisor.find.orderBy("lastName").findList()) {
+            options.put(s.supervisorID.toString(), s.lastName);
+        }
+        return options;
+    }
 }

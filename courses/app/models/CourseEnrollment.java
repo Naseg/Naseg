@@ -18,7 +18,6 @@ public class CourseEnrollment extends Model {
     public Date updatedAt;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "enrollment_ID")
     public Integer enrollmentID;
     @NotNull

@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class Country extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "country_ID")
     public Integer countryID;
     @NotNull

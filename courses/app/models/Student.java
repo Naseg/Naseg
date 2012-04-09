@@ -18,7 +18,6 @@ public class Student extends Model {
     public Date graduationDate;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "user_ID")
     public Integer userID;
     @NotNull

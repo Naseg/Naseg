@@ -16,7 +16,6 @@ public class Course extends Model {
     public Date actualStartDate;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "course_ID")
     public Integer courseID;
     @Lob

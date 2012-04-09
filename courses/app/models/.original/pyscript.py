@@ -71,7 +71,10 @@ for filename in os.listdir('.'):
                              '',
                              files[filename],
                              flags=re.DOTALL)
-
+    files[filename] = re.sub(r'    @Id[\n\r\s]+@NotNull', 
+                             '    @Id',
+                             files[filename],
+                             flags=re.DOTALL)
     outputname = filename
     for pl in pl2s:
         files[filename] = files[filename].replace(pl,pl2s[pl])
@@ -120,6 +123,17 @@ import play.data.validation.*;\n
 	    out.add(c);
 	}
       return out;
+    }
+""")
+    if (filename == "Supervisors.java"):
+        stream.write(
+"""
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Supervisor s: Supervisor.find.orderBy("lastName").findList()) {
+            options.put(s.supervisorID.toString(), s.lastName);
+        }
+        return options;
     }
 """)
     stream.write("}\n")

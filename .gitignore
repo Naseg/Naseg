@@ -17,3 +17,4 @@ courses/.settings/
 courses/modules/auth/.classpath
 courses/modules/auth/.project
 courses/modules/auth/.settings/
+courses/.cache

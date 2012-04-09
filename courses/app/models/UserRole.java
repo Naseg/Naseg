@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class UserRole extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "user_rol_ID")
     public Integer userrolID;
     @NotNull

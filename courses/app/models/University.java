@@ -14,7 +14,6 @@ import play.data.validation.*;
 public class University extends Model {
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "university_ID")
     public Integer universityID;
     @NotNull

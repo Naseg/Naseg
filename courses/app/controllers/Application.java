@@ -23,12 +23,17 @@ public class Application extends Controller {
   }
 
   public static Result blankCourseForm() {
-    return ok(form.render(courseForm));
+    return ok(courseform.render(courseForm));
   }
 
   public static Result newCourse() {
     Form<Course> filledForm = courseForm.bindFromRequest();
-    
+    if(filledForm.hasErrors()) {
+        return badRequest(courseform.render(filledForm));
+    } else {
+        Course.create(filledForm.get());
+        return ok("creato");
+    }
   }
 
     public static Result processLogin()

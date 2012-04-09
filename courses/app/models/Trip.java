@@ -34,7 +34,6 @@ public class Trip extends Model {
     public Date dateReimRequestSubmitted;
     public static final long serialVersionUID = 1L;
     @Id
-    @NotNull
     @Column(name = "trip_ID")
     public Integer tripID;
     @Column(name = "academic_year_id")
