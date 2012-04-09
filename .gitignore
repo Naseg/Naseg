@@ -9,3 +9,11 @@
 *~
 
 *.bak
+
+# eclipse
+courses/.classpath
+courses/.project
+courses/.settings/
+courses/modules/auth/.classpath
+courses/modules/auth/.project
+courses/modules/auth/.settings/
