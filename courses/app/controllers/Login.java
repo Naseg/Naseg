@@ -13,11 +13,11 @@ public class Application extends Controller {
     
     public static class Login {
         
-        public String email;
+        public String username;
         public String password;
         
         public String validate() {
-            if(User.authenticate(email, password) == null) {
+            if(UserCredentials.authenticate(username, password) == null) {
                 return "Invalid user or password";
             }
             return null;
@@ -39,10 +39,12 @@ public class Application extends Controller {
      */
     public static Result authenticate() {
         Form<Login> loginForm = form(Login.class).bindFromRequest();
+        
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
         } else {
-            session("email", loginForm.get().email);
+            session("username", loginForm.get().username);
+            
             return redirect(
                 routes.Projects.index()
             );
