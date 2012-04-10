@@ -35,10 +35,5 @@ public class Application extends Controller {
         return ok("creato");
     }
   }
-
-    public static Result processLogin()
-    {
-        //..
-    }
 }
 

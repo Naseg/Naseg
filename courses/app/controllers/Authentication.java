@@ -7,7 +7,7 @@ import play.data.*;
 import models.*;
 import views.html.*;
 
-public class Application extends Controller {
+public class Authentication extends Controller {
   
     // -- Authentication
     
@@ -38,7 +38,11 @@ public class Application extends Controller {
      * Handle login form submission.
      */
     public static Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
+    
+    
+        Form<Login> loginForm = form(Login.class);
+        
+        loginForm = loginForm.bindFromRequest();
         
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
@@ -46,7 +50,7 @@ public class Application extends Controller {
             session("username", loginForm.get().username);
             
             return redirect(
-                routes.Projects.index()
+                routes.Application.index()
             );
         }
     }
@@ -58,7 +62,7 @@ public class Application extends Controller {
         session().clear();
         flash("success", "You've been logged out");
         return redirect(
-            routes.Application.login()
+            routes.Application.index()
         );
     }
 }
