@@ -13,7 +13,7 @@ public class Application extends Controller {
   static Form<Course> courseForm = form(Course.class);
   
   public static Result index() {
-    return ok(index.render("Your new application is ready."));
+    return ok(index.render(UserCredentials.find.where().eq("userName",request().username()).findUnique()));
   }
 
   public static Result provadb() {

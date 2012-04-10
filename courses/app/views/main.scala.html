@@ -1,6 +1,4 @@
-@(title: String)(content: Html)
-
-@import _root_.views.html.authtoken.authenticityToken
+@(user: UserCredentials)(body: Html)
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +48,15 @@
           <div class="nav-collapse">
             <ul class="nav">
             </ul>
-            <p class="navbar-text pull-right">Loggato come <a href="#">Username Corrente</a></p>
+            @if(user!=null) {
+          <!--  <p class="navbar-text pull-right">Loggato come <a href="#">Username Corrente</a></p>  -->
+             <dl id="user">
+                <dt>@user.userName</dt>
+                <dd>
+                    <a href="@routes.Authentication.logout()">Logout</a>
+                </dd>
+            </dl>
+            }
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -89,8 +95,6 @@
 				</div>
 					<div class="modal-body">
                             <form class="form-horizontal" name="formLogin" action="/login" method="POST">
-                                <!-- Aggiungo l'auth  -->
-                                @authenticityToken()
                                 <fieldset>
                                     <legend>LOGIN</legend>
                                     <div class="control-group">
