@@ -49,7 +49,7 @@ public class Authentication extends Controller {
         } else {
             System.out.println("***AUT***\nloginForm username:" + loginForm.get().username);
             
-            session("username", loginForm.get().username)
+            session("username", loginForm.get().username);
             
             //request().setUsername(loginForm.get().username);
             //System.out.println("aut: username:" + request().username());

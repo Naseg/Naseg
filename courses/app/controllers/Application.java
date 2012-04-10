@@ -9,6 +9,7 @@ import views.html.*;
 import play.data.Form;
 import models.FormData;
 
+@Security.Authenticated(Secured.class)
 public class Application extends Controller {
   static Form<Course> courseForm = form(Course.class);
   
