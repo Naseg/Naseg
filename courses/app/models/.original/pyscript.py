@@ -136,6 +136,16 @@ import play.data.validation.*;\n
         return options;
     }
 """)
+    if (filename == "UsersCredentials.java"):
+        stream.write(
+"""
+    public static UserCredentials authenticate(String username, String password) {
+        return find.where()
+            .eq("username", username)
+            .eq("password", password)
+            .findUnique();
+    }
+""")
     stream.write("}\n")
     stream.close()
     #print(files[filename])

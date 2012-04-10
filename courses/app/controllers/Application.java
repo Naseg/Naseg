@@ -38,12 +38,22 @@ public class Application extends Controller {
 
     public static Result processLogin()
     {
-        Form<FormData> form = form(FormData.class).bindFromRequest();
+        //Form<FormData> form = form(FormData.class).bindFromRequest();
+        Form<UserCredentials> form = form(UserCredentials.class).bindFromRequest();
+        
+        String username;
+        Strine password;
 
         if (!form.hasErrors())
         {
+            username = form.get().username;
+            password = form.get().password;
+            
             if (true)
             {
+                
+            
+                
                 return ok("authenticity validation PASSED");
             }
         }

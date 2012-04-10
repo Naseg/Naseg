@@ -46,4 +46,11 @@ public class UserCredentials extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }    
+
+    public static UserCredentials authenticate(String username, String password) {
+        return find.where()
+            .eq("username", username)
+            .eq("password", password)
+            .findUnique();
+    }
 }
