@@ -10,16 +10,16 @@ public class Secured extends Security.Authenticator {
     
     @Override
     public String getUsername(Context ctx) {
-        return ctx.session().get("email");
+        return ctx.session().get("username");
     }
     
     @Override
     public Result onUnauthorized(Context ctx) {
-        return redirect(routes.Application.login());
+        return redirect(routes.Authentication.login());
     }
     
     // Access rights
-    
+    /*
     public static boolean isMemberOf(Long project) {
         return Project.isMember(
             project,
@@ -33,5 +33,5 @@ public class Secured extends Security.Authenticator {
             Context.current().request().username()
         );
     }
-    
+    */
 }
