@@ -13,7 +13,13 @@ public class Application extends Controller {
   static Form<Course> courseForm = form(Course.class);
   
   public static Result index() {
+    
+    System.out.println("***REQ***\n" + request().username());
+    System.out.println("username:" + request().username());
+    System.out.println("uri:" + request().uri());
+    
     return ok(index.render(UserCredentials.find.where().eq("userName",request().username()).findUnique()));
+    
   }
 
   public static Result provadb() {

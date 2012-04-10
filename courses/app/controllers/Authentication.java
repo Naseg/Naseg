@@ -47,7 +47,12 @@ public class Authentication extends Controller {
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
         } else {
-            session("username", loginForm.get().username);
+            System.out.println("***AUT***\nloginForm username:" + loginForm.get().username);
+            
+            session("username", loginForm.get().username)
+            
+            //request().setUsername(loginForm.get().username);
+            //System.out.println("aut: username:" + request().username());
             
             return redirect(
                 routes.Application.index()
