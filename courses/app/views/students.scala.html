@@ -1,4 +1,4 @@
-@(user: UserCredentials, student: Student)
+@(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course])
 
 @main { 
 <!---parte sx -->
@@ -63,7 +63,7 @@
           </tr>
         </thead>
         <tbody>
-	  @for(course <- Course.findCourseEnrolled(student.coursesEnrollmentSet)) {
+	  @for(course <- courses_enrolled) {
             <tr>
 	      <td>@course.courseID</td>
               <td>@course.courseName</td>
@@ -99,34 +99,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-	    <td>0</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
-	    <td><input type="checkbox" name="optionsCheckboxList1" value="option1"></td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>TwBootstrap</td>
-            <td><input type="checkbox" name="optionsCheckboxList1" value="option1"></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-	    <td><input type="checkbox" name="optionsCheckboxList1" value="option1"></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td Larry</td>
-	    <td>The Bird</td>
-            <td>twitter</td>
-	    <td><input type="checkbox" name="optionsCheckboxList1" value="option1"></td>
-          </tr>
+          @for(course <- courses) {
+            <tr>
+	      <td>@course.courseID</td>
+              <td>@course.courseName</td>
+              <td>@course.professor</td>
+              <td></td>
+           </tr>
+         }
         </tbody>
       </table>
  <p align="right"><a class="btn btn-primary btn-large">Aggiungi</a></p>
