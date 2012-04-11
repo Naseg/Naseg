@@ -18,7 +18,9 @@ public class SecuredApplication extends Controller {
     System.out.println("username:" + request().username());
     System.out.println("uri:" + request().uri());
     
-    return ok(authIndex.render(UserCredentials.find.where().eq("userName",request().username()).findUnique()));
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    
+    return ok(authIndex.render(uc));
     
   }
   
