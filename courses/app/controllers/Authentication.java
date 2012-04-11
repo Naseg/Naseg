@@ -53,7 +53,8 @@ public class Authentication extends Controller {
             session("username", loginForm.get().username);
             
             return redirect(
-                routes.Application.index()
+                //routes.Application.index()
+                routes.Students.index()
             );
         }
     }
