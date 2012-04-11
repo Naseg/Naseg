@@ -44,15 +44,13 @@ public class Authentication extends Controller {
         
         loginForm = loginForm.bindFromRequest();
         
-        if(loginForm.hasErrors()) {
+        if (loginForm.hasErrors())
+        {
             return badRequest(login.render(loginForm));
-        } else {
-            System.out.println("***AUT***\nloginForm username:" + loginForm.get().username);
-            
+        }
+        else
+        {
             session("username", loginForm.get().username);
-            
-            //request().setUsername(loginForm.get().username);
-            //System.out.println("aut: username:" + request().username());
             
             return redirect(
                 routes.Application.index()

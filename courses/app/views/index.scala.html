@@ -1,12 +1,12 @@
-@(n: Long)(authstate: Html)
+@(authstate: Html)
 
-@main(n = 13L) {
+@main {
 <!-- Parte Sx -->
 <ul class="nav nav-list">
               <li class="nav-header"><font size="4" face="Courier">LOGIN</font></li>
-              <li><a data-toggle="modal" href="#windowTitleDialog" ><font size="3" face="Courier">Login Studente</font></a></li>
-              <li><a data-toggle="modal" href="#windowTitleDialog" ><font size="3" face="Courier">Login Advisor</font></a></li>
-              <li><a data-toggle="modal" href="#windowTitleDialog" ><font size="3" face="Courier">Login Amministrazione</font></a></li>
+              <li><a data-toggle="modal" name="logstudente" href="#windowTitleDialog" ><font size="3" face="Courier">Login Studente</font></a></li>
+              <li><a data-toggle="modal" name="logadvisor" href="#windowTitleDialog" ><font size="3" face="Courier">Login Advisor</font></a></li>
+              <li><a data-toggle="modal" name="logamministrazione" href="#windowTitleDialog" ><font size="3" face="Courier">Login Amministrazione</font></a></li>
               <li class="nav-header"><font size="4" face="Courier">ALTRO</font></li>
               <li><a href="http://ict.unitn.it/announcements"><font size="3" face="Courier">News e Avvisi</font></a></li>
               <li><a href="http://ict.unitn.it/contacts"><font size="3" face="Courier">Contattaci</font></a></li>
@@ -20,6 +20,7 @@
 				</div><!--modal header -->
 					<div class="modal-body">
                             <form class="form-horizontal" name="formLogin" action="/login" method="POST">
+                            <!-- <input type="hidden" value="" -->
                                 <fieldset>
                                     <legend>LOGIN</legend>
                                     <div class="control-group">
@@ -57,4 +58,4 @@
             <p><a class="btn btn-primary btn-large">Prova &raquo;</a></p>
             
           
-} { authstate }
+} { @authstate }
