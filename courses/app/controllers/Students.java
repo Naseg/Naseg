@@ -12,8 +12,12 @@ public class Students extends Controller {
     public static Result index()
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-        
-        return ok(students.render(uc));
+        Student student = uc.user;
+
+	System.out.println("student "+student);
+	System.out.println("enrollments "+student.coursesEnrollmentSet);
+
+        return ok(students.render(uc,student));
     }
   
 }
