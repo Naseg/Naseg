@@ -9,18 +9,11 @@ import views.html.*;
 import play.data.Form;
 import models.FormData;
 
-@Security.Authenticated(Secured.class)
 public class Application extends Controller {
   static Form<Course> courseForm = form(Course.class);
   
   public static Result index() {
-    
-    System.out.println("***REQ***\n" + request().username());
-    System.out.println("username:" + request().username());
-    System.out.println("uri:" + request().uri());
-    
-    return ok(index.render(UserCredentials.find.where().eq("userName",request().username()).findUnique()));
-    
+    return ok(nonAuthIndex.render());
   }
 
   public static Result provadb() {
