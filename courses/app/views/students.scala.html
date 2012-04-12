@@ -67,7 +67,9 @@
             <tr>
 	      <td>@course.courseID</td>
               <td>@course.courseName</td>
-              <td>@course.professor</td>
+	      <td>@if(course.professor != null)  {
+                @Supervisor.findProfessor(course).lastName
+              }</td>
               <td></td>
             </tr>
           }
@@ -103,7 +105,9 @@
             <tr>
 	      <td>@course.courseID</td>
               <td>@course.courseName</td>
-              <td>@course.professor</td>
+              <td>@if(course.professor != null)  {
+                @Supervisor.findProfessor(course).lastName
+              }</td>
               <td></td>
            </tr>
          }

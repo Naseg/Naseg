@@ -73,4 +73,16 @@ public class Supervisor extends Model {
         }
         return options;
     }
+
+    public static Supervisor findProfessor(Course course) {
+      Supervisor out = null;
+      for (Supervisor s : Supervisor.find.all())
+	if (s.coursesSet.contains(course))
+	{
+	    out = s;
+	    break;
+	}
+      return out;
+    }
+
 }
