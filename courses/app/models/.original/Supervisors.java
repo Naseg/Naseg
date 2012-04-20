@@ -9,8 +9,6 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,7 +16,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "supervisors")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Supervisors.findAll", query = "SELECT s FROM Supervisors s")})
 public class Supervisors implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,6 +66,9 @@ public class Supervisors implements Serializable {
     private Collection<Students> studentsCollection2;
     @OneToMany(mappedBy = "professor")
     private Collection<Courses> coursesCollection;
+    @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
+    @ManyToOne(optional = false)
+    private UsersCredentials user;
 
     public Supervisors() {
     }
@@ -150,7 +152,6 @@ public class Supervisors implements Serializable {
         this.deleted = deleted;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection() {
         return studentsCollection;
     }
@@ -159,7 +160,6 @@ public class Supervisors implements Serializable {
         this.studentsCollection = studentsCollection;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection1() {
         return studentsCollection1;
     }
@@ -168,7 +168,6 @@ public class Supervisors implements Serializable {
         this.studentsCollection1 = studentsCollection1;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection2() {
         return studentsCollection2;
     }
@@ -177,13 +176,20 @@ public class Supervisors implements Serializable {
         this.studentsCollection2 = studentsCollection2;
     }
 
-    @XmlTransient
     public Collection<Courses> getCoursesCollection() {
         return coursesCollection;
     }
 
     public void setCoursesCollection(Collection<Courses> coursesCollection) {
         this.coursesCollection = coursesCollection;
+    }
+
+    public UsersCredentials getUser() {
+        return user;
+    }
+
+    public void setUser(UsersCredentials user) {
+        this.user = user;
     }
 
     @Override
@@ -208,7 +214,7 @@ public class Supervisors implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Supervisors[ supervisorID=" + supervisorID + " ]";
+        return "models.Supervisors[ supervisorID=" + supervisorID + " ]";
     }
     
 }

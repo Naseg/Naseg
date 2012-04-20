@@ -12,10 +12,6 @@ import play.data.validation.*;
 @Entity
 @Table(name = "courses_enrollments")
 public class CourseEnrollment extends Model {
-    @Column(name = "enrolled_at")
-    public Date enrolledAt;
-    @Column(name = "updated_at")
-    public Date updatedAt;
     public static final long serialVersionUID = 1L;
     @Id
     @Column(name = "enrollment_ID")
@@ -28,6 +24,10 @@ public class CourseEnrollment extends Model {
     public Boolean isFinished;
     @Column(name = "credits")
     public Integer credits;
+    @Column(name = "enrolled_at")
+    public Date enrolledAt;
+    @Column(name = "updated_at")
+    public Date updatedAt;
     @JoinColumn(name = "student", referencedColumnName = "user_ID")
     @ManyToOne(optional = false)
     public Student student;

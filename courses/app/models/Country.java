@@ -20,12 +20,15 @@ public class Country extends Model {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     public String name;
+    @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "region")
     public String region;
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "citizenship")
     public String citizenship;
+    @NotNull
     @Column(name = "deleted")
     public boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryOfProvenance")

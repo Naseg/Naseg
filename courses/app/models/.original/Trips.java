@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -17,39 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "trips")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Trips.findAll", query = "SELECT t FROM Trips t")})
 public class Trips implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Planned_start_date")
-    @Temporal(TemporalType.DATE)
-    private Date plannedstartdate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Planned_end_date")
-    @Temporal(TemporalType.DATE)
-    private Date plannedenddate;
-    @Column(name = "actual_begin_date_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date actualBeginDateTime;
-    @Column(name = "actual_end_date_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date actualEndDateTime;
-    @Column(name = "departure_border_cross_datetime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureBorderCrossDatetime;
-    @Column(name = "arrival_border_cross_datetime")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrivalBorderCrossDatetime;
-    @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-    @Column(name = "date_reim_request_submitted")
-    @Temporal(TemporalType.DATE)
-    private Date dateReimRequestSubmitted;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +30,11 @@ public class Trips implements Serializable {
     private Integer academicYearId;
     @Column(name = "Date_of_request")
     private Integer dateofrequest;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Planned_start_date")
+    @Temporal(TemporalType.DATE)
+    private Date plannedstartdate;
     @Size(max = 255)
     @Column(name = "Planned_Reason_for_Travel")
     private String plannedReasonforTravel;
@@ -69,6 +43,11 @@ public class Trips implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "status")
     private String status;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Planned_end_date")
+    @Temporal(TemporalType.DATE)
+    private Date plannedenddate;
     @Size(max = 255)
     @Column(name = "Planned_destination")
     private String planneddestination;
@@ -121,6 +100,18 @@ public class Trips implements Serializable {
     private Float expensesSustainedBeforeTrip;
     @Column(name = "is_advance_payment_requested")
     private Boolean isAdvancePaymentRequested;
+    @Column(name = "actual_begin_date_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actualBeginDateTime;
+    @Column(name = "actual_end_date_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date actualEndDateTime;
+    @Column(name = "departure_border_cross_datetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date departureBorderCrossDatetime;
+    @Column(name = "arrival_border_cross_datetime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date arrivalBorderCrossDatetime;
     @Size(max = 255)
     @Column(name = "actual_destination")
     private String actualDestination;
@@ -175,8 +166,17 @@ public class Trips implements Serializable {
     private Integer otherCostsDescription;
     @Column(name = "total_expenses")
     private Float totalExpenses;
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
     @Column(name = "reimb_transport_expenses")
     private Float reimbTransportExpenses;
+    @Column(name = "date_reim_request_submitted")
+    @Temporal(TemporalType.DATE)
+    private Date dateReimRequestSubmitted;
     @Column(name = "reimb_lodging_expenses")
     private Float reimbLodgingExpenses;
     @Column(name = "reimb_extra_costs")
@@ -755,79 +755,7 @@ public class Trips implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Trips[ tripID=" + tripID + " ]";
-    }
-
-    public Date getPlannedstartdate() {
-        return plannedstartdate;
-    }
-
-    public void setPlannedstartdate(Date plannedstartdate) {
-        this.plannedstartdate = plannedstartdate;
-    }
-
-    public Date getPlannedenddate() {
-        return plannedenddate;
-    }
-
-    public void setPlannedenddate(Date plannedenddate) {
-        this.plannedenddate = plannedenddate;
-    }
-
-    public Date getActualBeginDateTime() {
-        return actualBeginDateTime;
-    }
-
-    public void setActualBeginDateTime(Date actualBeginDateTime) {
-        this.actualBeginDateTime = actualBeginDateTime;
-    }
-
-    public Date getActualEndDateTime() {
-        return actualEndDateTime;
-    }
-
-    public void setActualEndDateTime(Date actualEndDateTime) {
-        this.actualEndDateTime = actualEndDateTime;
-    }
-
-    public Date getDepartureBorderCrossDatetime() {
-        return departureBorderCrossDatetime;
-    }
-
-    public void setDepartureBorderCrossDatetime(Date departureBorderCrossDatetime) {
-        this.departureBorderCrossDatetime = departureBorderCrossDatetime;
-    }
-
-    public Date getArrivalBorderCrossDatetime() {
-        return arrivalBorderCrossDatetime;
-    }
-
-    public void setArrivalBorderCrossDatetime(Date arrivalBorderCrossDatetime) {
-        this.arrivalBorderCrossDatetime = arrivalBorderCrossDatetime;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getDateReimRequestSubmitted() {
-        return dateReimRequestSubmitted;
-    }
-
-    public void setDateReimRequestSubmitted(Date dateReimRequestSubmitted) {
-        this.dateReimRequestSubmitted = dateReimRequestSubmitted;
+        return "models.Trips[ tripID=" + tripID + " ]";
     }
     
 }

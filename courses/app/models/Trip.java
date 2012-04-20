@@ -12,26 +12,6 @@ import play.data.validation.*;
 @Entity
 @Table(name = "trips")
 public class Trip extends Model {
-    @NotNull
-    @Column(name = "Planned_start_date")
-    public Date plannedstartdate;
-    @NotNull
-    @Column(name = "Planned_end_date")
-    public Date plannedenddate;
-    @Column(name = "actual_begin_date_time")
-    public Date actualBeginDateTime;
-    @Column(name = "actual_end_date_time")
-    public Date actualEndDateTime;
-    @Column(name = "departure_border_cross_datetime")
-    public Date departureBorderCrossDatetime;
-    @Column(name = "arrival_border_cross_datetime")
-    public Date arrivalBorderCrossDatetime;
-    @Column(name = "created_at")
-    public Date createdAt;
-    @Column(name = "updated_at")
-    public Date updatedAt;
-    @Column(name = "date_reim_request_submitted")
-    public Date dateReimRequestSubmitted;
     public static final long serialVersionUID = 1L;
     @Id
     @Column(name = "trip_ID")
@@ -40,6 +20,9 @@ public class Trip extends Model {
     public Integer academicYearId;
     @Column(name = "Date_of_request")
     public Integer dateofrequest;
+    @NotNull
+    @Column(name = "Planned_start_date")
+    public Date plannedstartdate;
     @Size(max = 255)
     @Column(name = "Planned_Reason_for_Travel")
     public String plannedReasonforTravel;
@@ -47,6 +30,9 @@ public class Trip extends Model {
     @Size(min = 1, max = 255)
     @Column(name = "status")
     public String status;
+    @NotNull
+    @Column(name = "Planned_end_date")
+    public Date plannedenddate;
     @Size(max = 255)
     @Column(name = "Planned_destination")
     public String planneddestination;
@@ -98,6 +84,14 @@ public class Trip extends Model {
     public Float expensesSustainedBeforeTrip;
     @Column(name = "is_advance_payment_requested")
     public Boolean isAdvancePaymentRequested;
+    @Column(name = "actual_begin_date_time")
+    public Date actualBeginDateTime;
+    @Column(name = "actual_end_date_time")
+    public Date actualEndDateTime;
+    @Column(name = "departure_border_cross_datetime")
+    public Date departureBorderCrossDatetime;
+    @Column(name = "arrival_border_cross_datetime")
+    public Date arrivalBorderCrossDatetime;
     @Size(max = 255)
     @Column(name = "actual_destination")
     public String actualDestination;
@@ -151,8 +145,14 @@ public class Trip extends Model {
     public Integer otherCostsDescription;
     @Column(name = "total_expenses")
     public Float totalExpenses;
+    @Column(name = "created_at")
+    public Date createdAt;
+    @Column(name = "updated_at")
+    public Date updatedAt;
     @Column(name = "reimb_transport_expenses")
     public Float reimbTransportExpenses;
+    @Column(name = "date_reim_request_submitted")
+    public Date dateReimRequestSubmitted;
     @Column(name = "reimb_lodging_expenses")
     public Float reimbLodgingExpenses;
     @Column(name = "reimb_extra_costs")

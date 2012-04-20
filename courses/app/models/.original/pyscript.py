@@ -6,7 +6,9 @@ line_patterns = ["import",
                  "@XmlRootElement",
                  "@XmlTransient",
                  "@GeneratedValue",
-                 "@Temporal"
+                 "@Temporal",
+                 "@NamedQueries",
+                 "@NamedQuery"
                  ]
 
 pl2s = { "Students" : "Student",
@@ -141,9 +143,47 @@ import play.data.validation.*;\n
 """
     public static UserCredentials authenticate(String username, String password) {
         return find.where()
-            .eq("username", username)
+            .eq("userName", username)
             .eq("password", password)
             .findUnique();
+    }
+
+    public Student getStudent()
+    {
+      if (this.studentsSet.size() > 1)
+      {
+	throw new PersistenceException("There is more than one student for credential "+this);
+      }
+      else
+      {
+	return (Student)this.studentsSet.toArray()[0];
+      }
+    }
+
+    public Supervisor getSupervisor()
+    {
+      if (this.supervisorsSet.size() > 1)
+      {
+	throw new PersistenceException("There is more than one supervisor for credential "+this);
+      }
+      else
+      {
+	return (Supervisor)this.supervisorsSet.toArray()[0];
+      }
+    }
+""")
+    if (filename == "Supervisors.java"):
+        stream.write(
+"""
+    public static Supervisor findProfessor(Course course) {
+      Supervisor out = null;
+      for (Supervisor s : Supervisor.find.all())
+	if (s.coursesSet.contains(course))
+	{
+	    out = s;
+	    break;
+	}
+      return out;
     }
 """)
     stream.write("}\n")

@@ -9,8 +9,6 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,7 +16,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "funding_institutions")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "FundingInstitutions.findAll", query = "SELECT f FROM FundingInstitutions f")})
 public class FundingInstitutions implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -90,7 +89,6 @@ public class FundingInstitutions implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection() {
         return studentsCollection;
     }
@@ -121,7 +119,7 @@ public class FundingInstitutions implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.FundingInstitutions[ fundinginstitutionID=" + fundinginstitutionID + " ]";
+        return "models.FundingInstitutions[ fundinginstitutionID=" + fundinginstitutionID + " ]";
     }
     
 }

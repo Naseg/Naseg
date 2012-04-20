@@ -14,8 +14,8 @@ create table countries (
 
 create table courses (
   course_ID                 integer auto_increment not null,
-  actual_start_date         datetime,
   notes                     longtext,
+  actual_start_date         datetime,
   institution               varchar(255),
   place                     varchar(255),
   credits                   integer,
@@ -37,11 +37,11 @@ create table courses (
 
 create table courses_enrollments (
   enrollment_ID             integer auto_increment not null,
-  enrolled_at               datetime,
-  updated_at                datetime,
   qualification             varchar(255),
   is_finished               tinyint(1) default 0,
   credits                   integer,
+  enrolled_at               datetime,
+  updated_at                datetime,
   student                   integer not null,
   course                    integer not null,
   constraint pk_courses_enrollments primary key (enrollment_ID))
@@ -57,8 +57,6 @@ create table funding_institutions (
 
 create table students (
   user_ID                   integer auto_increment not null,
-  date_of_birth             datetime,
-  graduation_date           datetime,
   first_name                varchar(255),
   last_name                 varchar(255),
   full_name                 varchar(255),
@@ -68,6 +66,7 @@ create table students (
   admitted_conditionally    tinyint(1) default 0,
   legal_residence           varchar(255),
   current_domicile          varchar(255),
+  date_of_birth             datetime,
   place_of_birth            varchar(255),
   office_phone              varchar(255),
   mobile_phone              varchar(255),
@@ -84,10 +83,12 @@ create table students (
   months                    integer,
   personal_funds_available  integer,
   is_graduated              tinyint(1) default 0,
+  graduation_date           datetime,
   commitee_members          varchar(255),
   email                     varchar(255),
   deleted                   tinyint(1) default 0,
   Italian_Taxpayer_Code     integer,
+  user                      integer not null,
   university_of_provenance  integer not null,
   university                integer not null,
   funding_institution       integer not null,
@@ -108,24 +109,18 @@ create table supervisors (
   is_internal               tinyint(1) default 0,
   email                     varchar(255),
   deleted                   tinyint(1) default 0,
+  user                      integer not null,
   constraint pk_supervisors primary key (supervisor_ID))
 ;
 
 create table trips (
   trip_ID                   integer auto_increment not null,
-  Planned_start_date        datetime,
-  Planned_end_date          datetime,
-  actual_begin_date_time    datetime,
-  actual_end_date_time      datetime,
-  departure_border_cross_datetime datetime,
-  arrival_border_cross_datetime datetime,
-  created_at                datetime,
-  updated_at                datetime,
-  date_reim_request_submitted datetime,
   academic_year_id          integer,
   Date_of_request           integer,
+  Planned_start_date        datetime,
   Planned_Reason_for_Travel varchar(255),
   status                    varchar(255),
+  Planned_end_date          datetime,
   Planned_destination       varchar(255),
   Planned_means_of_transport varchar(255),
   is_stopover_requested     tinyint(1) default 0,
@@ -147,6 +142,10 @@ create table trips (
   foreseen_transportation_cost float,
   expenses_sustained_before_trip float,
   is_advance_payment_requested tinyint(1) default 0,
+  actual_begin_date_time    datetime,
+  actual_end_date_time      datetime,
+  departure_border_cross_datetime datetime,
+  arrival_border_cross_datetime datetime,
   actual_destination        varchar(255),
   current_address           varchar(255),
   advance_payment_received  float,
@@ -168,7 +167,10 @@ create table trips (
   other_costs_amount        float,
   other_costs_description   integer,
   total_expenses            float,
+  created_at                datetime,
+  updated_at                datetime,
   reimb_transport_expenses  float,
+  date_reim_request_submitted datetime,
   reimb_lodging_expenses    float,
   reimb_extra_costs         float,
   deleted                   tinyint(1) default 0,
@@ -193,7 +195,6 @@ create table users_credentials (
   user_name                 varchar(255),
   password                  varchar(255),
   user_rol                  integer not null,
-  user                      integer not null,
   constraint pk_users_credentials primary key (user_credential_ID))
 ;
 
@@ -210,30 +211,32 @@ alter table courses_enrollments add constraint fk_courses_enrollments_student_2 
 create index ix_courses_enrollments_student_2 on courses_enrollments (student);
 alter table courses_enrollments add constraint fk_courses_enrollments_course_3 foreign key (course) references courses (course_ID) on delete restrict on update restrict;
 create index ix_courses_enrollments_course_3 on courses_enrollments (course);
-alter table students add constraint fk_students_universityOfProven_4 foreign key (university_of_provenance) references universities (university_ID) on delete restrict on update restrict;
-create index ix_students_universityOfProven_4 on students (university_of_provenance);
-alter table students add constraint fk_students_university_5 foreign key (university) references universities (university_ID) on delete restrict on update restrict;
-create index ix_students_university_5 on students (university);
-alter table students add constraint fk_students_fundingInstitution_6 foreign key (funding_institution) references funding_institutions (funding_institution_ID) on delete restrict on update restrict;
-create index ix_students_fundingInstitution_6 on students (funding_institution);
-alter table students add constraint fk_students_countryOfProvenanc_7 foreign key (country_of_provenance) references countries (country_ID) on delete restrict on update restrict;
-create index ix_students_countryOfProvenanc_7 on students (country_of_provenance);
-alter table students add constraint fk_students_citizenship_8 foreign key (citizenship) references countries (country_ID) on delete restrict on update restrict;
-create index ix_students_citizenship_8 on students (citizenship);
-alter table students add constraint fk_students_fundsOwner_9 foreign key (funds_owner) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_fundsOwner_9 on students (funds_owner);
-alter table students add constraint fk_students_tutor_10 foreign key (tutor) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_tutor_10 on students (tutor);
-alter table students add constraint fk_students_currentAdvisor_11 foreign key (current_advisor) references supervisors (supervisor_ID) on delete restrict on update restrict;
-create index ix_students_currentAdvisor_11 on students (current_advisor);
-alter table trips add constraint fk_trips_student_12 foreign key (student) references students (user_ID) on delete restrict on update restrict;
-create index ix_trips_student_12 on trips (student);
-alter table universities add constraint fk_universities_country_13 foreign key (country) references countries (country_ID) on delete restrict on update restrict;
-create index ix_universities_country_13 on universities (country);
-alter table users_credentials add constraint fk_users_credentials_userRol_14 foreign key (user_rol) references users_roles (user_rol_ID) on delete restrict on update restrict;
-create index ix_users_credentials_userRol_14 on users_credentials (user_rol);
-alter table users_credentials add constraint fk_users_credentials_user_15 foreign key (user) references students (user_ID) on delete restrict on update restrict;
-create index ix_users_credentials_user_15 on users_credentials (user);
+alter table students add constraint fk_students_user_4 foreign key (user) references users_credentials (user_credential_ID) on delete restrict on update restrict;
+create index ix_students_user_4 on students (user);
+alter table students add constraint fk_students_universityOfProven_5 foreign key (university_of_provenance) references universities (university_ID) on delete restrict on update restrict;
+create index ix_students_universityOfProven_5 on students (university_of_provenance);
+alter table students add constraint fk_students_university_6 foreign key (university) references universities (university_ID) on delete restrict on update restrict;
+create index ix_students_university_6 on students (university);
+alter table students add constraint fk_students_fundingInstitution_7 foreign key (funding_institution) references funding_institutions (funding_institution_ID) on delete restrict on update restrict;
+create index ix_students_fundingInstitution_7 on students (funding_institution);
+alter table students add constraint fk_students_countryOfProvenanc_8 foreign key (country_of_provenance) references countries (country_ID) on delete restrict on update restrict;
+create index ix_students_countryOfProvenanc_8 on students (country_of_provenance);
+alter table students add constraint fk_students_citizenship_9 foreign key (citizenship) references countries (country_ID) on delete restrict on update restrict;
+create index ix_students_citizenship_9 on students (citizenship);
+alter table students add constraint fk_students_fundsOwner_10 foreign key (funds_owner) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_fundsOwner_10 on students (funds_owner);
+alter table students add constraint fk_students_tutor_11 foreign key (tutor) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_tutor_11 on students (tutor);
+alter table students add constraint fk_students_currentAdvisor_12 foreign key (current_advisor) references supervisors (supervisor_ID) on delete restrict on update restrict;
+create index ix_students_currentAdvisor_12 on students (current_advisor);
+alter table supervisors add constraint fk_supervisors_user_13 foreign key (user) references users_credentials (user_credential_ID) on delete restrict on update restrict;
+create index ix_supervisors_user_13 on supervisors (user);
+alter table trips add constraint fk_trips_student_14 foreign key (student) references students (user_ID) on delete restrict on update restrict;
+create index ix_trips_student_14 on trips (student);
+alter table universities add constraint fk_universities_country_15 foreign key (country) references countries (country_ID) on delete restrict on update restrict;
+create index ix_universities_country_15 on universities (country);
+alter table users_credentials add constraint fk_users_credentials_userRol_16 foreign key (user_rol) references users_roles (user_rol_ID) on delete restrict on update restrict;
+create index ix_users_credentials_userRol_16 on users_credentials (user_rol);
 
 
 

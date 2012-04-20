@@ -24,12 +24,13 @@ public class UserCredentials extends Model {
     @Size(min = 1, max = 500)
     @Column(name = "password")
     public String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    public Set<Student> studentsSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    public Set<Supervisor> supervisorsSet;
     @JoinColumn(name = "user_rol", referencedColumnName = "user_rol_ID")
     @ManyToOne(optional = false)
     public UserRole userRol;
-    @JoinColumn(name = "user", referencedColumnName = "user_ID")
-    @ManyToOne(optional = false)
-    public Student user;
 
     public static Finder<Long,UserCredentials> find = new Finder(
       Long.class, UserCredentials.class
@@ -52,5 +53,29 @@ public class UserCredentials extends Model {
             .eq("userName", username)
             .eq("password", password)
             .findUnique();
+    }
+
+    public Student getStudent()
+    {
+      if (this.studentsSet.size() > 1)
+      {
+	throw new PersistenceException("There is more than one student for credential "+this);
+      }
+      else
+      {
+	return (Student)this.studentsSet.toArray()[0];
+      }
+    }
+
+    public Supervisor getSupervisor()
+    {
+      if (this.supervisorsSet.size() > 1)
+      {
+	throw new PersistenceException("There is more than one supervisor for credential "+this);
+      }
+      else
+      {
+	return (Supervisor)this.supervisorsSet.toArray()[0];
+      }
     }
 }

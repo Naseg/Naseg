@@ -9,7 +9,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -17,14 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "courses_enrollments")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "CoursesEnrollments.findAll", query = "SELECT c FROM CoursesEnrollments c")})
 public class CoursesEnrollments implements Serializable {
-    @Column(name = "enrolled_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date enrolledAt;
-    @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +35,12 @@ public class CoursesEnrollments implements Serializable {
     private Boolean isFinished;
     @Column(name = "credits")
     private Integer credits;
+    @Column(name = "enrolled_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date enrolledAt;
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
     @JoinColumn(name = "student", referencedColumnName = "user_ID")
     @ManyToOne(optional = false)
     private Students student;
@@ -146,23 +146,7 @@ public class CoursesEnrollments implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.CoursesEnrollments[ enrollmentID=" + enrollmentID + " ]";
-    }
-
-    public Date getEnrolledAt() {
-        return enrolledAt;
-    }
-
-    public void setEnrolledAt(Date enrolledAt) {
-        this.enrolledAt = enrolledAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+        return "models.CoursesEnrollments[ enrollmentID=" + enrollmentID + " ]";
     }
     
 }

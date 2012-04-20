@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -19,11 +17,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "courses")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Courses.findAll", query = "SELECT c FROM Courses c")})
 public class Courses implements Serializable {
-    @Column(name = "actual_start_date")
-    @Temporal(TemporalType.DATE)
-    private Date actualStartDate;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +31,9 @@ public class Courses implements Serializable {
     @Size(max = 65535)
     @Column(name = "notes")
     private String notes;
+    @Column(name = "actual_start_date")
+    @Temporal(TemporalType.DATE)
+    private Date actualStartDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -278,7 +277,6 @@ public class Courses implements Serializable {
         this.professor = professor;
     }
 
-    @XmlTransient
     public Collection<CoursesEnrollments> getCoursesEnrollmentsCollection() {
         return coursesEnrollmentsCollection;
     }
@@ -309,15 +307,7 @@ public class Courses implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Courses[ courseID=" + courseID + " ]";
-    }
-
-    public Date getActualStartDate() {
-        return actualStartDate;
-    }
-
-    public void setActualStartDate(Date actualStartDate) {
-        this.actualStartDate = actualStartDate;
+        return "models.Courses[ courseID=" + courseID + " ]";
     }
     
 }

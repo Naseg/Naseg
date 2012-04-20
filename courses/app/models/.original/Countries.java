@@ -9,8 +9,6 @@ import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,7 +16,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "countries")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Countries.findAll", query = "SELECT c FROM Countries c")})
 public class Countries implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,14 +32,17 @@ public class Countries implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "region")
     private String region;
     @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "citizenship")
     private String citizenship;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "deleted")
     private boolean deleted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "countryOfProvenance")
@@ -105,7 +107,6 @@ public class Countries implements Serializable {
         this.deleted = deleted;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection() {
         return studentsCollection;
     }
@@ -114,7 +115,6 @@ public class Countries implements Serializable {
         this.studentsCollection = studentsCollection;
     }
 
-    @XmlTransient
     public Collection<Students> getStudentsCollection1() {
         return studentsCollection1;
     }
@@ -123,7 +123,6 @@ public class Countries implements Serializable {
         this.studentsCollection1 = studentsCollection1;
     }
 
-    @XmlTransient
     public Collection<Universities> getUniversitiesCollection() {
         return universitiesCollection;
     }
@@ -154,7 +153,7 @@ public class Countries implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Countries[ countryID=" + countryID + " ]";
+        return "models.Countries[ countryID=" + countryID + " ]";
     }
     
 }

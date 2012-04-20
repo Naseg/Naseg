@@ -5,10 +5,10 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "users_credentials")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "UsersCredentials.findAll", query = "SELECT u FROM UsersCredentials u")})
 public class UsersCredentials implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,12 +36,13 @@ public class UsersCredentials implements Serializable {
     @Size(min = 1, max = 500)
     @Column(name = "password")
     private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Students> studentsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Supervisors> supervisorsCollection;
     @JoinColumn(name = "user_rol", referencedColumnName = "user_rol_ID")
     @ManyToOne(optional = false)
     private UsersRoles userRol;
-    @JoinColumn(name = "user", referencedColumnName = "user_ID")
-    @ManyToOne(optional = false)
-    private Students user;
 
     public UsersCredentials() {
     }
@@ -79,20 +81,28 @@ public class UsersCredentials implements Serializable {
         this.password = password;
     }
 
+    public Collection<Students> getStudentsCollection() {
+        return studentsCollection;
+    }
+
+    public void setStudentsCollection(Collection<Students> studentsCollection) {
+        this.studentsCollection = studentsCollection;
+    }
+
+    public Collection<Supervisors> getSupervisorsCollection() {
+        return supervisorsCollection;
+    }
+
+    public void setSupervisorsCollection(Collection<Supervisors> supervisorsCollection) {
+        this.supervisorsCollection = supervisorsCollection;
+    }
+
     public UsersRoles getUserRol() {
         return userRol;
     }
 
     public void setUserRol(UsersRoles userRol) {
         this.userRol = userRol;
-    }
-
-    public Students getUser() {
-        return user;
-    }
-
-    public void setUser(Students user) {
-        this.user = user;
     }
 
     @Override
@@ -117,7 +127,7 @@ public class UsersCredentials implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.UsersCredentials[ usercredentialID=" + usercredentialID + " ]";
+        return "models.UsersCredentials[ usercredentialID=" + usercredentialID + " ]";
     }
     
 }

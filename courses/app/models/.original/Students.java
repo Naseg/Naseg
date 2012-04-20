@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -19,14 +17,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "students")
-@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Students.findAll", query = "SELECT s FROM Students s")})
 public class Students implements Serializable {
-    @Column(name = "date_of_birth")
-    @Temporal(TemporalType.DATE)
-    private Date dateOfBirth;
-    @Column(name = "graduation_date")
-    @Temporal(TemporalType.DATE)
-    private Date graduationDate;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,6 +69,9 @@ public class Students implements Serializable {
     @Size(min = 1, max = 500)
     @Column(name = "current_domicile")
     private String currentDomicile;
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
@@ -144,6 +140,9 @@ public class Students implements Serializable {
     @NotNull
     @Column(name = "is_graduated")
     private boolean isGraduated;
+    @Column(name = "graduation_date")
+    @Temporal(TemporalType.DATE)
+    private Date graduationDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -161,6 +160,9 @@ public class Students implements Serializable {
     private boolean deleted;
     @Column(name = "Italian_Taxpayer_Code")
     private Integer italianTaxpayerCode;
+    @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
+    @ManyToOne(optional = false)
+    private UsersCredentials user;
     @JoinColumn(name = "university_of_provenance", referencedColumnName = "university_ID")
     @ManyToOne(optional = false)
     private Universities universityOfProvenance;
@@ -187,8 +189,6 @@ public class Students implements Serializable {
     private Supervisors currentAdvisor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<Trips> tripsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Collection<UsersCredentials> usersCredentialsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private Collection<CoursesEnrollments> coursesEnrollmentsCollection;
 
@@ -485,6 +485,14 @@ public class Students implements Serializable {
         this.italianTaxpayerCode = italianTaxpayerCode;
     }
 
+    public UsersCredentials getUser() {
+        return user;
+    }
+
+    public void setUser(UsersCredentials user) {
+        this.user = user;
+    }
+
     public Universities getUniversityOfProvenance() {
         return universityOfProvenance;
     }
@@ -549,7 +557,6 @@ public class Students implements Serializable {
         this.currentAdvisor = currentAdvisor;
     }
 
-    @XmlTransient
     public Collection<Trips> getTripsCollection() {
         return tripsCollection;
     }
@@ -558,16 +565,6 @@ public class Students implements Serializable {
         this.tripsCollection = tripsCollection;
     }
 
-    @XmlTransient
-    public Collection<UsersCredentials> getUsersCredentialsCollection() {
-        return usersCredentialsCollection;
-    }
-
-    public void setUsersCredentialsCollection(Collection<UsersCredentials> usersCredentialsCollection) {
-        this.usersCredentialsCollection = usersCredentialsCollection;
-    }
-
-    @XmlTransient
     public Collection<CoursesEnrollments> getCoursesEnrollmentsCollection() {
         return coursesEnrollmentsCollection;
     }
@@ -598,23 +595,7 @@ public class Students implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Students[ userID=" + userID + " ]";
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Date getGraduationDate() {
-        return graduationDate;
-    }
-
-    public void setGraduationDate(Date graduationDate) {
-        this.graduationDate = graduationDate;
+        return "models.Students[ userID=" + userID + " ]";
     }
     
 }

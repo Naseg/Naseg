@@ -49,6 +49,9 @@ public class Supervisor extends Model {
     public Set<Student> studentsSet2;
     @OneToMany(mappedBy = "professor")
     public Set<Course> coursesSet;
+    @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
+    @ManyToOne(optional = false)
+    public UserCredentials user;
 
     public static Finder<Long,Supervisor> find = new Finder(
       Long.class, Supervisor.class
@@ -84,5 +87,4 @@ public class Supervisor extends Model {
 	}
       return out;
     }
-
 }

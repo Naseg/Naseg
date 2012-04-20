@@ -12,8 +12,6 @@ import play.data.validation.*;
 @Entity
 @Table(name = "courses")
 public class Course extends Model {
-    @Column(name = "actual_start_date")
-    public Date actualStartDate;
     public static final long serialVersionUID = 1L;
     @Id
     @Column(name = "course_ID")
@@ -22,6 +20,8 @@ public class Course extends Model {
     @Size(max = 65535)
     @Column(name = "notes")
     public String notes;
+    @Column(name = "actual_start_date")
+    public Date actualStartDate;
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "institution")

@@ -12,10 +12,6 @@ import play.data.validation.*;
 @Entity
 @Table(name = "students")
 public class Student extends Model {
-    @Column(name = "date_of_birth")
-    public Date dateOfBirth;
-    @Column(name = "graduation_date")
-    public Date graduationDate;
     public static final long serialVersionUID = 1L;
     @Id
     @Column(name = "user_ID")
@@ -53,6 +49,8 @@ public class Student extends Model {
     @Size(min = 1, max = 500)
     @Column(name = "current_domicile")
     public String currentDomicile;
+    @Column(name = "date_of_birth")
+    public Date dateOfBirth;
     @NotNull
     @Size(min = 1, max = 300)
     @Column(name = "place_of_birth")
@@ -107,6 +105,8 @@ public class Student extends Model {
     @NotNull
     @Column(name = "is_graduated")
     public boolean isGraduated;
+    @Column(name = "graduation_date")
+    public Date graduationDate;
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "commitee_members")
@@ -121,6 +121,9 @@ public class Student extends Model {
     public boolean deleted;
     @Column(name = "Italian_Taxpayer_Code")
     public Integer italianTaxpayerCode;
+    @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
+    @ManyToOne(optional = false)
+    public UserCredentials user;
     @JoinColumn(name = "university_of_provenance", referencedColumnName = "university_ID")
     @ManyToOne(optional = false)
     public University universityOfProvenance;
@@ -147,8 +150,6 @@ public class Student extends Model {
     public Supervisor currentAdvisor;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     public Set<Trip> tripsSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    public Set<UserCredentials> usersCredentialsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     public Set<CourseEnrollment> coursesEnrollmentSet;
 
