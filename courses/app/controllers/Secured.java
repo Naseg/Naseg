@@ -20,19 +20,11 @@ public class Secured extends Security.Authenticator {
     }
     
     // Access rights
-    /*
-    public static boolean isMemberOf(Long project) {
-        return Project.isMember(
-            project,
-            Context.current().request().username()
-        );
+    public static boolean isStudent(UserCredentials uc) {
+        return (uc.getStudent() != null);
     }
     
-    public static boolean isOwnerOf(Long task) {
-        return Task.isOwner(
-            task,
-            Context.current().request().username()
-        );
+    public static boolean isSupervisor(UserCredentials uc) {
+        return (uc.getSupervisor() != null);
     }
-    */
 }

@@ -156,7 +156,12 @@ import play.data.validation.*;\n
       }
       else
       {
-	return (Student)this.studentsSet.toArray()[0];
+	try {
+	  return (Student)this.studentsSet.toArray()[0];
+	}
+	catch (ArrayIndexOutOfBoundsException ex) {
+	  return null;
+	}
       }
     }
 
@@ -168,7 +173,12 @@ import play.data.validation.*;\n
       }
       else
       {
-	return (Supervisor)this.supervisorsSet.toArray()[0];
+	try {
+	  return (Supervisor)this.supervisorsSet.toArray()[0];
+	}
+	catch (ArrayIndexOutOfBoundsException ex) {
+	  return null;
+	}
       }
     }
 """)

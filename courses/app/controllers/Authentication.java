@@ -51,11 +51,23 @@ public class Authentication extends Controller {
         else
         {
             session("username", loginForm.get().username);
-            
-            return redirect(
-                //routes.Application.index()
-                routes.Students.index()
-            );
+            UserCredentials uc = UserCredentials.find.where().eq("userName", loginForm.get().username).findUnique(); 
+	    if (Secured.isStudent(uc))
+	    {
+	      return redirect(
+		routes.Students.index()
+		);
+	    }
+	    else if (Secured.isSupervisor(uc))
+	    {
+	      return redirect(
+		routes.Supervisors.index()
+		);
+	    }
+	    else
+	    {
+	      return ok("You are not a student, nor a supervisor, nor an admin... Who are you?");
+	    }
         }
     }
 

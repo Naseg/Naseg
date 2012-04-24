@@ -8,17 +8,14 @@ import models.*;
 import views.html.*;
 
 @Security.Authenticated(Secured.class)
-public class Students extends Controller {
+public class Supervisors extends Controller {
     
     public static Result index()
     {
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
+      if (Secured.isSupervisor(uc))
       {
-        Student student = uc.getStudent();
-	List<Course> courses_enrolled = Course.findCourseEnrolled(student.coursesEnrollmentSet);
-
-        return ok(students.render(uc,courses_enrolled, Course.all()));
+        return ok("You are a supervisor");
       }
       else
       {
