@@ -102,4 +102,15 @@ public class Course extends Model {
 	}
       return out;
     }
+
+    public static List<Course> getStudyPlan(Set<CourseEnrollment> enrollments) {
+      List<Course> out = new ArrayList();
+      for (Course c : Course.find.all())
+	for (CourseEnrollment e : enrollments)
+	{
+	  if (c.coursesEnrollmentSet.contains(e) && c.academicYear==2012)
+	    out.add(c);
+	}
+      return out;
+    }
 }

@@ -16,7 +16,7 @@ public class Students extends Controller {
       if (Secured.isStudent(uc))
       {
         Student student = uc.getStudent();
-	List<Course> courses_enrolled = Course.findCourseEnrolled(student.coursesEnrollmentSet);
+	List<Course> courses_enrolled = Course.getStudyPlan(student.coursesEnrollmentSet);
 
         return ok(students.render(uc,courses_enrolled, Course.all()));
       }
