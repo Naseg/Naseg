@@ -105,12 +105,20 @@ public class Course extends Model {
 
     public static List<Course> getStudyPlan(Set<CourseEnrollment> enrollments) {
       List<Course> out = new ArrayList();
+      int currentYear = -1;
+      
       for (Course c : Course.find.all())
-	for (CourseEnrollment e : enrollments)
-	{
-	  if (c.coursesEnrollmentSet.contains(e) && c.academicYear==2012)
-	    out.add(c);
-	}
+            if (c.academicYear > currentYear)
+                currentYear = c.academicYear;
+                
+                System.out.println("-------------------"+currentYear);
+      
+      for (Course c : Course.find.all())
+	    for (CourseEnrollment e : enrollments)
+	    {
+	      if (c.coursesEnrollmentSet.contains(e) && c.academicYear==currentYear)
+	        out.add(c);
+	    }
       return out;
     }
 }
