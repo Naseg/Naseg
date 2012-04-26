@@ -168,4 +168,9 @@ public class Student extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }    
+
+    public List<Course> getStudyPlan()
+    {
+      return Course.getStudyPlanFromEnrollments(this.coursesEnrollmentSet);
+    }
 }

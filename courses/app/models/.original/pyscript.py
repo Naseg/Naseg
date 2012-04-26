@@ -126,6 +126,21 @@ import play.data.validation.*;\n
 	}
       return out;
     }
+
+    public static List<Course> getStudyPlanFromEnrollments(Set<CourseEnrollment> enrollments) {
+      List<Course> out = new ArrayList();
+      int currentYear = -1;      
+      for (Course c : Course.find.all())
+            if (c.academicYear > currentYear)
+                currentYear = c.academicYear;      
+      for (Course c : Course.find.all())
+	    for (CourseEnrollment e : enrollments)
+	    {
+	      if (c.coursesEnrollmentSet.contains(e) && c.academicYear==currentYear)
+	        out.add(c);
+	    }
+      return out;
+    }
 """)
     if (filename == "Supervisors.java"):
         stream.write(
@@ -194,6 +209,14 @@ import play.data.validation.*;\n
 	    break;
 	}
       return out;
+    }
+""")
+    if (filename == "Students.java"):
+        stream.write(
+"""
+    public List<Course> getStudyPlan()
+    {
+      return Course.getStudyPlanFromEnrollments(this.coursesEnrollmentSet);
     }
 """)
     stream.write("}\n")
