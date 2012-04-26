@@ -16,7 +16,7 @@ public class Students extends Controller {
       if (Secured.isStudent(uc))
       {
         Student student = uc.getStudent();
-	List<Course> courses_enrolled = Course.getStudyPlan(student.coursesEnrollmentSet);
+	List<Course> courses_enrolled = student.getStudyPlan();
 	List<Course> courses_notenrolled = new ArrayList();
 	for (Course c: Course.all())
 	  if (!courses_enrolled.contains(c))
@@ -34,8 +34,13 @@ public class Students extends Controller {
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
       if (Secured.isStudent(uc))
       {
-	Course c = Course.find.byId(idCourse);
 	Student s = uc.getStudent();
+	for (Course c : s.getStudyPlan())
+	{
+	  if (c.courseID == idCourse.intValue())
+	    return redirect(routes.Students.index());
+	}
+	Course c = Course.find.byId(idCourse);
 	CourseEnrollment ce = new CourseEnrollment();
 	ce.isFinished = false;
 	ce.credits = 3;
@@ -67,4 +72,24 @@ public class Students extends Controller {
       else
 	return unauthorized();
     }
+
+/*    public static Result newExternCourse()
+    {
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      if (Secured.isStudent(uc))
+      {
+	Form<Course> filledForm = courseForm.bindFromRequest();
+	if(filledForm.hasErrors()) 
+	{
+	  return badRequest(courseform.render(filledForm));
+	} 
+	else
+	{
+	  Course.create(filledForm.get());
+	  return ok("creato");
+	}
+      }      
+      else
+	return unauthorized();
+	}*/
 }
