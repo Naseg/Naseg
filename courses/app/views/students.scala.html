@@ -3,14 +3,14 @@
 @main { 
 <!---parte sx -->
 <ul class="nav nav-list">
-              <li class="nav-header"><font size="4" face="Courier">LOGIN</font></li>
-              <li><a><font size="3" face="Courier">StudyPlan</font></a></li>
-              <li><a><font size="3" face="Courier">Carriera</font></a></li>
-             
-              <li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
-              <li> <font size="3" face="Courier">Interni:</font></li>
-              <li> <font size="3" face="Courier">Esterni:</font></li>
-            </ul>
+      <li class="nav-header"><font size="4" face="Courier">LOGIN</font></li>
+      <li><a><font size="3" face="Courier">StudyPlan</font></a></li>
+      <li><a><font size="3" face="Courier">Carriera</font></a></li>
+     
+      <li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
+      <li> <font size="3" face="Courier">Interni:</font></li>
+      <li> <font size="3" face="Courier">Esterni:</font></li>
+</ul>
             
                <div class="modal hide fade" id="windowTitleDialog" style="display: none; ">
 				<div class="modal-header">
@@ -64,9 +64,9 @@
         </thead>
         <tbody>
 	  @for(course <- courses_enrolled) {
-            <tr onClick="alert('sì')">
+            <tr>
 	      <td>@course.courseID</td>
-              <td>@course.courseName</td>
+              <td><a href="/student/rmfromsp/@course.courseID" class="testo">@course.courseName</a></td>
 	      <td>@if(course.professor != null)  {
                 @Supervisor.findProfessor(course).lastName
               }</td>
@@ -89,8 +89,9 @@
 	      
     <div class="span6">                     
 	    
+    
+	    
               <h2>ListaCorsi</h2>
-              <p>Mouse coordinate</p>
 	      <table class="table table-bordered">
         <thead>
           <tr>
@@ -103,8 +104,9 @@
         <tbody>
           @for(course <- courses) {
             <tr>
+            
 	          <td>@course.courseID</td>
-              <td>@course.courseName</td>
+              <td><a href="/student/addtosp/@course.courseID" class="testo">enrico@course.courseName</a></td>
               <td>@if(course.professor != null)  {
                 @Supervisor.findProfessor(course).lastName
               }</td>
