@@ -90,6 +90,7 @@
     <div class="span6">                     
 	    
               <h2>ListaCorsi</h2>
+              <p>Mouse coordinate</p>
 	      <table class="table table-bordered">
         <thead>
           <tr>
@@ -102,7 +103,7 @@
         <tbody>
           @for(course <- courses) {
             <tr>
-	      <td>@course.courseID</td>
+	          <td>@course.courseID</td>
               <td>@course.courseName</td>
               <td>@if(course.professor != null)  {
                 @Supervisor.findProfessor(course).lastName
