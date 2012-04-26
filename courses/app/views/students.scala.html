@@ -64,7 +64,7 @@
         </thead>
         <tbody>
 	  @for(course <- courses_enrolled) {
-            <tr>
+            <tr onClick="alert('sì')">
 	      <td>@course.courseID</td>
               <td>@course.courseName</td>
 	      <td>@if(course.professor != null)  {
