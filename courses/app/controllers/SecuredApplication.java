@@ -14,9 +14,9 @@ public class SecuredApplication extends Controller {
     
     public static Result index() {
     
-    System.out.println("***REQ***\n" + request().username());
-    System.out.println("username:" + request().username());
-    System.out.println("uri:" + request().uri());
+    //System.out.println("***REQ***\n" + request().username());
+    //System.out.println("username:" + request().username());
+    //System.out.println("uri:" + request().uri());
     
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     
