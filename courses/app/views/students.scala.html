@@ -14,7 +14,7 @@
             
                <div class="modal hide fade" id="windowTitleDialog" style="display: none; ">
 				<div class="modal-header">
-					<a href="#" class="close" data-dismiss="modal"><img src="/home/miga/Scrivania/Itc/logounitn.jpg"  height = "90" width = "90" /></a>
+					<a href="#" class="close" data-dismiss="modal"><img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" /></a>
 					<h3>Corso Esterno</h3>
 				</div>
 					<div class="modal-body">
@@ -66,11 +66,12 @@
 	  @for(course <- courses_enrolled) {
             <tr>
 	      <td>@course.courseID</td>
-              <td><a href="/student/rmfromsp/@course.courseID" class="testo">@course.courseName</a></td>
+              <td>@course.courseName</td>
 	      <td>@if(course.professor != null)  {
                 @Supervisor.findProfessor(course).lastName
               }</td>
-              <td></td>
+              <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+              <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
             </tr>
           }
         </tbody>
@@ -91,13 +92,14 @@
 	    
     
 	    
-              <h2>ListaCorsi</h2>
+              <h2>Lista Corsi</h2>
 	      <table class="table table-bordered">
         <thead>
           <tr>
             <th>#</th>
             <th>Nome Corso</th>
             <th>Docente</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -106,10 +108,11 @@
             <tr>
             
 	          <td>@course.courseID</td>
-              <td><a href="/student/addtosp/@course.courseID" class="testo">enrico@course.courseName</a></td>
+              <td>@course.courseName</a></td>
               <td>@if(course.professor != null)  {
                 @Supervisor.findProfessor(course).lastName
               }</td>
+              <td><a href="/student/addtosp/@course.courseID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
               <td></td>
            </tr>
          }
