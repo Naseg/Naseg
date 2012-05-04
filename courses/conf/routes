@@ -6,8 +6,8 @@
 GET     /                           controllers.SecuredApplication.index()
 GET     /                           controllers.Application.index()
 GET     /provadb		            controllers.Application.provadb()
-GET     /newcourse                  controllers.Application.blankCourseForm()
-POST    /newcourse                  controllers.Application.newCourse()
+GET     /newcourse                  controllers.SecuredApplication.blankCourseForm()
+POST    /newcourse                  controllers.SecuredApplication.newCourse()
 
 # Authentication
 GET     /login                              controllers.Authentication.login()
