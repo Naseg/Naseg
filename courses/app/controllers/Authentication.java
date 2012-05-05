@@ -24,15 +24,6 @@ public class Authentication extends Controller {
         }
         
     }
-
-    /**
-     * Login page.
-     */
-    public static Result login() {
-        return ok(
-            login.render(form(Login.class))
-        );
-    }
     
     /**
      * Handle login form submission.
@@ -46,7 +37,7 @@ public class Authentication extends Controller {
         
         if (loginForm.hasErrors())
         {
-            return badRequest(login.render(loginForm));
+            return badRequest(nonAuthIndex.render(loginForm));
         }
         else
         {

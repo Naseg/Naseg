@@ -10,7 +10,7 @@ GET     /newcourse                  controllers.SecuredApplication.blankCourseFo
 POST    /newcourse                  controllers.SecuredApplication.newCourse()
 
 # Authentication
-GET     /login                              controllers.Authentication.login()
+#GET     /login                              controllers.Authentication.login()
 POST    /login                              controllers.Authentication.authenticate()
 GET     /logout                             controllers.Authentication.logout()
 

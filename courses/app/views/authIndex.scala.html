@@ -1,4 +1,5 @@
-@(user: UserCredentials)
+@(user: UserCredentials, form: Form[Authentication.Login])
 
-@index { Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a> }
+@index(form) {Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>}
 
+ 

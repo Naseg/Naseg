@@ -22,7 +22,7 @@ public class SecuredApplication extends Controller {
 
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 
-    return ok(authIndex.render(uc));
+    return ok(authIndex.render(uc,form(Authentication.Login.class)));
 
     }
 
