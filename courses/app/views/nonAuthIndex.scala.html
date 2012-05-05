@@ -1,15 +1,17 @@
 @(form: Form[Authentication.Login])
 
 @index(form) { Ospite } {
+
 <script language="JavaScript">
-function mostraLogin() {
-   $('#windowTitleDialog').modal('show')
-}
-function havefun() {
-    @if(form.hasGlobalErrors) { 
-        mostraLogin()
+
+    function autofun() {
+        
+        @if(form.hasGlobalErrors) { 
+            $('#windowTitleDialog').modal('show')
+        }
     }
-}
+    
 </script>
+
 }
 
