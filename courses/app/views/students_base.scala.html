@@ -1,11 +1,10 @@
-@(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course])
+@(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course])(pageslist: Html)
 
 @main { 
 <!---parte sx -->
 <ul class="nav nav-list">
-      <li class="nav-header"><font size="4" face="Courier">LOGIN</font></li>
-      <li><a><font size="3" face="Courier">StudyPlan</font></a></li>
-      <li><a><font size="3" face="Courier">Carriera</font></a></li>
+      <li class="nav-header"><font size="4" face="Courier">Pagine</font></li>
+      @pageslist
      
       <li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
       <li> <font size="3" face="Courier">Interni:</font></li>

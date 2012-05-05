@@ -17,16 +17,16 @@ public class Students extends Controller {
       if (Secured.isStudent(uc))
       {
         Student student = uc.getStudent();
-	List<Course> courses_enrolled = student.getStudyPlan();
-	List<Course> courses_notenrolled = new ArrayList();
-	for (Course c: Course.all())
-	  if (!courses_enrolled.contains(c))
-	      courses_notenrolled.add(c);
-        return ok(students.render(uc,courses_enrolled, courses_notenrolled));
-      }
-      else
-      {
-	return unauthorized(forbidden.render());
+	    List<Course> courses_enrolled = student.getStudyPlan();
+	    List<Course> courses_notenrolled = new ArrayList();
+	    for (Course c: Course.all())
+	      if (!courses_enrolled.contains(c))
+	          courses_notenrolled.add(c);
+            return ok(students.render(uc,courses_enrolled, courses_notenrolled));
+          }
+          else
+          {
+	    return unauthorized(forbidden.render());
       }
     }
 
@@ -93,4 +93,12 @@ public class Students extends Controller {
       else
 	return unauthorized();
 	}*/
+
+
+    public static Result career()
+    {
+        return ok();
+    }
 }
+
+

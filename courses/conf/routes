@@ -5,7 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 GET     /home                       controllers.SecuredApplication.index()
-GET     /provadb	            controllers.Application.provadb()
+GET     /provadb	                controllers.Application.provadb()
 GET     /newcourse                  controllers.SecuredApplication.blankCourseForm()
 POST    /newcourse                  controllers.SecuredApplication.newCourse()
 
@@ -17,7 +17,8 @@ GET     /logout                             controllers.Authentication.logout()
 # Studente
 GET     /student                            controllers.Students.index()
 GET     /student/addtosp/:course            controllers.Students.addToStudyPlan(course: Long)
-GET     /student/rmfromsp/:course            controllers.Students.rmFromStudyPlan(course: Long)
+GET     /student/rmfromsp/:course           controllers.Students.rmFromStudyPlan(course: Long)
+GET     /student/career                     controllers.Students.career()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
