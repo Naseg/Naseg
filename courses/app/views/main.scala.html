@@ -1,10 +1,11 @@
-@(barrasinistra: Html)(partecentrale: Html)(authstate: Html)
-
-
+@(barrasinistra: Html)(partecentrale: Html)(authstate: Html)(script: Html)
 
 <!DOCTYPE html>
 <html lang="en">
  <head> 
+ 
+ @script
+ 
   <link href="@routes.Assets.at("stylesheets/bootstrap.css")" rel="stylesheet">
       <style type="text/css">
         body {
@@ -20,7 +21,7 @@
 
 </head>
 
-<body>
+<body onLoad="havefun()">
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
