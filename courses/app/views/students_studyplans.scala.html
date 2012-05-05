@@ -1,1 +1,343 @@
 @(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course])
+
+@students_base(user) {
+
+<li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
+<li> <font size="3" face="Courier">Interni:</font></li>
+<li> <font size="3" face="Courier">Esterni:</font></li>
+
+} {
+
+<!-- Dialog del Nuovo Corso -->
+        <div class="modal hide fade" id="windowTitleDialog_newcourse" style="display: none; ">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">
+                    <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+                </a>
+                <h3>Aggiungi Nuovo Corso</h3>
+            </div>
+            <div class="modal-body">
+               <!-- Form -->
+                <form action="/newcourse" method="POST">
+
+                    <fieldset>
+                        <legend>Account informations</legend>
+
+                        <div class="clearfix  " id="courseName_field">
+                        <label for="courseName">Course name</label>
+                        <div class="input">
+
+                        <input type="text" id="courseName" name="courseName" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block">Please enter the course name</span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="notes_field">
+                        <label for="notes">Notes</label>
+                        <div class="input">
+
+                        <input type="text" id="notes" name="notes" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="institution_field">
+                        <label for="institution">Institution</label>
+                        <div class="input">
+
+                        <input type="text" id="institution" name="institution" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="place_field">
+                        <label for="place">Place</label>
+                        <div class="input">
+
+                        <input type="text" id="place" name="place" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="plannedCoursePeriod_field">
+                        <label for="plannedCoursePeriod">Planned course period</label>
+                        <div class="input">
+
+                        <input type="text" id="plannedCoursePeriod" name="plannedCoursePeriod" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="url_field">
+                        <label for="url">Url</label>
+                        <div class="input">
+
+                        <input type="text" id="url" name="url" value="">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="credits_field">
+                        <label for="credits">Credits</label>
+                        <div class="input">
+
+                        <input type="text" id="credits" name="credits" value="" class="mini">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+
+                        <div class="clearfix  " id="accademicYear_field">
+                        <label for="accademicYear">Accademic year</label>
+                        <div class="input">
+
+                        <input type="text" id="accademicYear" name="accademicYear" value="" class="mini">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+                        <div class="clearfix  " id="budgetedCost_field">
+                        <label for="budgetedCost">Budgeted cost</label>
+                        <div class="input">
+
+                        <input type="text" id="budgetedCost" name="budgetedCost" value="" class="mini">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+                        <div class="clearfix  " id="actualCost_field">
+                        <label for="actualCost">Actual cost</label>
+                        <div class="input">
+
+                        <input type="text" id="actualCost" name="actualCost" value="" class="mini">
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+                        <div class="clearfix  " id="professor_supervisorID_field">
+                        <label for="professor_supervisorID">Professors</label>
+                        <div class="input">
+
+                        <select id="professor_supervisorID" name="professor.supervisorID">
+
+                        <option class="blank" value="">--- Choose the professor ---</option>
+
+
+                        <option value="1">Doe</option>
+
+                        </select>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+
+                        <div class="clearfix  " id="isInManifesto_field">
+                        <label for="isInManifesto">Is in manifesto</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="isInManifesto" name="isInManifesto" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+
+                        <div class="clearfix  " id="isByUNITN_field">
+                        <label for="isByUNITN">Is a UNITN course</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="isByUNITN" name="isByUNITN" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+
+
+                        <div class="clearfix  " id="isPaid_field">
+                        <label for="isPaid">Is paid</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="isPaid" name="isPaid" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="areAllMarksDefined_field">
+                        <label for="areAllMarksDefined">All marks defined</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="areAllMarksDefined" name="areAllMarksDefined" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+                        <div class="clearfix  " id="isPaymentCompleted_field">
+                        <label for="isPaymentCompleted">Payment completed</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="isPaymentCompleted" name="isPaymentCompleted" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+
+
+                        <div class="clearfix  " id="deleted_field">
+                        <label for="deleted">Is deleted</label>
+                        <div class="input">
+
+                        <input type="checkbox" id="deleted" name="deleted" value="true">
+                        <span></span>
+
+                        <span class="help-inline"></span>
+                        <span class="help-block"></span> 
+                        </div>
+                        </div>
+                        
+                    </fieldset>
+                    
+                    <div class="actions">
+                        <a href="/" class="btn">Cancel</a>
+                        <input type="submit" class="btn primary" value="Submit">
+                    </div>
+                    
+                    <!--
+                    <div class="modal-footer">
+                        <a href="#" class="btn" onclick="closeDialog ();">Cancella</a>
+                        <a href="#" class="btn btn-primary" onclick="okClicked ();">Login</a>
+                    </div>
+                    -->
+                    
+                </form>
+                
+            </div>
+            
+        </div>
+        
+<!-- Fine dialog del nuovo corso -->
+        
+        
+        
+        
+      
+        
+<!---parte centrale -->
+
+<div class="row-fluid">	  
+    <div class="span6">
+              <h2>StudyPlan</h2>
+	      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome Corso</th>
+            <th>Docente</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+	  @for(course <- courses_enrolled) {
+            <tr>
+	      <td>@course.courseID</td>
+              <td>@course.courseName</td>
+	      <td>@if(course.professor != null)  {
+                @Supervisor.findProfessor(course).lastName
+              }</td>
+              <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+              <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    <p align="center">
+        <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
+        <a data-toggle="modal" href="#windowTitleDialog" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a></p>
+    <br>
+    <br>
+    <p align="right">
+        <button class="btn btn-large">Annulla</button>
+	<button class="btn btn-large">Conferma</button>
+        <button class="btn btn-large btn-primary">RichiediApprovazione</button>
+     </p>
+
+  </div><!--span1 -->
+  
+	      
+    <div class="span6">                     
+	    
+    
+	    
+              <h2>Lista Corsi</h2>
+	      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome Corso</th>
+            <th>Docente</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(course <- courses) {
+            <tr>
+            
+	          <td>@course.courseID</td>
+              <td>@course.courseName</a></td>
+              <td>@if(course.professor != null)  {
+                @Supervisor.findProfessor(course).lastName
+              }</td>
+              <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+              <td><a href="/student/addtosp/@course.courseID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
+           </tr>
+         }
+        </tbody>
+      </table>
+ <p align="right"><a class="btn btn-primary btn-large">Aggiungi</a></p>
+ 
+    </div><!--span-->
+</div><!--row-->
+<!-- fine parte centrale -->
+}
+

@@ -12,22 +12,7 @@ public class Students extends Controller {
     
     public static Result index()
     {
-      String username = request().username();
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
-      {
-        Student student = uc.getStudent();
-	    List<Course> courses_enrolled = student.getStudyPlan();
-	    List<Course> courses_notenrolled = new ArrayList();
-	    for (Course c: Course.all())
-	      if (!courses_enrolled.contains(c))
-	          courses_notenrolled.add(c);
-            return ok(students.render(uc,courses_enrolled, courses_notenrolled));
-          }
-          else
-          {
-	    return unauthorized(forbidden.render());
-      }
+      return redirect(routes.Students.studyplan());
     }
 
     public static Result addToStudyPlan(Long idCourse)
@@ -95,9 +80,42 @@ public class Students extends Controller {
 	}*/
 
 
+    public static Result studyplan()
+    {
+      String username = request().username();
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      if (Secured.isStudent(uc))
+      {
+        Student student = uc.getStudent();
+	    List<Course> courses_enrolled = student.getStudyPlan();
+	    List<Course> courses_notenrolled = new ArrayList();
+	    for (Course c: Course.all())
+	      if (!courses_enrolled.contains(c))
+	          courses_notenrolled.add(c);
+            return ok(students_studyplans.render(uc,courses_enrolled, courses_notenrolled));
+          }
+          else
+          {
+	    return unauthorized(forbidden.render());
+      }
+    }
+
     public static Result career()
     {
-        return ok();
+        String username = request().username();
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        
+        if (Secured.isStudent(uc))
+        {
+            Student student = uc.getStudent();
+            List<Course> courses_enrolled = student.getStudyPlan();
+            
+            return ok(students_careers.render(uc, courses_enrolled));
+        }
+        else
+        {
+            return unauthorized(forbidden.render());
+        }
     }
 }
 

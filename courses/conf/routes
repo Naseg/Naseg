@@ -19,6 +19,7 @@ GET     /student                            controllers.Students.index()
 GET     /student/addtosp/:course            controllers.Students.addToStudyPlan(course: Long)
 GET     /student/rmfromsp/:course           controllers.Students.rmFromStudyPlan(course: Long)
 GET     /student/career                     controllers.Students.career()
+GET     /student/studyplan                  controllers.Students.studyplan()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()

@@ -1,5 +1,49 @@
-@(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course])
+@(user: UserCredentials, courses_enrolled: List[Course])
 
-<li><a href="#"><font size="3" face="Courier">StudyPlan</font></a></li>
-<li><a href="/student/career"><font size="3" face="Courier">Carriera</font></a></li>
+@students_base(user) {
+
+<li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
+<li> <font size="3" face="Courier">Interni:</font></li>
+<li> <font size="3" face="Courier">Esterni:</font></li>
+
+} {
+
+<div class="row-fluid">	  
+
+    <div class="span6">
+    
+        <h2>Carriera</h2>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome Corso</th>
+                    <th>Docente</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(course <- courses_enrolled) {
+                <tr>
+                    <td>@course.courseID</td>
+                    <td>@course.courseName</td>
+                    <td>@if(course.professor != null)  {
+                    @Supervisor.findProfessor(course).lastName
+                    }</td>
+                    <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        
+        <p align="center">
+        <!-- noting for now -->
+        </p>
+
+    </div>
+    
+</div><!--row-->
+
+}
 
