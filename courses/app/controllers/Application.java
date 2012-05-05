@@ -15,7 +15,7 @@ public class Application extends Controller {
   public static Result index() {
     String username = Context.current().session().get("username");
     if (username == null)
-      return ok(nonAuthIndex.render());
+      return ok(nonAuthIndex.render(form(Authentication.Login.class)));
     else
       return redirect(routes.SecuredApplication.index());
   }
