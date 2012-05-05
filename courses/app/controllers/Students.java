@@ -12,6 +12,7 @@ public class Students extends Controller {
     
     public static Result index()
     {
+      String username = request().username();
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
       if (Secured.isStudent(uc))
       {
@@ -25,7 +26,7 @@ public class Students extends Controller {
       }
       else
       {
-	return unauthorized();
+	return unauthorized(forbidden.render());
       }
     }
 
@@ -52,7 +53,7 @@ public class Students extends Controller {
 	  routes.Students.index());
       }      
       else
-	return unauthorized();
+	return unauthorized(forbidden.render());
     }
 
     public static Result rmFromStudyPlan(Long idCourse)
@@ -70,7 +71,7 @@ public class Students extends Controller {
 	  routes.Students.index());
       }      
       else
-	return unauthorized();
+	return unauthorized(forbidden.render());
     }
 
 /*    public static Result newExternCourse()

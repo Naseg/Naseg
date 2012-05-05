@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.*;
 
 import models.*;
 import views.html.*;
@@ -12,7 +13,11 @@ import models.FormData;
 public class Application extends Controller {
   
   public static Result index() {
-    return ok(nonAuthIndex.render());
+    String username = Context.current().session().get("username");
+    if (username == null)
+      return ok(nonAuthIndex.render());
+    else
+      return redirect(routes.SecuredApplication.index());
   }
 
   public static Result provadb() {

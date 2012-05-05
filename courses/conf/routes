@@ -3,9 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.SecuredApplication.index()
 GET     /                           controllers.Application.index()
-GET     /provadb		            controllers.Application.provadb()
+GET     /home                       controllers.SecuredApplication.index()
+GET     /provadb	            controllers.Application.provadb()
 GET     /newcourse                  controllers.SecuredApplication.blankCourseForm()
 POST    /newcourse                  controllers.SecuredApplication.newCourse()
 

@@ -19,7 +19,7 @@ public class Supervisors extends Controller {
       }
       else
       {
-	return unauthorized();
+	return unauthorized(forbidden.render());
       }
     }
 }
