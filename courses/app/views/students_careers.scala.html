@@ -8,6 +8,15 @@
 
 } {
 
+<!-- Dialog dei Dettagli Corso -->
+
+@courseDetailsModal(courses_enrolled)
+        
+<!-- Fine dialog dei Dettagli Corso -->
+
+
+<!-- Parte centrale -->
+
 <div class="row-fluid">	  
 
     <div class="span6">
@@ -31,7 +40,7 @@
                     <td>@if(course.professor != null)  {
                     @Supervisor.findProfessor(course).lastName
                     }</td>
-                    <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+                    <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
                 </tr>
                 }
             </tbody>
@@ -43,7 +52,9 @@
 
     </div>
     
-</div><!--row-->
+</div>
+
+<!-- Fine parte centrale -->
 
 }
 
