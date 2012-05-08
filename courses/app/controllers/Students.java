@@ -92,7 +92,7 @@ public class Students extends Controller {
 	    for (Course c: Course.all())
 	      if (!courses_enrolled.contains(c))
 	          courses_notenrolled.add(c);
-            return ok(students_studyplans.render(uc,courses_enrolled, courses_notenrolled));
+            return ok(students_studyplans.render(uc,courses_enrolled, courses_notenrolled, SecuredApplication.courseForm));
           }
           else
           {

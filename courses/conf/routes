@@ -6,11 +6,10 @@
 GET     /                           controllers.Application.index()
 GET     /home                       controllers.SecuredApplication.index()
 GET     /provadb	                controllers.Application.provadb()
-GET     /newcourse                  controllers.SecuredApplication.blankCourseForm()
-POST    /newcourse                  controllers.SecuredApplication.newCourse()
+POST    /newexterncourse            controllers.SecuredApplication.newExternCourse()
 
 # Authentication
-#GET     /login                              controllers.Authentication.login()
+#GET     /login                             controllers.Authentication.login()
 POST    /login                              controllers.Authentication.authenticate()
 GET     /logout                             controllers.Authentication.logout()
 

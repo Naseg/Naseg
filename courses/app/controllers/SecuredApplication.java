@@ -26,11 +26,7 @@ public class SecuredApplication extends Controller {
 
     }
 
-    public static Result blankCourseForm() {
-        return ok(courseform.render(courseForm));
-    }
-
-    public static Result newCourse() {
+    public static Result newExternCourse() {
         Form<Course> filledForm = courseForm.bindFromRequest();
         if(filledForm.hasErrors()) {
             return badRequest(courseform.render(filledForm));
