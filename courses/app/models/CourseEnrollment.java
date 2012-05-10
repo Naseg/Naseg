@@ -56,4 +56,12 @@ public class CourseEnrollment extends Model {
       Integer a = c.credits; //does nothing, force fetching from db
       return c;
     }
+
+    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
+    {
+      List<Course> out = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+	out.add(enrollment.getCourse());
+      return out;
+    }
 }
