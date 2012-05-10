@@ -12,8 +12,8 @@ import models.FormData;
 @Security.Authenticated(Secured.class)
 public class SecuredApplication extends Controller {
 
-  static Form<Course> courseForm = form(Course.class);
-    
+    static Form<Course> courseForm = form(Course.class);
+
     public static Result index() {
 
     //System.out.println("***REQ***\n" + request().username());

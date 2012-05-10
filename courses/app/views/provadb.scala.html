@@ -16,8 +16,8 @@
 @for(student <- students) {
             <li>
                 @{student.firstName +" "+ student.lastName+": "}
-                @for(course <- Course.findCourseEnrolled(student.coursesEnrollmentSet)) {
-@{course.courseName}
+                @for(enrollment <- student.getCoursesEnrollmentSet) {
+@{enrollment.getCourse.courseName}
                 }
             </li>
         }

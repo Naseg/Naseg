@@ -83,38 +83,28 @@ public class Course extends Model {
     public static List<Course> all() {
       return find.all();
     }
-  
+
     public static void create(Course course) {
       course.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
-
-    public static List<Course> findCourseEnrolled(Set<CourseEnrollment> enrollments) {
-      List<Course> out = new ArrayList();
-      for (Course c : Course.find.all())
-	for (CourseEnrollment e : enrollments)
-	{
-	  if (c.coursesEnrollmentSet.contains(e))
-	    out.add(c);
-	}
-      return out;
     }
 
-    public static List<Course> getStudyPlanFromEnrollments(Set<CourseEnrollment> enrollments) {
-      List<Course> out = new ArrayList();
-      int currentYear = -1;      
+    public static int AcademicYear()
+    {
+      int currentYear = -1;
       for (Course c : Course.find.all())
             if (c.academicYear > currentYear)
-                currentYear = c.academicYear;      
-      for (Course c : Course.find.all())
-	    for (CourseEnrollment e : enrollments)
-	    {
-	      if (c.coursesEnrollmentSet.contains(e) && c.academicYear==currentYear)
-	        out.add(c);
-	    }
-      return out;
+                currentYear = c.academicYear;
+      return currentYear;
+    }
+
+    public Supervisor getProfessor()
+    {
+      Supervisor s = this.professor;
+      String a = s.firstName; //does nothing, force fetching from db
+      return s;
     }
 }

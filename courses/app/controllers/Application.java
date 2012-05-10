@@ -1,3 +1,4 @@
+
 package controllers;
 
 import play.*;
@@ -11,7 +12,7 @@ import play.data.Form;
 import models.FormData;
 
 public class Application extends Controller {
-  
+
   public static Result index() {
     String username = Context.current().session().get("username");
     if (username == null)

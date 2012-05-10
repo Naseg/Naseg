@@ -160,17 +160,34 @@ public class Student extends Model {
     public static List<Student> all() {
       return find.all();
     }
-  
+
     public static void create(Student student) {
       student.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
+
+    public Set<CourseEnrollment> getCoursesEnrollmentSet()
+    {
+      Set<CourseEnrollment> enrollments = this.coursesEnrollmentSet;
+      for (CourseEnrollment c : enrollments) {Integer s = c.credits;} //does nothing, force fetching from db
+      return enrollments;
+    }
 
     public List<Course> getStudyPlan()
     {
-      return Course.getStudyPlanFromEnrollments(this.coursesEnrollmentSet);
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      List<Course> studyPlan = new ArrayList();
+      int currentYear = Course.AcademicYear();
+      for (CourseEnrollment enrollment : enrollments)
+      {
+	if (enrollment.getCourse().academicYear == currentYear)
+	{
+	  studyPlan.add(enrollment.getCourse());
+	}
+      }
+      return studyPlan;
     }
 }

@@ -60,14 +60,14 @@ public class Supervisor extends Model {
     public static List<Supervisor> all() {
       return find.all();
     }
-  
+
     public static void create(Supervisor supervisor) {
       supervisor.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 
     public static Map<String,String> options() {
         LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
@@ -75,16 +75,5 @@ public class Supervisor extends Model {
             options.put(s.supervisorID.toString(), s.lastName);
         }
         return options;
-    }
-
-    public static Supervisor findProfessor(Course course) {
-      Supervisor out = null;
-      for (Supervisor s : Supervisor.find.all())
-	if (s.coursesSet.contains(course))
-	{
-	    out = s;
-	    break;
-	}
-      return out;
     }
 }

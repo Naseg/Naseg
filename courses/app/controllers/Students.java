@@ -9,7 +9,7 @@ import views.html.*;
 
 @Security.Authenticated(Secured.class)
 public class Students extends Controller {
-    
+
     public static Result index()
     {
       return redirect(routes.Students.studyplan());
@@ -36,7 +36,7 @@ public class Students extends Controller {
 	CourseEnrollment.create(ce);
 	return redirect(
 	  routes.Students.index());
-      }      
+      }
       else
 	return unauthorized(forbidden.render());
     }
@@ -47,38 +47,17 @@ public class Students extends Controller {
       if (Secured.isStudent(uc))
       {
 	Student s = uc.getStudent();
-	for (CourseEnrollment ce : s.coursesEnrollmentSet)
+	for (CourseEnrollment ce : s.getCoursesEnrollmentSet())
 	{
-	  if (ce.course.courseID == idCourse.intValue())
+	  if (ce.getCourse().courseID == idCourse.intValue())
 	    ce.delete();
 	}
 	return redirect(
 	  routes.Students.index());
-      }      
+      }
       else
 	return unauthorized(forbidden.render());
     }
-
-/*    public static Result newExternCourse()
-    {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
-      {
-	Form<Course> filledForm = courseForm.bindFromRequest();
-	if(filledForm.hasErrors()) 
-	{
-	  return badRequest(courseform.render(filledForm));
-	} 
-	else
-	{
-	  Course.create(filledForm.get());
-	  return ok("creato");
-	}
-      }      
-      else
-	return unauthorized();
-	}*/
-
 
     public static Result studyplan()
     {
@@ -87,12 +66,12 @@ public class Students extends Controller {
       if (Secured.isStudent(uc))
       {
         Student student = uc.getStudent();
-	    List<Course> courses_enrolled = student.getStudyPlan();
-	    List<Course> courses_notenrolled = new ArrayList();
+	    List<Course> studyPlan = student.getStudyPlan();
+	    List<Course> coursesNotInSp = new ArrayList();
 	    for (Course c: Course.all())
-	      if (!courses_enrolled.contains(c))
-	          courses_notenrolled.add(c);
-            return ok(students_studyplans.render(uc,courses_enrolled, courses_notenrolled, SecuredApplication.courseForm));
+	      if (!studyPlan.contains(c))
+	          coursesNotInSp.add(c);
+            return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, SecuredApplication.courseForm));
           }
           else
           {
@@ -104,13 +83,11 @@ public class Students extends Controller {
     {
         String username = request().username();
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-        
-        if (Secured.isStudent(uc))
+	if (Secured.isStudent(uc))
         {
             Student student = uc.getStudent();
-            List<Course> courses_enrolled = student.getStudyPlan();
-            
-            return ok(students_careers.render(uc, courses_enrolled));
+	    Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
+            return ok(students_careers.render(uc, enrollments));
         }
         else
         {

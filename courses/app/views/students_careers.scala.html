@@ -1,4 +1,4 @@
-@(user: UserCredentials, courses_enrolled: List[Course])
+@(user: UserCredentials, enrollments: Set[CourseEnrollment])
 
 @students_base(user) {
 
@@ -8,42 +8,44 @@
 
 } {
 
-<div class="row-fluid">	  
-
-    <div class="span6">
-    
-        <h2>Carriera</h2>
-        
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome Corso</th>
-                    <th>Docente</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(course <- courses_enrolled) {
-                <tr>
-                    <td>@course.courseID</td>
-                    <td>@course.courseName</td>
-                    <td>@if(course.professor != null)  {
-                    @Supervisor.findProfessor(course).lastName
-                    }</td>
-                    <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
-                </tr>
-                }
-            </tbody>
-        </table>
-        
-        <p align="center">
-        <!-- noting for now -->
-        </p>
-
-    </div>
-    
+<div class="row-fluid">
+  <div class="span6">
+    <h2>Carriera</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome Corso</th>
+          <th>Docente</th>
+          <th>Esito</th>
+          <th>Crediti</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(enrollment <- enrollments) {
+          <tr>
+	    <td>@enrollment.getCourse.courseID</td>
+	    <td>@enrollment.getCourse.courseName</td>
+	    <td>@if(enrollment.getCourse.professor != null)  {
+	      @enrollment.getCourse.getProfessor.lastName
+	    }</td>
+	    @if(enrollment.credits == enrollment.credits) {
+	      <td>Passato</td>
+	    } else {
+              <td>Non Passato</td>
+            }
+	    <td>@enrollment.credits</td>
+	    <td>
+	      <a href="#"><img src="@routes.Assets.at("images/details.png")" /></a>
+	    </td>
+          </tr>
+          }
+      </tbody>
+    </table>
+    <p align="center">
+      <!-- noting for now -->
+    </p>
+  </div>
 </div><!--row-->
-
 }
 

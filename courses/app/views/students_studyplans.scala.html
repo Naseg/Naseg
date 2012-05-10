@@ -1,4 +1,4 @@
-@(user: UserCredentials, courses_enrolled: List[Course], courses: List[Course], courseForm: Form[Course])
+@(user: UserCredentials, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
 
 @students_base(user) {
 
@@ -46,12 +46,12 @@
           </tr>
         </thead>
         <tbody>
-	  @for(course <- courses_enrolled) {
+	  @for(course <- studyplan) {
             <tr>
 	      <td>@course.courseID</td>
               <td>@course.courseName</td>
 	      <td>@if(course.professor != null)  {
-                @Supervisor.findProfessor(course).lastName
+                @course.getProfessor.lastName
               }</td>
               <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
               <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
@@ -94,7 +94,7 @@
 	          <td>@course.courseID</td>
               <td>@course.courseName</a></td>
               <td>@if(course.professor != null)  {
-                @Supervisor.findProfessor(course).lastName
+                @course.getProfessor.lastName
               }</td>
               <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
               <td><a href="/student/addtosp/@course.courseID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
