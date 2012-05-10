@@ -29,7 +29,9 @@ public class Supervisors extends Controller {
         //if (Secured.isSupervisor(uc))
         if (Secured.isStudent(uc)) //bypass...
         {
-            return ok(advisor_studyplans.render(uc));
+	  Supervisor supervisor = uc.getSupervisor();
+	  Set<Student> students = supervisor.getStudentsAdvisored();
+	  return ok(advisor_studyplans.render(uc,students));
         }
         else
         {
@@ -43,7 +45,9 @@ public class Supervisors extends Controller {
         //if (Secured.isSupervisor(uc))
         if (Secured.isStudent(uc)) //bypass...
         {
-            return ok(advisor_careers.render(uc));
+	  Supervisor supervisor = uc.getSupervisor();
+	  Set<Student> students = supervisor.getStudentsAdvisored();
+	  return ok(advisor_careers.render(uc,students));
         }
         else
         {
