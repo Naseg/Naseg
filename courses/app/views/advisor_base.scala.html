@@ -1,19 +1,22 @@
 @(user: UserCredentials, students: Set[Student])(sideContents: Html)(centralContents: Html)
 
-@main { 
+@main {
 
 <!---parte sx -->
 
+    <ul class="nav nav-list">
+        <li class="nav-header"><font size="4" face="Courier">Students</font></li>
+        </br>
+        @for(student <- students) {
+          	<li><font size="4" face="Courier">@student.fullName</font></li>
+	        <li><a data-toggle="modal" href="/supervisor/studyplan/@student.userID" ><font size="3" face="Courier"></font>StudyPlan</a></li>
+	        <li><a data-toggle="modal" href="/supervisor/career/@student.userID" ><font size="3" face="Courier"></font>Carriera</a></li>
+	        @sideContents
+        }
+        
+    </ul>
 
-@for(student <- students) {
-  <ul class="nav nav-list">
-  	<li class="nav-header"><font size="4" face="Courier">@student.fullName</font></li> <!-- tag scala nome studente -->
-	<li><a data-toggle="modal" href="#windowTitleDialog" ><font size="3" face="Courier"></font>StudyPlan</a></li>
-	<li><a data-toggle="modal" href="#windowTitleDialog" ><font size="3" face="Courier"></font>Carriera</a></li>
-	@sideContents
-  </ul>
 } {
-
 <!---parte centrale -->
 
 <div class="row-fluid">

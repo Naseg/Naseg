@@ -15,7 +15,7 @@ public class Supervisors extends Controller {
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
       if (Secured.isSupervisor(uc))
       {
-        return redirect(routes.Supervisors.studyplan());
+        return redirect(routes.Supervisors.studyplan(-1));
       }
       else
       {
@@ -23,14 +23,19 @@ public class Supervisors extends Controller {
       }
     }
 
-    public static Result studyplan()
+    public static Result studyplan(Long id)
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
         if (Secured.isSupervisor(uc))
         {
-	  Supervisor supervisor = uc.getSupervisor();
-	  Set<Student> students = supervisor.getStudentsAdvisored();
-	  return ok(advisor_studyplans.render(uc,students));
+            Supervisor supervisor = uc.getSupervisor();
+            Set<Student> students = supervisor.getStudentsAdvisored();
+            List<Course> studyPlan;
+            if (id > -1)
+            {
+                List<Student> studentsList = Student.all();
+            }
+            return ok(advisor_studyplans.render(uc,students));
         }
         else
         {
@@ -38,14 +43,14 @@ public class Supervisors extends Controller {
         }
     }
 
-    public static Result career()
+    public static Result career(Long id)
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
         if (Secured.isSupervisor(uc))
         {
-	  Supervisor supervisor = uc.getSupervisor();
-	  Set<Student> students = supervisor.getStudentsAdvisored();
-	  return ok(advisor_careers.render(uc,students));
+            Supervisor supervisor = uc.getSupervisor();
+            Set<Student> students = supervisor.getStudentsAdvisored();
+            return ok(advisor_careers.render(uc,students));
         }
         else
         {

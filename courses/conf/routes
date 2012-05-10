@@ -22,8 +22,10 @@ GET     /student/studyplan                  controllers.Students.studyplan()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
-GET     /supervisor/studyplan               controllers.Supervisors.studyplan()
-GET     /supervisor/career                  controllers.Supervisors.career()
+GET     /supervisor/studyplan               controllers.Supervisors.studyplan(id: Long ?= -1)
+GET     /supervisor/studyplan/:id           controllers.Supervisors.studyplan(id: Long)
+GET     /supervisor/career                  controllers.Supervisors.career(id: Long ?= -1)
+GET     /supervisor/career/:id              controllers.Supervisors.career(id: Long)
 
 # Administration
 GET     /admin                              controllers.Admins.index()
