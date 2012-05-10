@@ -42,8 +42,7 @@
               <td>Non Passato</td>
             }
 	    <td>@enrollment.credits</td>
-	    <td>
-	      <a href="#"><img src="@routes.Assets.at("images/details.png")" /></a>
+            <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
 	    </td>
           </tr>
           }
@@ -57,6 +56,5 @@
 
 <!-- Fine parte centrale -->
 
->>>>>>> d238f7561bdfb3aa52507578c4620e2f317d0be2
 }
 
