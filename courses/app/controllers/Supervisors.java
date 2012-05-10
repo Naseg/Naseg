@@ -15,11 +15,39 @@ public class Supervisors extends Controller {
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
       if (Secured.isSupervisor(uc))
       {
-        return ok("You are a supervisor");
+        return redirect(routes.Supervisors.studyplan());
       }
       else
       {
 	return unauthorized(forbidden.render());
       }
+    }
+
+    public static Result studyplan()
+    {
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        //if (Secured.isSupervisor(uc))
+        if (Secured.isStudent(uc)) //bypass...
+        {
+            return ok(advisor_studyplans.render(uc));
+        }
+        else
+        {
+            return unauthorized(forbidden.render());
+        }
+    }
+
+    public static Result career()
+    {
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        //if (Secured.isSupervisor(uc))
+        if (Secured.isStudent(uc)) //bypass...
+        {
+            return ok(advisor_careers.render(uc));
+        }
+        else
+        {
+            return unauthorized(forbidden.render());
+        }
     }
 }

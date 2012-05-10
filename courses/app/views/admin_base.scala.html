@@ -1,0 +1,36 @@
+@(user: UserCredentials)(sideContents: Html)(centralContents: Html)
+
+@main { 
+
+<!---parte sx -->
+
+<ul class="nav nav-list">
+              <li class="nav-header"><font size="4" face="Courier">Amministratore</font></li> <!-- tag scala nome studente -->
+              <li><a  href="/admin/course" ><font size="3" face="Courier"></font>Corsi</a></li>
+              <li><a  href="/admin/student" ><font size="3" face="Courier"></font>Studenti</a></li>
+	      <li><a  href="/admin/professore" ><font size="3" face="Courier"></font>Docenti</a></li>
+	@sideContents
+</ul>
+} {
+ 
+<!---parte centrale -->
+
+<div class="row-fluid">	  
+	@centralContents
+</div><!--Row-->
+
+
+
+
+
+} {
+
+Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+<script language="JavaScript">
+    
+</script>
+
+}

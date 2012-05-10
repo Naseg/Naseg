@@ -22,6 +22,14 @@ GET     /student/studyplan                  controllers.Students.studyplan()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
+GET     /supervisor/studyplan               controllers.Supervisors.studyplan()
+GET     /supervisor/career                  controllers.Supervisors.career()
+
+# Administration
+GET     /admin                              controllers.Admins.index()
+GET     /admin/course                       controllers.Admins.course()
+GET     /admin/professore                   controllers.Admins.professore()
+GET     /admin/student                      controllers.Admins.student()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
