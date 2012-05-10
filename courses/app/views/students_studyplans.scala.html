@@ -9,26 +9,18 @@
 } {
 
 <!-- Dialog del Nuovo Corso -->
-        <div class="modal hide fade" id="windowTitleDialog_newcourse" style="display: none; ">
-            <div class="modal-header">
-                <a href="#" class="close" data-dismiss="modal">
-                    <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
-                </a>
-                <h3>Aggiungi Nuovo Corso</h3>
-            </div>
-            <div class="modal-body">
-               <!-- Form -->
-                @courseform(courseForm)
-                
-            </div>
-            
-        </div>
+
+@courseFormModal(courseForm)
         
 <!-- Fine dialog del nuovo corso -->
+
+
+<!-- Dialog dei Dettagli Corso -->
+
+@courseDetailsModal(courses)
+@courseDetailsModal(courses_enrolled)
         
-        
-        
-        
+<!-- Fine dialog dei Dettagli Corso -->        
       
         
 <!---parte centrale -->
@@ -53,7 +45,7 @@
 	      <td>@if(course.professor != null)  {
                 @course.getProfessor.lastName
               }</td>
-              <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+              <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
               <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
             </tr>
           }
@@ -96,7 +88,7 @@
               <td>@if(course.professor != null)  {
                 @course.getProfessor.lastName
               }</td>
-              <td><a href="#"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+              <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
               <td><a href="/student/addtosp/@course.courseID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
            </tr>
          }
