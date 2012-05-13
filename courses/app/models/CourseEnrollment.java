@@ -41,7 +41,7 @@ public class CourseEnrollment extends Model {
     public static List<CourseEnrollment> all() {
       return find.all();
     }
-  
+
     public static void create(CourseEnrollment courseenrollment) {
       courseenrollment.save();
     }

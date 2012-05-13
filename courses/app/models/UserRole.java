@@ -33,12 +33,12 @@ public class UserRole extends Model {
     public static List<UserRole> all() {
       return find.all();
     }
-  
+
     public static void create(UserRole userrole) {
       userrole.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 }

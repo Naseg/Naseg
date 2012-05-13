@@ -42,12 +42,12 @@ public class University extends Model {
     public static List<University> all() {
       return find.all();
     }
-  
+
     public static void create(University university) {
       university.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 }

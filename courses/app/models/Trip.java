@@ -180,12 +180,12 @@ public class Trip extends Model {
     public static List<Trip> all() {
       return find.all();
     }
-  
+
     public static void create(Trip trip) {
       trip.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 }

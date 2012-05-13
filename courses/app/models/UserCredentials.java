@@ -39,17 +39,17 @@ public class UserCredentials extends Model {
     public static List<UserCredentials> all() {
       return find.all();
     }
-  
+
     public static void create(UserCredentials usercredentials) {
       usercredentials.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 
     public static UserCredentials authenticate(String username, String password) {
-        return find.where()
+      return find.where()
             .eq("userName", username)
             .eq("password", password)
             .findUnique();
