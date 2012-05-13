@@ -104,14 +104,14 @@ import play.data.validation.*;\n
     public static List<%s> all() {
       return find.all();
     }
-  
+
     public static void create(%s %s) {
       %s.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 """ % (outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5].lower(),outputname[:-5].lower()))
     if (filename == "Courses.java"):
         stream.write(
@@ -217,6 +217,42 @@ import play.data.validation.*;\n
 	}
       }
       return studyPlan;
+    }
+""")
+    if (filename == "CoursesEnrollments.java"):
+        stream.write(
+"""
+    public Course getCourse()
+    {
+      Course c = this.course;
+      Integer a = c.credits; //does nothing, force fetching from db
+      return c;
+    }
+
+    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
+    {
+      List<Course> out = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+	out.add(enrollment.getCourse());
+      return out;
+    }
+""")
+    if (filename == "CoursesEnrollments.java"):
+        stream.write(
+"""
+    public Course getCourse()
+    {
+      Course c = this.course;
+      Integer a = c.credits; //does nothing, force fetching from db
+      return c;
+    }
+
+    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
+    {
+      List<Course> out = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+	out.add(enrollment.getCourse());
+      return out;
     }
 """)
     stream.write("}\n")
