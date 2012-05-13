@@ -6,11 +6,28 @@
 
     <ul class="nav nav-list">
         <li class="nav-header"><font size="4" face="Courier">Students</font></li>
+        <!-- Mostrare SOLO se ci sono approvazioni in sospeso -->
+            <li>5 richieste di approvazione in sospeso</li>
+        <!------------------------------------------------------>
         </br>
         @for(student <- students) {
           	<li><font size="4" face="Courier">@student.fullName</font></li>
-	        <li><a data-toggle="modal" href="/supervisor/studyplan/@student.userID" ><font size="3" face="Courier"></font>StudyPlan</a></li>
-	        <li><a data-toggle="modal" href="/supervisor/career/@student.userID" ><font size="3" face="Courier"></font>Carriera</a></li>
+	        <li> 
+	            <a data-toggle="modal" href="/supervisor/studyplan/@student.userID">
+	                <!-- Se ha richieste d'approvazione -->
+	                <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
+	                <!-- altrimenti -->
+	                <!-- <img align="center" src="@routes.Assets.at("images/normalicon.png")" /> -->
+	                <!------------------------------------>
+	                StudyPlan
+	            </a>
+	        </li>
+	        <li>
+	            <a data-toggle="modal" href="/supervisor/career/@student.userID">
+	                <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
+	                Carriera
+	            </a>
+	        </li>
 	        @sideContents
         }
         
