@@ -30,12 +30,18 @@ public class Supervisors extends Controller {
         {
             Supervisor supervisor = uc.getSupervisor();
             Set<Student> students = supervisor.getStudentsAdvisored();
-            List<Course> studyPlan;
-            if (id > -1)
+            Student student;
+            
+            if (id == -1)
             {
-                List<Student> studentsList = Student.all();
+                student = (Student) students.toArray()[0]; //mancano dei controlli!
             }
-            return ok(advisor_studyplans.render(uc,students));
+            else
+            {
+                student = Student.find.byId(id); //mancano dei controlli!
+            }
+            
+            return ok(advisor_studyplans.render(uc, students, student));
         }
         else
         {
@@ -50,7 +56,18 @@ public class Supervisors extends Controller {
         {
             Supervisor supervisor = uc.getSupervisor();
             Set<Student> students = supervisor.getStudentsAdvisored();
-            return ok(advisor_careers.render(uc,students));
+            Student student;
+            
+            if (id == -1)
+            {
+                student = (Student) students.toArray()[0]; //mancano dei controlli!
+            }
+            else
+            {
+                student = Student.find.byId(id); //mancano dei controlli!
+            }
+            
+            return ok(advisor_careers.render(uc, students, student));
         }
         else
         {

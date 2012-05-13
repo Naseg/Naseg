@@ -1,4 +1,4 @@
-@(user: UserCredentials, students: Set[Student])
+@(user: UserCredentials, students: Set[Student], selectedStudent: Student)
 
 @advisor_base(user,students) {
 
@@ -8,27 +8,31 @@
 
 <!-- Modal dei corsi -->
 
-<!-- @@courseDetailsModal(courses) -->
+<!-- problema di visualizzazione: se tolgo questa riga va tutto bene.
+     probabilmente c'è da fixare qualche tag (div, presumibilmente)
+-->
+@courseDetailsModal(selectedStudent.getStudyPlan())
 
 <!-- Fine modal dei corsi -->
 
 <!-- Parte dx-->
 <div class="span6">
-    <h2 align="center"> StudyPlan</h2>
+    <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
+   
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Nome Corso</th>
-                <th>Professore</th>
+                <th>Docente</th>
             </tr>
-            
-                <tr>
-                    <td><a data-toggle="modal" href="#">nomecorso</a></td>
-                    <td></td>
-                </tr>
         </thead>
         <tbody>
-
+            @for(course <- selectedStudent.getStudyPlan()) {
+                <tr>
+                    <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">@course.courseName</a></td>
+                    <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                </tr>
+            }
         </tbody>
     </table>
     </br>
@@ -44,3 +48,4 @@
 </div> <!--span 6/2-->
 
 }
+
