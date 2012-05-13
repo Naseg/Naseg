@@ -29,8 +29,13 @@
         <tbody>
             @for(course <- selectedStudent.getStudyPlan()) {
                 <tr>
-                    <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">@course.courseName</a></td>
+                    <td>@course.courseName</td>
                     <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                    <td>
+                        <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                            <img src="@routes.Assets.at("images/details.png")" />
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
