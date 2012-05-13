@@ -49,7 +49,7 @@ public class UserCredentials extends Model {
     }
 
     public static UserCredentials authenticate(String username, String password) {
-      return find.where()
+        return find.where()
             .eq("userName", username)
             .eq("password", password)
             .findUnique();

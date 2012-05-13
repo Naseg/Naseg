@@ -16,6 +16,7 @@ public class CourseEnrollment extends Model {
     @Id
     @Column(name = "enrollment_ID")
     public Integer enrollmentID;
+    @NotNull
     @Size(min = 1, max = 30)
     @Column(name = "qualification")
     public String qualification;

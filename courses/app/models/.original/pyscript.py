@@ -22,7 +22,8 @@ pl2s = { "Students" : "Student",
          "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
          "Roles" : "Role",
-         "Collection" : "Set"}
+         "Collection" : "Set",
+         "studentsSet2" : "studentsAdvisored"}
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
@@ -217,24 +218,6 @@ import play.data.validation.*;\n
 	}
       }
       return studyPlan;
-    }
-""")
-    if (filename == "CoursesEnrollments.java"):
-        stream.write(
-"""
-    public Course getCourse()
-    {
-      Course c = this.course;
-      Integer a = c.credits; //does nothing, force fetching from db
-      return c;
-    }
-
-    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
-    {
-      List<Course> out = new ArrayList();
-      for (CourseEnrollment enrollment : enrollments)
-	out.add(enrollment.getCourse());
-      return out;
     }
 """)
     if (filename == "CoursesEnrollments.java"):
