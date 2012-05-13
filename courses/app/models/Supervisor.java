@@ -46,7 +46,7 @@ public class Supervisor extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tutor")
     public Set<Student> studentsSet1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "currentAdvisor")
-    public Set<Student> studentsSet2;
+    public Set<Student> studentsAdvisored;
     @OneToMany(mappedBy = "professor")
     public Set<Course> coursesSet;
     @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")

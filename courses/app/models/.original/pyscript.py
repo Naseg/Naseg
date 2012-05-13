@@ -22,8 +22,8 @@ pl2s = { "Students" : "Student",
          "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
          "Roles" : "Role",
-         "Collection" : "Set",
-         "studentsSet2" : "studentsAdvisored"}
+         "Collection" : "Set"
+         }
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
@@ -82,6 +82,8 @@ for filename in os.listdir('.'):
     for pl in pl2s:
         files[filename] = files[filename].replace(pl,pl2s[pl])
         outputname = outputname.replace(pl,pl2s[pl])
+    if (filename == "Supervisors.java"):
+        files[filename] = files[filename].replace("studentsSet2", "studentsAdvisored");
 
     stream = open('../'+outputname, 'w')
     stream.write(
