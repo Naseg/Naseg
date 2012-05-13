@@ -24,6 +24,7 @@
             <tr>
                 <th>Nome Corso</th>
                 <th>Docente</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,16 @@
                     <td>
                         <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
                             <img src="@routes.Assets.at("images/details.png")" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#">
+                            <img src="@routes.Assets.at("images/accepticon.png")" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#">
+                            <img src="@routes.Assets.at("images/removeicon.gif")" />
                         </a>
                     </td>
                 </tr>
