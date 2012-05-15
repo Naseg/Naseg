@@ -1,4 +1,4 @@
-@(user: UserCredentials, students: Set[Student])(sideContents: Html)(centralContents: Html)
+@(user: UserCredentials, students: Set[Student])(sideContents: Html)(centralContents: Html)(script: Html)
 
 @main {
 
@@ -36,9 +36,7 @@
 } {
 <!---parte centrale -->
 
-<div class="row-fluid">
 	@centralContents
-</div><!--Row-->
 
 } {
 
@@ -46,8 +44,6 @@ Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout<
 
 } {
 
-<script language="JavaScript">
-    
-</script>
+@script
 
 }

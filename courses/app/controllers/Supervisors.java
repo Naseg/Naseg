@@ -74,4 +74,14 @@ public class Supervisors extends Controller {
             return unauthorized(forbidden.render());
         }
     }
+    
+    public static Result acceptSP()
+    {
+        return ok();
+    }
+    
+    public static Result rejectSP()
+    {
+        return ok();
+    }
 }

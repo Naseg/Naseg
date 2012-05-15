@@ -6,62 +6,113 @@
 
 } {
 
-<!-- Modal dei corsi -->
+<!-- Modal -->
 
-<!-- problema di visualizzazione: se tolgo questa riga va tutto bene.
-     probabilmente c'è da fixare qualche tag (div, presumibilmente)
--->
 @courseDetailsModal(selectedStudent.getStudyPlan())
 
-<!-- Fine modal dei corsi -->
+<div class="modal hide fade" id="windowTitleDialog_rejectSP" style="display: none; ">
+    <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">
+            <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+        </a>
+        <h3>Rifiuta Study Plan</h3>
+    </div>
+    <div class="modal-body">
+        Inserisci un commento per rifiutare questo Study Plan; verrà inviato tramite e-mail allo studente.
+        <br/>
+        <form method="POST" action="/supervisor/studyplan/rejectSP">
+            <fieldset>
+                <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
+                <label for="comment">Commento (obbligatorio)</label>
+                <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
+            </fieldset>
+            <div class="actions">
+                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
+                <input type="submit" class="btn primary" value="Conferma">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal hide fade" id="windowTitleDialog_acceptSP" style="display: none; ">
+    <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">
+            <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+        </a>
+        <h3>Accetta Study Plan</h3>
+    </div>
+    <div class="modal-body">
+        Sei certo di voler accettare questo Study Plan?<br/>
+        Puoi lasciare un commento (opzionale)
+        <br/>
+        <form method="POST" action="/supervisor/studyplan/acceptSP">
+            <fieldset>
+                <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
+                <label for="comment">Commento (opzionale)</label>
+                <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
+            </fieldset>
+            <div class="actions">
+                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
+                <input type="submit" class="btn primary" value="Conferma">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Fine modal -->
 
 <!-- Parte dx-->
-<div class="span6">
-    <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
-   
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nome Corso</th>
-                <th>Docente</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(course <- selectedStudent.getStudyPlan()) {
+<div class="row-fluid">
+    <div class="span6">
+        <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
+       
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@course.courseName</td>
-                    <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
-                    <td>
-                        <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
-                            <img src="@routes.Assets.at("images/details.png")" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <img src="@routes.Assets.at("images/accepticon.png")" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <img src="@routes.Assets.at("images/removeicon.gif")" />
-                        </a>
-                    </td>
+                    <th>Nome Corso</th>
+                    <th>Docente</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    </br>
-    </br>
-    <p align="right">
-        <button class="btn btn-large">Annulla</button>
-        <button class="btn btn-large">Conferma</button>
-    </p>
-</div><!--span6/1 -->
+            </thead>
+            <tbody>
+                @for(course <- selectedStudent.getStudyPlan()) {
+                    <tr>
+                        <td>@course.courseName</td>
+                        <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                        <td>
+                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                                <img src="@routes.Assets.at("images/details.png")" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </br>
+        </br>
+        <p align="center">
+            <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Rifiuta</button>
+            <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accetta</button>
+        </p>
+    </div><!--span6/1 -->
 
-<div class="span6">    
-	<h2 align="center"> Voti</h2>
-</div> <!--span 6/2-->
+    <div class="span6">    
+	    <h2 align="center"> Voti</h2>
+    </div> <!--span 6/2-->
+</div>
+
+} {
+
+<script language="JavaScript">
+
+    function autofun()
+    {
+        /*@@if(form.hasGlobalErrors) { 
+            $('#windowTitleDialog_rejectSP').modal('show')
+        }*/
+    }
+
+</script>
 
 }
 
