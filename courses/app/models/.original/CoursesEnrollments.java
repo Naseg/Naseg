@@ -41,6 +41,9 @@ public class CoursesEnrollments implements Serializable {
     @Column(name = "updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    @Column(name = "approved_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date approvedAt;
     @JoinColumn(name = "student", referencedColumnName = "user_ID")
     @ManyToOne(optional = false)
     private Students student;
@@ -106,6 +109,14 @@ public class CoursesEnrollments implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Date getApprovedAt() {
+        return approvedAt;
+    }
+
+    public void setApprovedAt(Date approvedAt) {
+        this.approvedAt = approvedAt;
     }
 
     public Students getStudent() {

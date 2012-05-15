@@ -28,6 +28,8 @@ public class CourseEnrollment extends Model {
     public Date enrolledAt;
     @Column(name = "updated_at")
     public Date updatedAt;
+    @Column(name = "approved_at")
+    public Date approvedAt;
     @JoinColumn(name = "student", referencedColumnName = "user_ID")
     @ManyToOne(optional = false)
     public Student student;

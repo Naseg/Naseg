@@ -19,7 +19,7 @@ public class Trip extends Model {
     @Column(name = "academic_year_id")
     public Integer academicYearId;
     @Column(name = "Date_of_request")
-    public Integer dateofrequest;
+    public Date dateofrequest;
     @NotNull
     @Column(name = "Planned_start_date")
     public Date plannedstartdate;
