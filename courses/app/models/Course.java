@@ -104,7 +104,10 @@ public class Course extends Model {
     public Supervisor getProfessor()
     {
       Supervisor s = this.professor;
-      String a = s.firstName; //does nothing, force fetching from db
+      if (s != null)
+      {
+	String a = s.firstName; //does nothing, force fetching from db
+      }
       return s;
     }
 }
