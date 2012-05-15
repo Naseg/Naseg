@@ -29,7 +29,7 @@ public class Supervisors extends Controller {
         if (Secured.isSupervisor(uc))
         {
             Supervisor supervisor = uc.getSupervisor();
-            Set<Student> students = supervisor.getStudentsAdvisored();
+            List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
             Student student;
 
 	    if (students.size() == 0)
@@ -59,7 +59,7 @@ public class Supervisors extends Controller {
         if (Secured.isSupervisor(uc))
         {
             Supervisor supervisor = uc.getSupervisor();
-            Set<Student> students = supervisor.getStudentsAdvisored();
+            List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
             Student student;
             
             if (id == -1)
