@@ -9,7 +9,7 @@ GET     /provadb	                controllers.Application.provadb()
 POST    /newexterncourse            controllers.SecuredApplication.newExternCourse()
 
 # Authentication
-#GET     /login                             controllers.Authentication.login()
+#GET    /login                              controllers.Authentication.login()
 POST    /login                              controllers.Authentication.authenticate()
 GET     /logout                             controllers.Authentication.logout()
 
@@ -26,6 +26,8 @@ GET     /supervisor/studyplan               controllers.Supervisors.studyplan(id
 GET     /supervisor/studyplan/:id           controllers.Supervisors.studyplan(id: Long)
 GET     /supervisor/career                  controllers.Supervisors.career(id: Long ?= -1)
 GET     /supervisor/career/:id              controllers.Supervisors.career(id: Long)
+POST    /supervisor/studyplan/acceptSP      controllers.Supervisors.acceptSP()
+POST    /supervisor/studyplan/rejectSP      controllers.Supervisors.rejectSP()
 
 # Administration
 GET     /admin                              controllers.Admins.index()
