@@ -11,8 +11,10 @@
 
 
     <div class="span 8">
-        <p> @{course.getProfessor.lastName}</p>    
-    </div> 
+        <p> @if(course.getProfessor != null) {
+                @{course.getProfessor.lastName}
+            }</p>
+    </div>
 </div>
 
 <div class="row" >
@@ -22,8 +24,8 @@
 
 
     <div class="span 8">
-        <p> @{course.courseID} </p>    
-    </div>   
+        <p> @{course.courseID} </p>
+    </div>
 </div>
 
 <div class="row-fluid" >

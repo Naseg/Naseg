@@ -121,6 +121,11 @@ public class Student extends Model {
     public boolean deleted;
     @Column(name = "Italian_Taxpayer_Code")
     public Integer italianTaxpayerCode;
+    @Size(max = 255)
+    @Column(name = "photo_profile")
+    public String photoProfile;
+    @Column(name = "is_plan_approved")
+    public Short isPlanApproved;
     @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
     @ManyToOne(optional = false)
     public UserCredentials user;

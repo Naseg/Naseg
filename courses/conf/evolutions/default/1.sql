@@ -42,6 +42,7 @@ create table courses_enrollments (
   credits                   integer,
   enrolled_at               datetime,
   updated_at                datetime,
+  approved_at               datetime,
   student                   integer not null,
   course                    integer not null,
   constraint pk_courses_enrollments primary key (enrollment_ID))
@@ -88,6 +89,8 @@ create table students (
   email                     varchar(255),
   deleted                   tinyint(1) default 0,
   Italian_Taxpayer_Code     integer,
+  photo_profile             varchar(255),
+  is_plan_approved          smallint,
   user                      integer not null,
   university_of_provenance  integer not null,
   university                integer not null,
@@ -116,7 +119,7 @@ create table supervisors (
 create table trips (
   trip_ID                   integer auto_increment not null,
   academic_year_id          integer,
-  Date_of_request           integer,
+  Date_of_request           datetime,
   Planned_start_date        datetime,
   Planned_Reason_for_Travel varchar(255),
   status                    varchar(255),
