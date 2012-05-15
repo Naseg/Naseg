@@ -16,52 +16,54 @@
 <!-- Fine modal dei corsi -->
 
 <!-- Parte dx-->
-<div class="span6">
-    <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
-   
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nome Corso</th>
-                <th>Docente</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(course <- selectedStudent.getStudyPlan()) {
+<div class="row-fluid">
+    <div class="span6">
+        <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
+       
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@course.courseName</td>
-                    <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
-                    <td>
-                        <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
-                            <img src="@routes.Assets.at("images/details.png")" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <img src="@routes.Assets.at("images/accepticon.png")" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#">
-                            <img src="@routes.Assets.at("images/removeicon.gif")" />
-                        </a>
-                    </td>
+                    <th>Nome Corso</th>
+                    <th>Docente</th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    </br>
-    </br>
-    <p align="right">
-        <button class="btn btn-large">Annulla</button>
-        <button class="btn btn-large">Conferma</button>
-    </p>
-</div><!--span6/1 -->
+            </thead>
+            <tbody>
+                @for(course <- selectedStudent.getStudyPlan()) {
+                    <tr>
+                        <td>@course.courseName</td>
+                        <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                        <td>
+                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                                <img src="@routes.Assets.at("images/details.png")" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <img src="@routes.Assets.at("images/accepticon.png")" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <img src="@routes.Assets.at("images/removeicon.gif")" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </br>
+        </br>
+        <p align="right">
+            <button class="btn btn-large">Annulla</button>
+            <button class="btn btn-large">Conferma</button>
+        </p>
+    </div><!--span6/1 -->
 
-<div class="span6">    
-	<h2 align="center"> Voti</h2>
-</div> <!--span 6/2-->
+    <div class="span6">    
+	    <h2 align="center"> Voti</h2>
+    </div> <!--span 6/2-->
+</div>
 
 }
 
