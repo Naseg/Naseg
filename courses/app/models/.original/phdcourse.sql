@@ -224,7 +224,7 @@ INSERT INTO `students` (`user_ID`, `first_name`, `last_name`, `full_name`, `phd_
 (7, 'Silvano', 'Rogi', 'Silvano Rogi', '1', 1, 1, 1, 'Digitex', 'Digitex', '1971-08-12', 'Ufficio Contabile', '+39-1843-434299', '352-1489799', 'P2-S1-02', '02-B', 0, 'PRENDERE A TESTATE LA MACCHINETTA DEL CAFFE', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'silvano.rogi@contabile.it', 0, 2, 2, 1, 2, 1, 3, 3, 2, NULL, NULL, NULL, 7),
 (8, 'Guest', 'Tizio', 'Guest Tizio', '1', 1, 1, 1, 'via rose 18, trento', 'Boh', '1980-08-12', 'Trento, IT', '+39-1479-632581', '357-1489621', 'P3-S1-03', '03-C', 0, 'CHI', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'guest@libero.it', 0, 2, 2, 2, 2, 1, 3, 3, 2, NULL, NULL, NULL, 8),
 (9, 'banane', 'inpigiama', 'banane in pigiama', 'UNKNOWN', 0, 0, 0, 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'banane@inpigiama.it', 0, 2, 2, 1, 2, 2, 3, 3, 2, NULL, NULL, NULL, 9),
-(10, 'Mario', 'Rossi', 'Mario Rossi', '1', 0, 0, 0, 'via hambuger 20, trento', 'UNKNOWN', '1980-07-12', 'Trento.IT', '32423', '234234234', '23432432', '34234', 0, 'fjofhaoeho', 0, 0, 0, '0', 0, '0', 0, 0, 0, '0000-00-00', 'ewiorwep', 'mariorossi@libero.it', 0, 2, 2, 1, 2, 2, 3, 2, 2, NULL, NULL, NULL, 20);
+(10, 'Mario', 'Rossi', 'Mario Rossi', '1', 0, 0, 0, 'via hambuger 20, trento', 'UNKNOWN', '1980-07-12', 'Trento.IT', '32423', '234234234', '23432432', '34234', 0, 'fjofhaoeho', 0, 0, 0, '0', 0, '0', 0, 0, 0, '2012-01-01', 'ewiorwep', 'mariorossi@libero.it', 0, 2, 2, 1, 2, 2, 3, 2, 2, NULL, NULL, NULL, 20);
 
 -- --------------------------------------------------------
 
