@@ -31,8 +31,12 @@ public class Supervisors extends Controller {
             Supervisor supervisor = uc.getSupervisor();
             Set<Student> students = supervisor.getStudentsAdvisored();
             Student student;
-            
-            if (id == -1)
+
+	    if (students.size() == 0)
+	    {
+	      return ok(advisor_nostudents.render(uc));
+	    }
+            else if (id == -1)
             {
                 student = (Student) students.toArray()[0]; //mancano dei controlli!
             }
