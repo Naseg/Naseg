@@ -29,7 +29,7 @@ public class SecuredApplication extends Controller {
     public static Result newExternCourse() {
         Form<Course> filledForm = courseForm.bindFromRequest();
         if(filledForm.hasErrors()) {
-            return badRequest(courseform.render(filledForm));
+            return badRequest(courseform.render(filledForm));  // ho aggiunto un hidden-input per sapere dove redirezionarci, ma non so prenderlo!
         } else {
             Course.create(filledForm.get());
             return ok("creato");

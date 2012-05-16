@@ -38,11 +38,11 @@ public class Supervisors extends Controller {
 	    }
             else if (id == -1)
             {
-                student = (Student) students.toArray()[0]; //mancano dei controlli!
+                student = (Student) students.toArray()[0];
             }
             else
             {
-                student = Student.find.byId(id); //mancano dei controlli!
+                student = Student.find.byId(id); 
             }
             
             return ok(advisor_studyplans.render(uc, students, student));
@@ -62,13 +62,17 @@ public class Supervisors extends Controller {
             List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
             Student student;
             
-            if (id == -1)
+            if (students.size() == 0)
+	        {
+	            return ok(advisor_nostudents.render(uc));
+	        }
+            else if (id == -1)
             {
-                student = (Student) students.toArray()[0]; //mancano dei controlli!
+                student = (Student) students.toArray()[0];
             }
             else
             {
-                student = Student.find.byId(id); //mancano dei controlli!
+                student = Student.find.byId(id);
             }
             
             return ok(advisor_careers.render(uc, students, student));
@@ -81,11 +85,18 @@ public class Supervisors extends Controller {
     
     public static Result acceptSP()
     {
-        return ok();
+        // Prendere i dati dalla form mandata con metodo POST
+        // e settare il db in modo da accettare lo SP
+        
+        return redirect(routes.Supervisors.studyplan(-1));
     }
     
     public static Result rejectSP()
     {
-        return ok();
+        // Prendere i dati dalla form mandata con metodo POST
+        // e settare il db in modo da accettare lo SP
+        
+        return redirect(routes.Supervisors.studyplan(-1));
     }
 }
+
