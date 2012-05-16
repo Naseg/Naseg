@@ -15,7 +15,7 @@
  <div class="modal hide fade" id="windowTitleDialog" style="display: none; ">
 				<div class="modal-header">
 					<a href="#" class="close" data-dismiss="modal"><img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" /></a>
-					<h3>Prova login.</h3>
+					<h3>Login</h3>
 				</div><!--modal header -->
 					<div class="modal-body">
 			    @helper.form(routes.Authentication.authenticate) {
@@ -41,7 +41,7 @@
                                            </div>
                                        </div>
                                    </fieldset>
-                                   <div><input type="reset" value="cancella">
+                                   <div><input data-dismiss="modal" type="reset" value="cancella">
                                    <input type="submit" value="login">
                                    </div>
                               <!-- </form>-->

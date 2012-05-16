@@ -10,7 +10,7 @@
 
 <!-- Dialog del Nuovo Corso -->
 
-@courseFormModal(courseForm)
+@externCourseFormModal(courseForm, "/student/studyplan")
         
 <!-- Fine dialog del nuovo corso -->
 
@@ -28,6 +28,15 @@
 <div class="row-fluid">	  
     <div class="span6">
               <h2>StudyPlan</h2>
+              <!-- if --->
+              <h3>(In costruzione)</h3>
+              <!-- else if --->
+              <h3>(In attesa d'approvazione)</h3>
+              <!-- else --->
+              <h3>(Approvato)</h3>
+              
+              <!-- se è in richiesta d'approvazione o è accettato, tolgo le colonne per le modifiche -->
+              
 	      <table class="table table-bordered">
         <thead>
           <tr>
@@ -52,15 +61,8 @@
         </tbody>
       </table>
     <p align="center">
-        <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
-        <a data-toggle="modal" href="#windowTitleDialog" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a></p>
-    <br>
-    <br>
-    <p align="right">
-        <button class="btn btn-large">Annulla</button>
-	<button class="btn btn-large">Conferma</button>
-        <button class="btn btn-large btn-primary">RichiediApprovazione</button>
-     </p>
+        <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
+        <button class="btn btn-large btn-primary">Richiedi Approvazione</button>
 
   </div><!--span1 -->
   
@@ -94,7 +96,6 @@
          }
         </tbody>
       </table>
- <p align="right"><a class="btn btn-primary btn-large">Aggiungi</a></p>
  
     </div><!--span-->
 </div><!--row-->
