@@ -205,12 +205,12 @@ public class Student extends Model {
     public void acceptSP()
     {
         this.isPlanApproved = 2;
-        this.save();
+        this.update();
     }
     
     public void rejectSP()
     {
         this.isPlanApproved = 0;
-        this.save();
+        this.update();
     }
 }

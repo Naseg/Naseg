@@ -99,14 +99,14 @@ public class Students extends Controller {
     {
         String username = request().username();
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-	    if (Secured.isStudent(uc))
-        {
-            Student student = uc.getStudent();
-            student.approvalRequest();
-            
-            return redirect(routes.Students.studyplan());
-        }
-        else
+	if (Secured.isStudent(uc))
+	{
+	  Student student = uc.getStudent();
+	  student.approvalRequest();
+
+	  return redirect(routes.Students.studyplan());
+	}
+	else
         {
             return unauthorized(forbidden.render());
         }
