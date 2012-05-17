@@ -1,15 +1,15 @@
-@(form: Form[Authentication.Login])(authstate: Html)(script: Html)
+@(form: Form[Authentication.Login])(authstate: Html)(additionalLinks: Html)(script: Html)
 
 @main {
 <!-- Parte Sx -->
 
-
-<ul class="nav nav-list">
-              
-              <li class="nav-header"><font size="4" face="Courier">Link utili</font></li>
-              <li><a href="http://ict.unitn.it/announcements"><font size="3" face="Courier">News e Avvisi</font></a></li>
-              <li><a href="http://ict.unitn.it/contacts"><font size="3" face="Courier">Contattaci</font></a></li>
-            </ul>
+    @additionalLinks
+    
+    <ul class="nav nav-list">
+        <li class="nav-header"><font size="4" face="Courier">Link utili</font></li>
+        <li><a href="http://ict.unitn.it/announcements"><font size="3" face="Courier">News e Avvisi</font></a></li>
+        <li><a href="http://ict.unitn.it/contacts"><font size="3" face="Courier">Contattaci</font></a></li>
+    </ul>
             
                 
  <div class="modal hide fade" id="windowTitleDialog" style="display: none; ">

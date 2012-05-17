@@ -1,6 +1,26 @@
 @(user: UserCredentials, form: Form[Authentication.Login])
 
-@index(form) {Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>} {
+@index(form) {
+
+Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+    @if(Secured.isSupervisor(user)) {
+        <ul class="nav nav-list">
+            <li class="nav-header"><font size="4" face="Courier">Advisor</font></li>
+            <li><a href="/supervisor"><font size="3" face="Courier">Torna alla pagina advisor</font></a></li>
+        </ul>
+    } else {
+        @if(Secured.isStudent(user)) {
+            <ul class="nav nav-list">
+                <li class="nav-header"><font size="4" face="Courier">Studente</font></li>
+                <li><a href="/student"><font size="3" face="Courier">Torna alla pagina studente</font></a></li>
+            </ul>
+        }
+    }
+
+} {
 
 <!-- no script -->
 
