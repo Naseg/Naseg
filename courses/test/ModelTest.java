@@ -21,12 +21,6 @@ public class ModelTest {
     return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
   }
 
-  /*try {
-    FileOutputStream file = new FileOutputStream("/tmp/file.txt");
-    PrintStream Output = new PrintStream(file);
-    Output.println("");
-    } catch (IOException e) {}*/
-
   private UserRole create_ur_fake() {
     UserRole ur = new UserRole();
     ur.role = "ruolo di prova";
@@ -186,6 +180,64 @@ public class ModelTest {
 	  Assert.assertTrue(plan.contains(c));
 	  ce.delete();
 	  c.delete();
+	  st.delete();
+	  s.delete();
+	  uc.delete();
+	  uni.delete();
+	  fi.delete();
+	  cou.delete();
+	  ur.delete();
+	}
+      });
+  }
+
+  @Test
+  public void supervisorFromUserCredential() {
+    running(fakeApplication(), new Runnable() {
+	public void run() {
+	  UserRole ur = create_ur_fake();
+	  ur.save();
+	  UserCredentials uc = create_uc_fake(ur);
+	  uc.save();
+	  uc = UserCredentials.find.byId(
+	    Long.valueOf(uc.usercredentialID));
+	  Assert.assertTrue(uc.getSupervisor() == null);
+	  Supervisor s = create_super_fake(uc);
+	  s.save();
+	  uc = UserCredentials.find.byId(
+	    Long.valueOf(uc.usercredentialID));
+	  Assert.assertTrue(uc.getSupervisor().supervisorID == s.supervisorID);
+	  s.delete();
+	  uc.delete();
+	  ur.delete();
+	}
+      });
+  }
+
+  @Test
+  public void studentFromUserCredential() {
+    running(fakeApplication(), new Runnable() {
+	public void run() {
+	  UserRole ur = create_ur_fake();
+	  ur.save();
+	  UserCredentials uc = create_uc_fake(ur);
+	  uc.save();
+	  uc = UserCredentials.find.byId(
+	    Long.valueOf(uc.usercredentialID));
+	  Assert.assertTrue(uc.getStudent() == null);
+	  University uni = create_uni_fake();
+	  uni.save();
+	  FundingInstitution fi = create_fi_fake();
+	  fi.save();
+	  Country cou = create_country_fake();
+	  cou.save();
+	  Supervisor s = create_super_fake(uc);
+	  s.save();
+	  Student st = create_student_fake(uc,uni,fi,cou,s);
+	  st.save();
+	  uc = UserCredentials.find.byId(
+	    Long.valueOf(uc.usercredentialID));
+	  Assert.assertTrue(uc.getStudent().userID == s.userID);
 	  st.delete();
 	  s.delete();
 	  uc.delete();
