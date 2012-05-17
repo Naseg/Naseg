@@ -15,11 +15,14 @@
 	        <li> 
 	            <a data-toggle="modal" href="/supervisor/studyplan/@student.userID">
 	                <!-- Se ha richieste d'approvazione -->
-	                <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
+	                @if(student.isPlanApproved == 1) {
+	                    <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
+	                } else {
 	                <!-- altrimenti -->
-	                <!-- <img align="center" src="@routes.Assets.at("images/normalicon.png")" /> -->
+	                    <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
 	                <!------------------------------------>
-	                StudyPlan
+	                }
+	                StudyPlan=@student.isPlanApproved
 	            </a>
 	        </li>
 	        <li>

@@ -49,10 +49,10 @@
         <br/>
         <form method="POST" action="/supervisor/studyplan/acceptSP">
             <fieldset>
-                <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
+                <input type="hidden" name="idStudente" value="@selectedStudent.userID">
                 <br />
                 <label for="comment">Commento (opzionale)</label>
-                <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
+                <textarea name="comment-text" rows="5" cols="40"></textarea>
             </fieldset>
             <div class="actions">
                 <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">

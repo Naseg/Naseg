@@ -37,7 +37,7 @@
               
               <!-- se è in richiesta d'approvazione o è accettato, tolgo le colonne per le modifiche -->
               
-	      <table class="table table-bordered">
+	    <table class="table table-bordered">
         <thead>
           <tr>
             <th>#</th>
@@ -47,13 +47,13 @@
           </tr>
         </thead>
         <tbody>
-	  @for(course <- studyplan) {
+	        @for(course <- studyplan) {
             <tr>
-	      <td>@course.courseID</td>
-              <td>@course.courseName</td>
-	      <td>@if(course.professor != null)  {
-                @course.getProfessor.lastName
-              }</td>
+	          <td>@course.courseID</td>
+                  <td>@course.courseName</td>
+	          <td>@if(course.professor != null)  {
+                    @course.getProfessor.lastName
+                  }</td>
               <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
               <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
             </tr>
@@ -62,14 +62,18 @@
       </table>
     <p align="center">
         <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
-        <button class="btn btn-large btn-primary">Richiedi Approvazione</button>
+        <a data-toggle="modal" href="/student/studyplan/appreq" class="btn btn-primary btn-large">Richiedi Approvazione</a>
 
   </div><!--span1 -->
   
 	      
     <div class="span6">                     
-	    
-    
+	   <!-- 
+        <form class="well form-search">
+            <input type="text" class="input-medium search-query">
+            <button type="submit" class="btn">Search</button>
+        </form>
+        -->
 	    
               <h2>Lista Corsi</h2>
 	      <table class="table table-bordered">

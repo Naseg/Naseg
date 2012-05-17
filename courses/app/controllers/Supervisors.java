@@ -45,6 +45,8 @@ public class Supervisors extends Controller {
                 student = Student.find.byId(id); 
             }
             
+            System.out.println("s: " + student.isPlanApproved);
+            
             return ok(advisor_studyplans.render(uc, students, student));
         }
         else
@@ -85,18 +87,34 @@ public class Supervisors extends Controller {
     
     public static Result acceptSP()
     {
-        // Prendere i dati dalla form mandata con metodo POST
-        // e settare il db in modo da accettare lo SP
+        Long idStudente;
+        Student student;
+        String comment = form().bindFromRequest().get("comment-text"); // va mandato per mail insieme alla notifica di approvazione
         
-        return redirect(routes.Supervisors.studyplan(-1));
+        idStudente = Long.parseLong(form().bindFromRequest().get("idStudente")); //fare controlli
+        
+        student = Student.find.byId(idStudente); //fare controlli
+        
+        student.acceptSP();
+        System.out.println("student.isPlanApproved: " + student.isPlanApproved);
+        
+        return redirect(routes.Supervisors.studyplan(idStudente));
     }
     
     public static Result rejectSP()
     {
-        // Prendere i dati dalla form mandata con metodo POST
-        // e settare il db in modo da accettare lo SP
+        Long idStudente;
+        Student student;
+        String comment = form().bindFromRequest().get("comment-text"); // va mandato per mail insieme alla notifica di approvazione
         
-        return redirect(routes.Supervisors.studyplan(-1));
+        idStudente = Long.parseLong(form().bindFromRequest().get("idStudente")); //fare controlli
+        
+        student = Student.find.byId(idStudente); //fare controlli
+        
+        student.rejectSP();
+        System.out.println("student.isPlanApproved: " + student.isPlanApproved);
+        
+        return redirect(routes.Supervisors.studyplan(idStudente));
     }
 }
 

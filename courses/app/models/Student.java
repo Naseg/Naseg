@@ -195,4 +195,22 @@ public class Student extends Model {
       }
       return studyPlan;
     }
+    
+    public void approvalRequest()
+    {
+        this.isPlanApproved = 1;
+        this.update();
+    }
+    
+    public void acceptSP()
+    {
+        this.isPlanApproved = 2;
+        this.save();
+    }
+    
+    public void rejectSP()
+    {
+        this.isPlanApproved = 0;
+        this.save();
+    }
 }
