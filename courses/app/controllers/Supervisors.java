@@ -45,8 +45,6 @@ public class Supervisors extends Controller {
                 student = Student.find.byId(id); 
             }
             
-            System.out.println("s: " + student.isPlanApproved);
-            
             return ok(advisor_studyplans.render(uc, students, student));
         }
         else
