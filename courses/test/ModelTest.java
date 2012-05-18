@@ -237,7 +237,7 @@ public class ModelTest {
 	  st.save();
 	  uc = UserCredentials.find.byId(
 	    Long.valueOf(uc.usercredentialID));
-	  Assert.assertTrue(uc.getStudent().userID == s.userID);
+	  Assert.assertTrue(uc.getStudent().userID == st.userID);
 	  st.delete();
 	  s.delete();
 	  uc.delete();

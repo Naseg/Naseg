@@ -8,33 +8,31 @@ import models.*;
 import views.html.*;
 
 public class Authentication extends Controller {
-  
+
     // -- Authentication
-    
+
     public static class Login {
-        
+
         public String username;
         public String password;
-        
+
         public String validate() {
-            if(UserCredentials.authenticate(username, password) == null) {
+	  if(UserCredentials.authenticate(username, password) == null) {
                 return "Invalid user or password";
             }
             return null;
         }
-        
+
     }
-    
+
     /**
      * Handle login form submission.
      */
     public static Result authenticate() {
-    
-    
         Form<Login> loginForm = form(Login.class);
-        
+
         loginForm = loginForm.bindFromRequest();
-        
+
         if (loginForm.hasErrors())
         {
             return badRequest(nonAuthIndex.render(loginForm));
