@@ -88,7 +88,6 @@ public class Supervisor extends Model {
     {
         int count = 0;
         List<Student> students = new ArrayList(this.getStudentsAdvisored());
-        
         for (Student student : students)
         {
             if (student.waitingForApproval())
@@ -96,7 +95,7 @@ public class Supervisor extends Model {
                 count++;
             }
         }
-        
+
         return count;
     }
 }

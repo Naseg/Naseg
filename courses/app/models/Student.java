@@ -216,7 +216,7 @@ public class Student extends Model {
     
     public boolean waitingForApproval()
     {
-        if (this.isPlanApproved == 1)
+        if (this.isPlanApproved!=null && this.isPlanApproved == 1)
             return true;
         else
             return false;
