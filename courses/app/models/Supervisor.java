@@ -83,4 +83,20 @@ public class Supervisor extends Model {
       for (Student s : students) { String a = s.firstName; } //do nothing, force fetching from db
       return students;
     }
+    
+    public int getApprovalRequests()
+    {
+        int count = 0;
+        List<Student> students = new ArrayList(this.getStudentsAdvisored());
+        
+        for (Student student : students)
+        {
+            if (student.waitingForApproval())
+            {
+                count++;
+            }
+        }
+        
+        return count;
+    }
 }
