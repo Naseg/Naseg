@@ -196,6 +196,34 @@ public class Student extends Model {
       return studyPlan;
     }
 
+    public void addToStudyPlan(Long idCourse)
+    {
+      Course c = Course.find.byId(idCourse);
+      if (c==null)
+	return;
+      for (Course co : this.getStudyPlan())
+      {
+	if (co.courseID == idCourse.intValue())
+	  return;
+      }
+      CourseEnrollment ce = new CourseEnrollment();
+      ce.isFinished = false;
+      ce.credits = 3;
+      ce.student = this;
+      ce.course = c;
+      ce.qualification = "";
+      CourseEnrollment.create(ce);
+    }
+
+    public void rmFromStudyPlan(Long idCourse)
+    {
+      for (CourseEnrollment ce : this.getCoursesEnrollmentSet())
+      {
+	if (ce.getCourse().courseID == idCourse.intValue())
+	  ce.delete();
+      }
+    }
+
     public void approvalRequest()
     {
         this.isPlanApproved = 1;

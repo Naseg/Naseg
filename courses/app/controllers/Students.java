@@ -17,23 +17,11 @@ public class Students extends Controller {
 
     public static Result addToStudyPlan(Long idCourse)
     {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
       if (Secured.isStudent(uc))
       {
 	Student s = uc.getStudent();
-	for (Course c : s.getStudyPlan())
-	{
-	  if (c.courseID == idCourse.intValue())
-	    return redirect(routes.Students.index());
-	}
-	Course c = Course.find.byId(idCourse);
-	CourseEnrollment ce = new CourseEnrollment();
-	ce.isFinished = false;
-	ce.credits = 3;
-	ce.student = s;
-	ce.course = c;
-	ce.qualification = "";
-	CourseEnrollment.create(ce);
+	s.addToStudyPlan(idCourse);
 	return redirect(
 	  routes.Students.index());
       }
@@ -43,15 +31,11 @@ public class Students extends Controller {
 
     public static Result rmFromStudyPlan(Long idCourse)
     {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
       if (Secured.isStudent(uc))
       {
 	Student s = uc.getStudent();
-	for (CourseEnrollment ce : s.getCoursesEnrollmentSet())
-	{
-	  if (ce.getCourse().courseID == idCourse.intValue())
-	    ce.delete();
-	}
+	s.rmFromStudyPlan(idCourse);
 	return redirect(
 	  routes.Students.index());
       }
@@ -62,7 +46,7 @@ public class Students extends Controller {
     public static Result studyplan()
     {
       String username = request().username();
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
       if (Secured.isStudent(uc))
       {
         Student student = uc.getStudent();
@@ -82,7 +66,7 @@ public class Students extends Controller {
     public static Result career()
     {
         String username = request().username();
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 	if (Secured.isStudent(uc))
         {
             Student student = uc.getStudent();
@@ -98,7 +82,7 @@ public class Students extends Controller {
     public static Result appreq()
     {
         String username = request().username();
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 	if (Secured.isStudent(uc))
 	{
 	  Student student = uc.getStudent();
@@ -111,7 +95,6 @@ public class Students extends Controller {
             return unauthorized(forbidden.render());
         }
     }
-    
 }
 
 
