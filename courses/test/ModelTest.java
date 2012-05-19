@@ -21,14 +21,14 @@ public class ModelTest {
     return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
   }
 
-  private UserRole create_ur_fake() {
+  static public UserRole create_ur_fake() {
     UserRole ur = new UserRole();
     ur.role = "ruolo di prova";
     ur.deleted = false;
     return ur;
   }
 
-  private UserCredentials create_uc_fake(UserRole ur) {
+  static public UserCredentials create_uc_fake(UserRole ur) {
     UserCredentials uc = new UserCredentials();
     uc.userName = "username di prova";
     uc.password = "password di prova";
@@ -36,7 +36,7 @@ public class ModelTest {
     return uc;
   }
 
-  private University create_uni_fake() {
+  static public University create_uni_fake() {
     University uni = new University();
     uni.nameUniversity = "universita di prova";
     uni.location = "prova";
@@ -44,7 +44,7 @@ public class ModelTest {
     return uni;
   }
 
-  private FundingInstitution create_fi_fake() {
+  static public FundingInstitution create_fi_fake() {
     FundingInstitution fi = new FundingInstitution();
     fi.name = "fondo di prova";
     fi.deleted = false;
@@ -52,7 +52,7 @@ public class ModelTest {
     return fi;
   }
 
-  private Country create_country_fake() {
+  static public Country create_country_fake() {
     Country cou = new Country();
     cou.name = "country di prova";
     cou.region = "prova";
@@ -61,7 +61,7 @@ public class ModelTest {
     return cou;
   }
 
-  private Supervisor create_super_fake(UserCredentials uc) {
+  static public Supervisor create_super_fake(UserCredentials uc) {
     Supervisor s = new Supervisor();
     s.firstName = "supervisor di prova";
     s.lastName = "supervisor di prova";
@@ -74,7 +74,7 @@ public class ModelTest {
     return s;
   }
 
-  private Student create_student_fake(UserCredentials uc, University uni, FundingInstitution fi, Country cou, Supervisor s) {
+  static public Student create_student_fake(UserCredentials uc, University uni, FundingInstitution fi, Country cou, Supervisor s) {
     Student st = new Student();
     st.firstName = "nome di prova";
     st.lastName = "cognome di prova";
@@ -114,7 +114,7 @@ public class ModelTest {
     return st;
   }
 
-  private Course create_course_fake() {
+  static public Course create_course_fake() {
     Course c = new Course();
     c.institution = "prova";
     c.place = "prova";
@@ -132,7 +132,7 @@ public class ModelTest {
     return c;
   }
 
-  private CourseEnrollment create_ce_fake(Student s, Course c) {
+  static public CourseEnrollment create_ce_fake(Student s, Course c) {
     CourseEnrollment ce = new CourseEnrollment();
     ce.qualification = "ce di prova";
     ce.student = s;

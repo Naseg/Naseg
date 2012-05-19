@@ -213,7 +213,7 @@ public class Student extends Model {
         this.isPlanApproved = 0;
         this.update();
     }
-    
+
     public boolean waitingForApproval()
     {
         if (this.isPlanApproved!=null && this.isPlanApproved == 1)
