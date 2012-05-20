@@ -56,7 +56,7 @@ public class CourseEnrollment extends Model {
     public Course getCourse()
     {
       Course c = this.course;
-      Integer a = c.credits; //does nothing, force fetching from db
+      c.refresh();//Integer a = c.credits;//does nothing, force fetching from db
       return c;
     }
 

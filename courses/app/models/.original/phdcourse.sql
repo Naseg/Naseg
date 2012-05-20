@@ -441,8 +441,9 @@ INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, 
 (6, 'silvanoRogi', 'calcolatrice', 5),
 (7, 'drago', 'dlf', 5),
 (20, 'nato', 'male', 3),
-(8, 'banane', 'beep', 3),
-(9, 'mario', 'mario', 3);
+(8, 'banane', 'beep', 3),(9, 'mario', 'mario', 3),
+(9, 'mario', 'mario', 3),
+(16, 'admin', 'admin', 1);
 
 -- --------------------------------------------------------
 

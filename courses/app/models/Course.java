@@ -106,7 +106,7 @@ public class Course extends Model {
       Supervisor s = this.professor;
       if (s != null)
       {
-	String a = s.firstName; //does nothing, force fetching from db
+	s.refresh();//String a = s.firstName;//does nothing, force fetching from db
       }
       return s;
     }

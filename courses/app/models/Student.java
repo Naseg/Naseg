@@ -177,7 +177,7 @@ public class Student extends Model {
     public Set<CourseEnrollment> getCoursesEnrollmentSet()
     {
       Set<CourseEnrollment> enrollments = this.coursesEnrollmentSet;
-      for (CourseEnrollment c : enrollments) {Integer s = c.credits;} //does nothing, force fetching from db
+      for (CourseEnrollment c : enrollments) {c.refresh();}//{Integer s = c.credits;} does nothing, force fetching from db
       return enrollments;
     }
 

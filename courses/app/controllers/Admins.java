@@ -48,4 +48,19 @@ public class Admins extends Controller {
 	else
 	  return unauthorized(forbidden.render());
     }
+
+    public static Result credentials()
+    {
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+
+	if (Secured.isAdmin(uc))
+	{
+	  List<UserCredentials> ucs = UserCredentials.all();
+	  Collections.sort(ucs,new UserCredentials.CompareByUserName());
+	  Collections.sort(ucs,new UserCredentials.CompareByRole());
+	  return ok(admin_credentials.render(uc,ucs,UserRole.all()));
+	}
+	else
+	  return unauthorized(forbidden.render());
+    }
 }

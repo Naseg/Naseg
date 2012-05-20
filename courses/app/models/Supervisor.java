@@ -80,7 +80,7 @@ public class Supervisor extends Model {
     public Set<Student> getStudentsAdvisored()
     {
       Set<Student> students = this.studentsAdvisored;
-      for (Student s : students) { String a = s.firstName; } //do nothing, force fetching from db
+      for (Student s : students) {s.refresh();}//{ String a = s.firstName; }do nothing, force fetching from db
       return students;
     }
     

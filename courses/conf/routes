@@ -35,6 +35,7 @@ GET     /admin                              controllers.Admins.index()
 GET     /admin/courses                      controllers.Admins.courses()
 GET     /admin/supervisors                  controllers.Admins.supervisors()
 GET     /admin/students                     controllers.Admins.students()
+GET     /admin/credentials                  controllers.Admins.credentials()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
