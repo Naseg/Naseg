@@ -12,7 +12,7 @@ public class Supervisors extends Controller {
     
     public static Result index()
     {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); 
       if (Secured.isSupervisor(uc))
       {
         return redirect(routes.Supervisors.studyplan(-1));
@@ -25,7 +25,7 @@ public class Supervisors extends Controller {
 
     public static Result studyplan(Long id)
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
         if (Secured.isSupervisor(uc))
         {
             Supervisor supervisor = uc.getSupervisor();
@@ -55,7 +55,7 @@ public class Supervisors extends Controller {
 
     public static Result career(Long id)
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
         if (Secured.isSupervisor(uc))
         {
             Supervisor supervisor = uc.getSupervisor();
