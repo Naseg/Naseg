@@ -53,6 +53,12 @@ public class Authentication extends Controller {
 		routes.Supervisors.index()
 		);
 	    }
+	    else if (Secured.isAdmin(uc))
+	    {
+	      return redirect(
+		routes.Admins.index()
+		);
+	    }
 	    else
 	    {
 	      return ok("You are not a student, nor a supervisor, nor an admin... Who are you?");

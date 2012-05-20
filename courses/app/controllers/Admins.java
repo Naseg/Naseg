@@ -9,29 +9,43 @@ import views.html.*;
 
 @Security.Authenticated(Secured.class)
 public class Admins extends Controller {
-    
+
     public static Result index()
     {
-      return redirect(routes.Admins.course());
+      return redirect(routes.Admins.courses());
     }
 
-    public static Result course()
+    public static Result courses()
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-        return ok(admin_courses.render(uc));
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+	if (Secured.isAdmin(uc))
+	{
+	  return ok(admin_courses.render(uc));
+	}
+	else
+	  return unauthorized(forbidden.render());
     }
 
-    public static Result student()
+    public static Result students()
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-        
-        return ok(admin_students.render(uc));
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+	if (Secured.isAdmin(uc))
+	{
+	  return ok(admin_students.render(uc));
+	}
+	else
+	  return unauthorized(forbidden.render());
     }
 
-    public static Result professore()
+    public static Result supervisors()
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-        
-        return ok(admin_professori.render(uc));
+        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+
+	if (Secured.isAdmin(uc))
+	{
+	  return ok(admin_supervisors.render(uc));
+	}
+	else
+	  return unauthorized(forbidden.render());
     }
 }

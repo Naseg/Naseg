@@ -32,9 +32,9 @@ POST    /supervisor/studyplan/rejectSP      controllers.Supervisors.rejectSP()
 
 # Administration
 GET     /admin                              controllers.Admins.index()
-GET     /admin/course                       controllers.Admins.course()
-GET     /admin/professore                   controllers.Admins.professore()
-GET     /admin/student                      controllers.Admins.student()
+GET     /admin/courses                      controllers.Admins.courses()
+GET     /admin/supervisors                  controllers.Admins.supervisors()
+GET     /admin/students                     controllers.Admins.students()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

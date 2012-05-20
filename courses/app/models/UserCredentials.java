@@ -88,4 +88,9 @@ public class UserCredentials extends Model {
 	}
       }
     }
+
+    public boolean isAdmin()
+    {
+      return (this.userRol.role.equals("admin"));
+    }
 }

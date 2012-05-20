@@ -6,9 +6,9 @@
 
 <ul class="nav nav-list">
               <li class="nav-header"><font size="4" face="Courier">Amministratore</font></li> <!-- tag scala nome studente -->
-              <li><a  href="/admin/course" ><font size="3" face="Courier"></font>Corsi</a></li>
-              <li><a  href="/admin/student" ><font size="3" face="Courier"></font>Studenti</a></li>
-	      <li><a  href="/admin/professore" ><font size="3" face="Courier"></font>Docenti</a></li>
+              <li><a  href="@routes.Admins.courses()" ><font size="3" face="Courier"></font>Corsi</a></li>
+              <li><a  href="@routes.Admins.students()" ><font size="3" face="Courier"></font>Studenti</a></li>
+	      <li><a  href="@routes.Admins.supervisors()" ><font size="3" face="Courier"></font>Docenti</a></li>
 	@sideContents
 </ul>
 } {
