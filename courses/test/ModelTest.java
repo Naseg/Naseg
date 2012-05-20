@@ -17,6 +17,17 @@ import models.*;
 import com.avaje.ebean.*;
 
 public class ModelTest {
+  private void print(String a) {
+    try{
+      FileWriter fstream = new FileWriter("/tmp/out.txt");
+      BufferedWriter out = new BufferedWriter(fstream);
+      out.write(a+"\n");
+      out.close();
+    }catch (Exception e){
+      System.err.println("Error: " + e.getMessage());
+    }
+  }
+
   private String formatted(Date date) {
     return new java.text.SimpleDateFormat("yyyy-MM-dd").format(date);
   }
@@ -192,6 +203,85 @@ public class ModelTest {
   }
 
   @Test
+  public void rmFromStudyPlan() {
+    running(fakeApplication(), new Runnable() {
+	public void run() {
+	  University uni = create_uni_fake();
+	  uni.save();
+	  FundingInstitution fi = create_fi_fake();
+	  fi.save();
+	  Country cou = create_country_fake();
+	  cou.save();
+	  UserRole ur = create_ur_fake();
+	  ur.save();
+	  UserCredentials uc = create_uc_fake(ur);
+	  uc.save();
+	  Supervisor s = create_super_fake(uc);
+	  s.save();
+	  Student st = create_student_fake(uc,uni,fi,cou,s);
+	  st.save();
+	  Course c = create_course_fake();
+	  c.academicYear = Course.AcademicYear();
+	  c.save();
+	  CourseEnrollment ce = create_ce_fake(st,c);
+	  ce.save();
+	  st = Student.find.byId(Long.valueOf(st.userID));
+	  List<Course> plan = st.getStudyPlan();
+	  Assert.assertTrue(plan.contains(c));
+	  st.rmFromStudyPlan(c.courseID.longValue());
+	  st = Student.find.byId(Long.valueOf(st.userID));
+	  List<Course> plan1 = st.getStudyPlan();
+	  Assert.assertTrue(!plan1.contains(c));
+	  c.delete();
+	  st.delete();
+	  s.delete();
+	  uc.delete();
+	  uni.delete();
+	  fi.delete();
+	  cou.delete();
+	  ur.delete();
+	}
+      });
+  }
+
+  @Test
+  public void addToStudyPlan() {
+    running(fakeApplication(), new Runnable() {
+	public void run() {
+	  University uni = create_uni_fake();
+	  uni.save();
+	  FundingInstitution fi = create_fi_fake();
+	  fi.save();
+	  Country cou = create_country_fake();
+	  cou.save();
+	  UserRole ur = create_ur_fake();
+	  ur.save();
+	  UserCredentials uc = create_uc_fake(ur);
+	  uc.save();
+	  Supervisor s = create_super_fake(uc);
+	  s.save();
+	  Student st = create_student_fake(uc,uni,fi,cou,s);
+	  st.save();
+	  Course c = create_course_fake();
+	  c.academicYear = Course.AcademicYear();
+	  c.save();
+	  st.addToStudyPlan(c.courseID.longValue());
+	  st = Student.find.byId(Long.valueOf(st.userID));
+	  List<Course> plan = st.getStudyPlan();
+	  Assert.assertTrue(plan.contains(c));
+	  c.delete();
+	  st.delete();
+	  s.delete();
+	  uc.delete();
+	  uni.delete();
+	  fi.delete();
+	  cou.delete();
+	  ur.delete();
+	}
+      });
+  }
+
+  @Test
   public void supervisorFromUserCredential() {
     running(fakeApplication(), new Runnable() {
 	public void run() {
@@ -206,7 +296,7 @@ public class ModelTest {
 	  s.save();
 	  uc = UserCredentials.find.byId(
 	    Long.valueOf(uc.usercredentialID));
-	  Assert.assertTrue(uc.getSupervisor().supervisorID == s.supervisorID);
+	  Assert.assertTrue(uc.getSupervisor().supervisorID.compareTo(s.supervisorID) == 0);
 	  s.delete();
 	  uc.delete();
 	  ur.delete();
@@ -237,7 +327,7 @@ public class ModelTest {
 	  st.save();
 	  uc = UserCredentials.find.byId(
 	    Long.valueOf(uc.usercredentialID));
-	  Assert.assertTrue(uc.getStudent().userID == st.userID);
+	  Assert.assertTrue(uc.getStudent().userID.compareTo(st.userID) == 0);
 	  st.delete();
 	  s.delete();
 	  uc.delete();

@@ -46,27 +46,22 @@ public class UnitTest {
 	     UserCredentials uc = null;
 	     Supervisor s = null;
 	     Student st = null;
-	     try {
-	       uni = ModelTest.create_uni_fake();
-	       uni.save();
-	       fi = ModelTest.create_fi_fake();
-	       fi.save();
-	       cou = ModelTest.create_country_fake();
-	       cou.save();
-	       ur = ModelTest.create_ur_fake();
-	       ur.save();
-	       uc = ModelTest.create_uc_fake(ur);
-	       uc.save();
-	       s = ModelTest.create_super_fake(uc);
-	       s.save();
-	       st = ModelTest.create_student_fake(uc,uni,fi,cou,s);
-	       st.save();
-	       Result result = auth(uc);
-	       assertThat(status(result)).isEqualTo(Status.SEE_OTHER);
-	     }
-	     catch (Exception e){
-	       System.err.println("Error: " + e.getMessage());
-	     }
+	     uni = ModelTest.create_uni_fake();
+	     uni.save();
+	     fi = ModelTest.create_fi_fake();
+	     fi.save();
+	     cou = ModelTest.create_country_fake();
+	     cou.save();
+	     ur = ModelTest.create_ur_fake();
+	     ur.save();
+	     uc = ModelTest.create_uc_fake(ur);
+	     uc.save();
+	     s = ModelTest.create_super_fake(uc);
+	     s.save();
+	     st = ModelTest.create_student_fake(uc,uni,fi,cou,s);
+	     st.save();
+	     Result result = auth(uc);
+	     assertThat(status(result)).isEqualTo(Status.SEE_OTHER);
 	     st.delete();
 	     s.delete();
 	     uc.delete();
@@ -85,19 +80,14 @@ public class UnitTest {
 	     UserRole ur = null;
 	     UserCredentials uc = null;
 	     Supervisor s = null;
-	     try {
-	       ur = ModelTest.create_ur_fake();
-	       ur.save();
-	       uc = ModelTest.create_uc_fake(ur);
-	       uc.save();
-	       s = ModelTest.create_super_fake(uc);
-	       s.save();
-	       Result result = auth(uc);
-	       assertThat(status(result)).isEqualTo(Status.SEE_OTHER);
-	     }
-	     catch (Exception e){
-	       System.err.println("Error: " + e.getMessage());
-	     }
+	     ur = ModelTest.create_ur_fake();
+	     ur.save();
+	     uc = ModelTest.create_uc_fake(ur);
+	     uc.save();
+	     s = ModelTest.create_super_fake(uc);
+	     s.save();
+	     Result result = auth(uc);
+	     assertThat(status(result)).isEqualTo(Status.SEE_OTHER);
 	     s.delete();
 	     uc.delete();
 	     ur.delete();
@@ -115,8 +105,8 @@ public class UnitTest {
 	  });
    }
 
-  /*   @Test
-    public void studentsAddToStudyPlan() {
+    @Test
+    public void studentsStudyPlan() {
         running(fakeApplication(), new Runnable() {
            public void run() {
 	     University uni = null;
@@ -126,27 +116,24 @@ public class UnitTest {
 	     UserCredentials uc = null;
 	     Supervisor s = null;
 	     Student st = null;
-	     try {
-	       uni = ModelTest.create_uni_fake();
-	       uni.save();
-	       fi = ModelTest.create_fi_fake();
-	       fi.save();
-	       cou = ModelTest.create_country_fake();
-	       cou.save();
-	       ur = ModelTest.create_ur_fake();
-	       ur.save();
-	       uc = ModelTest.create_uc_fake(ur);
-	       uc.save();
-	       s = ModelTest.create_super_fake(uc);
-	       s.save();
-	       st = ModelTest.create_student_fake(uc,uni,fi,cou,s);
-	       st.save();
-	       Result result = auth(uc);
-	       assertThat(status(result)).isEqualTo(Status.SEE_OTHER);
-	     }
-	     catch (Exception e){
-	       System.err.println("Error: " + e.getMessage());
-	     }
+	     uni = ModelTest.create_uni_fake();
+	     uni.save();
+	     fi = ModelTest.create_fi_fake();
+	     fi.save();
+	     cou = ModelTest.create_country_fake();
+	     cou.save();
+	     ur = ModelTest.create_ur_fake();
+	     ur.save();
+	     uc = ModelTest.create_uc_fake(ur);
+	     uc.save();
+	     s = ModelTest.create_super_fake(uc);
+	     s.save();
+	     st = ModelTest.create_student_fake(uc,uni,fi,cou,s);
+	     st.save();
+	     Result result = auth(uc);
+	     String cookies = header(HeaderNames.SET_COOKIE, result);
+	     result = routeAndCall(fakeRequest(GET, "/student/studyplan").withHeader(HeaderNames.COOKIE, cookies));
+	     assertThat(status(result)).isEqualTo(Status.OK);
 	     st.delete();
 	     s.delete();
 	     uc.delete();
@@ -154,10 +141,7 @@ public class UnitTest {
 	     cou.delete();
 	     fi.delete();
 	     uni.delete();
-
-	     Result result = callAction(controllers.routes.ref.Application.index());
-	     assertThat(status(result)).isEqualTo(OK);
            }
 	  });
-	  }*/
+    }
 }
