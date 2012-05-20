@@ -33,7 +33,8 @@ POST    /supervisor/studyplan/rejectSP      controllers.Supervisors.rejectSP()
 # Administration
 GET     /admin                              controllers.Admins.index()
 GET     /admin/courses                      controllers.Admins.courses()
-GET     /admin/supervisors                  controllers.Admins.supervisors()
+GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)
+GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
 GET     /admin/students                     controllers.Admins.students()
 GET     /admin/credentials                  controllers.Admins.credentials()
 

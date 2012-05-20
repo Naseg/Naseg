@@ -37,13 +37,15 @@ public class Admins extends Controller {
 	  return unauthorized(forbidden.render());
     }
 
-    public static Result supervisors()
+    public static Result supervisors(Long id)
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 
 	if (Secured.isAdmin(uc))
 	{
-	  return ok(admin_supervisors.render(uc));
+	  List<Supervisor> supervisors = Supervisor.all();
+	  Collections.sort(supervisors,new Supervisor.CompareByName());
+	  return ok(admin_supervisors.render(uc,supervisors,id));
 	}
 	else
 	  return unauthorized(forbidden.render());

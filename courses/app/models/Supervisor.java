@@ -83,7 +83,7 @@ public class Supervisor extends Model {
       for (Student s : students) {s.refresh();}//{ String a = s.firstName; }do nothing, force fetching from db
       return students;
     }
-    
+
     public int getApprovalRequests()
     {
         int count = 0;
@@ -97,5 +97,20 @@ public class Supervisor extends Model {
         }
 
         return count;
+    }
+
+    public static class CompareByName implements Comparator<Supervisor> {
+      @Override
+      public int compare (Supervisor s1, Supervisor s2) {
+	int comparison = s1.lastName.compareTo(s2.lastName);
+	if (comparison == 0)
+	{
+	  return s1.firstName.compareTo(s2.firstName);
+	}
+	else
+	{
+	  return comparison;
+	}
+      }
     }
 }
