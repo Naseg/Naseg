@@ -103,15 +103,15 @@ public class Supervisor extends Model {
     public static class CompareByName implements Comparator<Supervisor> {
       @Override
       public int compare (Supervisor s1, Supervisor s2) {
-	int comparison = s1.lastName.compareTo(s2.lastName);
-	if (comparison == 0)
-	{
-	  return s1.firstName.compareTo(s2.firstName);
-	}
-	else
-	{
-	  return comparison;
-	}
+        int comparison = s1.lastName.compareTo(s2.lastName);
+        if (comparison == 0)
+        {
+          return s1.firstName.compareTo(s2.firstName);
+        }
+        else
+        {
+          return comparison;
+        }
       }
     }
 }

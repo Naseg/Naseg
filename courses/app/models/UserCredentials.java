@@ -49,43 +49,41 @@ public class UserCredentials extends Model {
     }
 
     public static UserCredentials authenticate(String username, String password) {
-        return find.where()
-            .eq("userName", username)
-            .eq("password", password)
-            .findUnique();
+      return find.where()
+        .eq("userName", username)
+        .eq("password", password)
+        .findUnique();
     }
 
-    public Student getStudent()
-    {
+    public Student getStudent() {
       if (this.studentsSet.size() > 1)
       {
-	throw new PersistenceException("There is more than one student for credential "+this);
+        throw new PersistenceException("There is more than one student for credential "+this);
       }
       else
       {
-	try {
-	  return (Student)this.studentsSet.toArray()[0];
-	}
-	catch (ArrayIndexOutOfBoundsException ex) {
-	  return null;
-	}
+        try {
+          return (Student)this.studentsSet.toArray()[0];
+        }
+        catch (ArrayIndexOutOfBoundsException ex) {
+          return null;
+        }
       }
     }
 
-    public Supervisor getSupervisor()
-    {
+    public Supervisor getSupervisor() {
       if (this.supervisorsSet.size() > 1)
       {
-	throw new PersistenceException("There is more than one supervisor for credential "+this);
+        throw new PersistenceException("There is more than one supervisor for credential "+this);
       }
       else
       {
-	try {
-	  return (Supervisor)this.supervisorsSet.toArray()[0];
-	}
-	catch (ArrayIndexOutOfBoundsException ex) {
-	  return null;
-	}
+        try {
+          return (Supervisor)this.supervisorsSet.toArray()[0];
+        }
+        catch (ArrayIndexOutOfBoundsException ex) {
+          return null;
+        }
       }
     }
 
@@ -104,14 +102,14 @@ public class UserCredentials extends Model {
     public static class CompareByRole implements Comparator<UserCredentials> {
       @Override
       public int compare (UserCredentials uc1, UserCredentials uc2) {
-	return uc1.userRol.role.compareTo(uc2.userRol.role);
+  return uc1.userRol.role.compareTo(uc2.userRol.role);
       }
     }
 
     public static class CompareByUserName implements Comparator<UserCredentials> {
       @Override
-      public int compare (UserCredentials uc1, UserCredentials uc2) {
-	return uc1.userName.compareTo(uc2.userName);
+        public int compare (UserCredentials uc1, UserCredentials uc2) {
+        return uc1.userName.compareTo(uc2.userName);
       }
     }
 }
