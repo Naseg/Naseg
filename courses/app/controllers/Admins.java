@@ -28,7 +28,7 @@ public class Admins extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
-      Student student = Student.find().byId(studentId);
+      Student student = Student.find.byId(studentId);
       List<Course> studyPlan = student.getStudyPlan();
       List<Course> coursesNotInSp = new ArrayList();
       for (Course c: Course.all())
