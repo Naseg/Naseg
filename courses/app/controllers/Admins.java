@@ -24,6 +24,23 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  public static Result studentDetails(Long studentId) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      Student student = Student.find.byId(studentId);
+      List<Course> studyPlan = student.getStudyPlan();
+      List<Course> coursesNotInSp = new ArrayList();
+      for (Course c: Course.all())
+        if (!studyPlan.contains(c))
+          coursesNotInSp.add(c);
+      Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
+      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,SecuredApplication.courseForm,enrollments));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
   public static Result students() {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
