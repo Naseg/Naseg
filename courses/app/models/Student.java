@@ -188,10 +188,10 @@ public class Student extends Model {
       int currentYear = Course.AcademicYear();
       for (CourseEnrollment enrollment : enrollments)
       {
-	if (enrollment.getCourse().academicYear == currentYear)
-	{
-	  studyPlan.add(enrollment.getCourse());
-	}
+        if (enrollment.getCourse().academicYear == currentYear)
+        {
+          studyPlan.add(enrollment.getCourse());
+        }
       }
       return studyPlan;
     }
@@ -200,11 +200,11 @@ public class Student extends Model {
     {
       Course c = Course.find.byId(idCourse);
       if (c==null)
-	return;
+        return;
       for (Course co : this.getStudyPlan())
       {
-	if (co.courseID == idCourse.intValue())
-	  return;
+        if (co.courseID == idCourse.intValue())
+          return;
       }
       CourseEnrollment ce = new CourseEnrollment();
       ce.isFinished = false;
@@ -219,34 +219,62 @@ public class Student extends Model {
     {
       for (CourseEnrollment ce : this.getCoursesEnrollmentSet())
       {
-	if (ce.getCourse().courseID == idCourse.intValue())
-	  ce.delete();
+        if (ce.getCourse().courseID == idCourse.intValue())
+          ce.delete();
       }
     }
 
     public void approvalRequest()
     {
-        this.isPlanApproved = 1;
-        this.update();
+      this.isPlanApproved = 1;
+      this.update();
     }
 
     public void acceptSP()
     {
-        this.isPlanApproved = 2;
-        this.update();
+      this.isPlanApproved = 2;
+      this.update();
     }
 
     public void rejectSP()
     {
-        this.isPlanApproved = 0;
-        this.update();
+      this.isPlanApproved = 0;
+      this.update();
     }
 
     public boolean waitingForApproval()
     {
-        if (this.isPlanApproved!=null && this.isPlanApproved == 1)
-            return true;
-        else
-            return false;
+      if (this.isPlanApproved!=null && this.isPlanApproved == 1)
+        return true;
+      else
+        return false;
+    }
+
+    public static List<Student> getNotSuspended()
+    {
+      List<Student> students = new ArrayList();
+      for (Student s: Student.all())
+      {
+        if (!s.isSuspended) //isSuspended is required
+        {
+          students.add(s);
+        }
+      }
+      return students;
+    }
+
+    public static class CompareByName implements Comparator<Student> {
+      @Override
+      public int compare (Student s1, Student s2) {
+    int comparison = s1.lastName.compareTo(s2.lastName);
+    if (comparison == 0)
+    {
+      return s1.firstName.compareTo(s2.firstName);
+    }
+    else
+    {
+      return comparison;
+    }
+      }
     }
 }
