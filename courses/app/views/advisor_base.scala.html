@@ -1,4 +1,4 @@
-@(user: UserCredentials, students: List[Student])(sideContents: Html)(centralContents: Html)(script: Html)
+@(user: UserCredentials, students: List[Student])(sideContents: Html)(centralLeftContents: Html)(centralRightContents: Html)(script: Html)
 
 @main {
 
@@ -16,9 +16,8 @@
         }
         </br>
         @for(student <- students) {
-          	<li><font size="4" face="Courier">@student.fullName</font></li>
-	        <li> 
-	            <a data-toggle="modal" href="/supervisor/studyplan/@student.userID">
+          	<li>
+          	    <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
 	                <!-- Se ha richieste d'approvazione -->
 	                @if(student.isPlanApproved == 1) {
 	                    <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
@@ -27,13 +26,7 @@
 	                    <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
 	                <!------------------------------------>
 	                }
-	                StudyPlan=@student.isPlanApproved
-	            </a>
-	        </li>
-	        <li>
-	            <a data-toggle="modal" href="/supervisor/career/@student.userID">
-	                <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
-	                Carriera
+	                <font size="4" face="Courier">@student.fullName</font>
 	            </a>
 	        </li>
 	        @sideContents
@@ -44,7 +37,10 @@
 } {
 <!---parte centrale -->
 
-	@centralContents
+    <div class="row-fluid">
+	    @centralLeftContents
+	    @centralRightContents
+	<div>
 
 } {
 

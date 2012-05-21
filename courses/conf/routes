@@ -23,12 +23,10 @@ GET     /student/studyplan/appreq           controllers.Students.appreq()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
-GET     /supervisor/studyplan               controllers.Supervisors.studyplan(id: Long ?= -1)
-GET     /supervisor/studyplan/:id           controllers.Supervisors.studyplan(id: Long)
-GET     /supervisor/career                  controllers.Supervisors.career(id: Long ?= -1)
-GET     /supervisor/career/:id              controllers.Supervisors.career(id: Long)
-POST    /supervisor/studyplan/acceptSP      controllers.Supervisors.acceptSP()
-POST    /supervisor/studyplan/rejectSP      controllers.Supervisors.rejectSP()
+GET     /supervisor/watchstudent               controllers.Supervisors.watchStudent(id: Long ?= -1)
+GET     /supervisor/watchstudent/:id           controllers.Supervisors.watchStudent(id: Long)
+POST    /supervisor/watchstudent/acceptSP      controllers.Supervisors.acceptSP()
+POST    /supervisor/watchstudent/rejectSP      controllers.Supervisors.rejectSP()
 
 # Administration
 GET     /admin                              controllers.Admins.index()
