@@ -181,6 +181,16 @@ public class Student extends Model {
       return enrollments;
     }
 
+    public String printIsPlanApproved()
+    {
+      if (this.isPlanApproved == null || this.isPlanApproved == 0)
+        return "Not yet completed";
+      else if (this.isPlanApproved == 1)
+        return "Waiting for approvation";
+      else
+        return "Approved";
+    }
+
     public List<Course> getStudyPlan()
     {
       Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
@@ -263,18 +273,57 @@ public class Student extends Model {
       return students;
     }
 
+    public static List<Student> getSuspended()
+    {
+      List<Student> students = new ArrayList();
+      for (Student s: Student.all())
+      {
+        if (s.isSuspended) //isSuspended is required
+        {
+          students.add(s);
+        }
+      }
+      return students;
+    }
+
     public static class CompareByName implements Comparator<Student> {
       @Override
       public int compare (Student s1, Student s2) {
-    int comparison = s1.lastName.compareTo(s2.lastName);
-    if (comparison == 0)
-    {
-      return s1.firstName.compareTo(s2.firstName);
+        int comparison = s1.lastName.compareTo(s2.lastName);
+        if (comparison == 0)
+        {
+          return s1.firstName.compareTo(s2.firstName);
+        }
+        else
+        {
+          return comparison;
+        }
+      }
     }
-    else
-    {
-      return comparison;
-    }
+
+    public static class CompareByStudyPlan implements Comparator<Student> {
+      @Override
+      public int compare (Student s1, Student s2) {
+        //if the studyplan is not compiled put first
+        if (s1.isPlanApproved == s2.isPlanApproved)
+          return 0;
+        if (s1.isPlanApproved == null || s1.isPlanApproved == 0)
+          return 1;
+        else if (s2.isPlanApproved == null || s2.isPlanApproved == 0)
+          return -1;
+        else
+        {
+          //if the studyplan is not aproved put second
+          if (s1.isPlanApproved == 1)
+            return 1;
+          else if (s2.isPlanApproved == 1)
+            return -1;
+          else
+          {
+            //if the studyplan is approved put third
+            return 0;
+          }
+        }
       }
     }
 }

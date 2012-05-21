@@ -48,7 +48,7 @@ public class Students extends Controller {
       Student student = uc.getStudent();
       List<Course> studyPlan = student.getStudyPlan();
       List<Course> coursesNotInSp = new ArrayList();
-      for (Course c: Course.all())
+      for (Course c: Course.currentCourses())
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
       return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, SecuredApplication.courseForm));

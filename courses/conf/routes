@@ -31,10 +31,12 @@ POST    /supervisor/watchstudent/rejectSP      controllers.Supervisors.rejectSP(
 # Administration
 GET     /admin                              controllers.Admins.index()
 GET     /admin/courses                      controllers.Admins.courses()
+GET     /admin/oldcourses                   controllers.Admins.oldcourses()
 GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)
 GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
 GET     /admin/students                     controllers.Admins.students()
 GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
+GET     /admin/suspended_students           controllers.Admins.suspendedStudents()
 GET     /admin/credentials                  controllers.Admins.credentials()
 
 # Map static resources from the /public folder to the /assets URL path

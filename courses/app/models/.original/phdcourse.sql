@@ -81,11 +81,11 @@ INSERT INTO `courses` (`course_ID`, `notes`, `actual_start_date`, `institution`,
 (2, 'external course', NULL, 'University of Bolzano', 'Bolzano', 3, 'Human Computer Interaction', 2012, 0, 0, 0, 0, 0, 'UNKNOWN', 0, 'http://bolzano-courses.edu/hci', 0, 0, NULL),
 (3, 'internal course / started', '2012-04-05', 'Universiti of Trento', 'Povo 1, room 12', 3, 'Research Methodology II', 2012, 1, 1, 1, 3000, 0, 'Spring 2012', 0, 'http://research-methodology.net', 0, 0, 1),
 (4, 'internal course / finished', '2012-02-01', 'University of Trento', 'Povo 0, room Ofek', 3, 'Research Methodology I', 2012, 1, 1, 1, 5000, 4500, 'Winter 2012', 1, 'http://research-methodology.net', 0, 0, 1),
-(5, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(6, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(7, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(8, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(9, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
+(5, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
+(6, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
+(7, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
+(8, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2009, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
+(9, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2008, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
 (10, NULL, NULL, 'Università', 'Trento', NULL, 'DEMO', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL);
 
 -- --------------------------------------------------------
@@ -441,7 +441,7 @@ INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, 
 (6, 'silvanoRogi', 'calcolatrice', 5),
 (7, 'drago', 'dlf', 5),
 (20, 'nato', 'male', 3),
-(8, 'banane', 'beep', 3),(9, 'mario', 'mario', 3),
+(8, 'banane', 'beep', 3),
 (9, 'mario', 'mario', 3),
 (16, 'admin', 'admin', 1);
 

@@ -18,8 +18,21 @@ public class Admins extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
-      List<Course> courses = Course.all();
+      List<Course> courses = Course.currentCourses();
+      Collections.sort(courses,new Course.CompareByDate());
       return ok(admin_courses.render(uc,courses));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result oldcourses() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      List<Course> courses = Course.oldCourses();
+      Collections.sort(courses,new Course.CompareByDate());
+      return ok(admin_oldcourses.render(uc,courses));
     }
     else
       return unauthorized(forbidden.render());
@@ -48,7 +61,20 @@ public class Admins extends Controller {
     {
       List<Student> students = Student.getNotSuspended();
       Collections.sort(students,new Student.CompareByName());
+      Collections.sort(students,new Student.CompareByStudyPlan());
       return ok(admin_students.render(uc,students));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result suspendedStudents() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      List<Student> students = Student.getSuspended();
+      Collections.sort(students,new Student.CompareByName());
+      return ok(admin_suspended_students.render(uc,students));
     }
     else
       return unauthorized(forbidden.render());
