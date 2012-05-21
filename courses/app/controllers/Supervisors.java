@@ -15,7 +15,7 @@ public class Supervisors extends Controller {
       UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); 
       if (Secured.isSupervisor(uc))
       {
-        return redirect(routes.Supervisors.studyplan(-1));
+        return redirect(routes.Supervisors.watchStudent(-1));
       }
       else
       {
@@ -23,7 +23,7 @@ public class Supervisors extends Controller {
       }
     }
 
-    public static Result studyplan(Long id)
+    public static Result watchStudent(Long id)
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
         if (Secured.isSupervisor(uc))
@@ -32,10 +32,10 @@ public class Supervisors extends Controller {
             List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
             Student student;
 
-	    if (students.size() == 0)
-	    {
-	      return ok(advisor_nostudents.render(uc));
-	    }
+	        if (students.size() == 0)
+	        {
+	          return ok(advisor_nostudents.render(uc));
+	        }
             else if (id == -1)
             {
                 student = (Student) students.toArray()[0];
@@ -45,14 +45,14 @@ public class Supervisors extends Controller {
                 student = Student.find.byId(id); 
             }
             
-            return ok(advisor_studyplans.render(uc, students, student));
+            return ok(advisor_watchStudent.render(uc, students, student));
         }
         else
         {
             return unauthorized(forbidden.render());
         }
     }
-
+/*
     public static Result career(Long id)
     {
         UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -82,7 +82,7 @@ public class Supervisors extends Controller {
             return unauthorized(forbidden.render());
         }
     }
-    
+*/    
     public static Result acceptSP()
     {
         Long idStudente;
@@ -96,7 +96,7 @@ public class Supervisors extends Controller {
         student.acceptSP();
         System.out.println("student.isPlanApproved: " + student.isPlanApproved);
         
-        return redirect(routes.Supervisors.studyplan(idStudente));
+        return redirect(routes.Supervisors.watchStudent(idStudente));
     }
     
     public static Result rejectSP()
@@ -112,7 +112,7 @@ public class Supervisors extends Controller {
         student.rejectSP();
         System.out.println("student.isPlanApproved: " + student.isPlanApproved);
         
-        return redirect(routes.Supervisors.studyplan(idStudente));
+        return redirect(routes.Supervisors.watchStudent(idStudente));
     }
 }
 

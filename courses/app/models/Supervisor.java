@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
+import play.db.ebean.Model.Finder; // bug fix - ma perche' ?
 import play.data.format.*;
 import play.data.validation.*;
 
