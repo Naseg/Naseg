@@ -101,6 +101,13 @@ public class Course extends Model {
       return currentYear;
     }
 
+    public String getActualStartDate() {
+      if (this.actualStartDate != null)
+        return new java.text.SimpleDateFormat("yyyy-MM-dd").format(this.actualStartDate);
+      else
+        return "";
+    }
+
     public Supervisor getProfessor()
     {
       Supervisor s = this.professor;

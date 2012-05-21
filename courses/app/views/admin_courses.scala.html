@@ -1,4 +1,4 @@
-@(user: UserCredentials)
+@(user: UserCredentials, courses: List[Course])
 
 @admin_base(user) {
 
@@ -6,27 +6,35 @@
 } {
 
 <div class="span6">
-			      <h2>ListaCorsi</h2>
-			      <table class="table table-bordered">
-			<thead>
-			  <tr>
-			    <th>Nome Corso</th>
-			    <th>Docente</th>
-			    <th>Periodo</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  
-			</tbody>
-		      </table>
-		    <p align="right">
-			<a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
-		    <br>
-		    <br>
+  <h2>Courses</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+	<th>Course Name</th>
+	<th>Professor</th>
+	<th>Start Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(course <- courses) {
+          <tr>
+            <td>@course.courseName</td>
+            <td>@if(course.getProfessor()!=null) {
+              @course.getProfessor().firstName @course.getProfessor().lastName
+            }</td>
+            <td>@course.getActualStartDate</td>
+          </tr>
+        }
+    </tbody>
+  </table>
+  <p align="right">
+    <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
+    <br>
+    <br>
 </div><!--span1 -->
 
 <div class="span6">
-		       <h2>Filtro</h2>
+  <h2>Filtro</h2>
 </div>
 
 

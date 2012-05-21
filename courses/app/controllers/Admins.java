@@ -18,7 +18,8 @@ public class Admins extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
-      return ok(admin_courses.render(uc));
+      List<Course> courses = Course.all();
+      return ok(admin_courses.render(uc,courses));
     }
     else
       return unauthorized(forbidden.render());
