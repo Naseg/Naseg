@@ -7,8 +7,12 @@ import java.util.*;
 import models.*;
 import views.html.*;
 
+import play.data.Form;
+import models.FormData;
+
 @Security.Authenticated(Secured.class)
 public class Admins extends Controller {
+  static Form<Course> courseForm = form(Course.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
@@ -49,7 +53,7 @@ public class Admins extends Controller {
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
       Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
-      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,SecuredApplication.courseForm,enrollments));
+      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,enrollments));
     }
     else
       return unauthorized(forbidden.render());

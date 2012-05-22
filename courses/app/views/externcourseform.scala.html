@@ -7,17 +7,9 @@
 
 @helper.form(action = submitController) {
        <fieldset>
-            <legend>Account informations</legend>
-
             @inputText(
                 courseForm("courseName"),
                 '_label -> "Course name"
-            )
-
-            @inputText(
-                courseForm("notes"),
-                '_label -> "Notes",
-                '_error -> courseForm.globalError
             )
 
             @inputText(
@@ -40,72 +32,9 @@
                 '_label -> "Url"
             )
 
-            @inputText(
-                courseForm("credits"), 
-                '_label -> "Credits", 'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @inputText(
-                courseForm("accademicYear"), 
-                '_label -> "Accademic year", 'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @inputText(
-                courseForm("budgetedCost"), 
-                '_label -> "Budgeted cost", 'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @inputText(
-                courseForm("actualCost"), 
-                '_label -> "Actual cost", 'class -> "mini",
-                '_showConstraints -> false
-            )
-
-            @select(
-                courseForm("professor"), 
-                options(Supervisor.options),
-                '_default -> "--- Choose the professor ---",
-                '_label -> "Professors",
-                '_error -> courseForm("professor").error.map(_.withMessage("Please select the professor"))
-            )
-
-            @checkbox(
-                courseForm("isInManifesto"), 
-                '_label -> "Is in manifesto",
-                '_showConstraints -> false
-            )
-
-            @checkbox(
-                courseForm("isByUNITN"), 
-                '_label -> "Is a UNITN course",
-                '_showConstraints -> false
-            )
-
-            @checkbox(
-                courseForm("isPaid"), 
-                '_label -> "Is paid",
-                '_showConstraints -> false
-            )
-
-            @checkbox(
-                courseForm("areAllMarksDefined"), 
-                '_label -> "All marks defined",
-                '_showConstraints -> false
-            )
-
-            @checkbox(
-                courseForm("isPaymentCompleted"), 
-                '_label -> "Payment completed",
-                '_showConstraints -> false
-            )
-
-            @checkbox(
-                courseForm("deleted"), 
-                '_label -> "Is deleted",
-                '_showConstraints -> false
+            @inputDate(
+                courseForm("actualStartDate"),
+                '_label -> "Start Date (yyyy-mm-dd)"
             )
         </fieldset>
         <div class="actions">

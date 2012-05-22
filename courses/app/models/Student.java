@@ -308,16 +308,16 @@ public class Student extends Model {
         if (s1.isPlanApproved == s2.isPlanApproved)
           return 0;
         if (s1.isPlanApproved == null || s1.isPlanApproved == 0)
-          return 1;
-        else if (s2.isPlanApproved == null || s2.isPlanApproved == 0)
           return -1;
+        else if (s2.isPlanApproved == null || s2.isPlanApproved == 0)
+          return 1;
         else
         {
           //if the studyplan is not aproved put second
           if (s1.isPlanApproved == 1)
-            return 1;
-          else if (s2.isPlanApproved == 1)
             return -1;
+          else if (s2.isPlanApproved == 1)
+            return 1;
           else
           {
             //if the studyplan is approved put third

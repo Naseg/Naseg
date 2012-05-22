@@ -101,13 +101,19 @@ public class Students extends Controller {
   public static Result newExternCourse() {
     Form<Course> filledForm = courseForm.bindFromRequest();
     if(filledForm.hasErrors()) {
-      System.out.println(filledForm.errors());
       return Students.studyplan(filledForm);
     }
     else
     {
-      Course.create(filledForm.get());
-      return ok("creato");
+      Course newcourse = filledForm.get();
+      newcourse.academicYear = Course.AcademicYear();
+      newcourse.credits = 3;
+      newcourse.isInManifesto = false;
+      newcourse.notes = "external course";
+      newcourse.isbyUNITN = false;
+      newcourse.deleted = false;
+      Course.create(newcourse);
+      return redirect(routes.Students.studyplan());
     }
   }
 }

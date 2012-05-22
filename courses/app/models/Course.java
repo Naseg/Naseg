@@ -126,12 +126,12 @@ public class Course extends Model {
         return "";
     }
 
-    public Supervisor getProfessor()
+  public Supervisor getProfessor()
     {
       Supervisor s = this.professor;
       if (s != null)
       {
-        s.refresh();//String a = s.firstName;//does nothing, force fetching from db
+        String a = s.firstName;//does nothing, force fetching from db
       }
       return s;
     }
