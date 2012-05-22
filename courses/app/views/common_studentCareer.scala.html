@@ -1,0 +1,51 @@
+@(user: UserCredentials, enrollments: Set[CourseEnrollment])
+
+<!-- Dialog dei Dettagli Corso -->
+@courseDetailsModal(CourseEnrollment.enrollmentsToCourses(enrollments))
+
+<!-- Fine dialog dei Dettagli Corso -->
+
+<!-- Parte centrale -->
+
+<div class="row-fluid">
+    <div class="span6">
+        <h2>Carriera</h2>
+        <table class="table table-bordered">
+            <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome Corso</th>
+          <th>Docente</th>
+          <th>Esito</th>
+          <th>Crediti</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(enrollment <- enrollments) {
+          <tr>
+	    <td>@enrollment.getCourse.courseID</td>
+	    <td>@enrollment.getCourse.courseName</td>
+	    <td>@if(enrollment.getCourse.professor != null)  {
+	      @enrollment.getCourse.getProfessor.lastName
+	    }</td>
+	    @if(enrollment.credits == enrollment.credits) {
+	      <td>Passato</td>
+	    } else {
+              <td>Non Passato</td>
+            }
+	    <td>@enrollment.credits</td>
+            <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+	    </td>
+          </tr>
+          }
+      </tbody>
+    </table>
+    <p align="center">
+        <!-- noting for now -->
+    </p>
+  </div>
+</div>
+
+<!-- Fine parte centrale -->
+
+

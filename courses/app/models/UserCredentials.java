@@ -92,6 +92,11 @@ public class UserCredentials extends Model {
       return (this.userRol.role.equals("admin"));
     }
 
+    public boolean isStudent() //<- aggiungere nel model!
+    {
+      return (this.userRol.role.equals("student"));
+    }
+
     public UserRole getUserRol()
     {
       UserRole ur = this.userRol;

@@ -18,7 +18,8 @@ public class Students extends Controller {
     return redirect(routes.Students.studyplan());
   }
 
-  public static Result addToStudyPlan(Long idCourse) {
+//rivedere add e rm
+  public static Result addToStudyPlan(Long idCourse, Long idStudent) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
     {
@@ -27,11 +28,18 @@ public class Students extends Controller {
       return redirect(
         routes.Students.index());
     }
+    else if (Secured.isAdmin(uc))
+    {
+      Student s = Student.find.byId(idStudent);
+      s.addToStudyPlan(idCourse);
+      return redirect(
+        routes.Admins.studentDetails(idStudent));
+    }
     else
       return unauthorized(forbidden.render());
   }
 
-  public static Result rmFromStudyPlan(Long idCourse) {
+  public static Result rmFromStudyPlan(Long idCourse, Long idStudent) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
     {
@@ -39,6 +47,13 @@ public class Students extends Controller {
       s.rmFromStudyPlan(idCourse);
       return redirect(
         routes.Students.index());
+    }
+    else if (Secured.isAdmin(uc))
+    {
+      Student s = Student.find.byId(idStudent);
+      s.rmFromStudyPlan(idCourse);
+      return redirect(
+        routes.Admins.studentDetails(idStudent));
     }
     else
       return unauthorized(forbidden.render());
@@ -59,7 +74,7 @@ public class Students extends Controller {
       for (Course c: Course.currentCourses())
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
-      return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, form));
+      return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
     }
     else
     {

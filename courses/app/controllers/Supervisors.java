@@ -52,37 +52,7 @@ public class Supervisors extends Controller {
             return unauthorized(forbidden.render());
         }
     }
-/*
-    public static Result career(Long id)
-    {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-        if (Secured.isSupervisor(uc))
-        {
-            Supervisor supervisor = uc.getSupervisor();
-            List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
-            Student student;
-            
-            if (students.size() == 0)
-	        {
-	            return ok(advisor_nostudents.render(uc));
-	        }
-            else if (id == -1)
-            {
-                student = (Student) students.toArray()[0];
-            }
-            else
-            {
-                student = Student.find.byId(id);
-            }
-            
-            return ok(advisor_careers.render(uc, students, student));
-        }
-        else
-        {
-            return unauthorized(forbidden.render());
-        }
-    }
-*/    
+    
     public static Result acceptSP()
     {
         Long idStudente;

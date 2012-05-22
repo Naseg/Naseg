@@ -14,8 +14,8 @@ GET     /logout                             controllers.Authentication.logout()
 
 # Studente
 GET     /student                            controllers.Students.index()
-GET     /student/addtosp/:course            controllers.Students.addToStudyPlan(course: Long)
-GET     /student/rmfromsp/:course           controllers.Students.rmFromStudyPlan(course: Long)
+GET     /student/addtosp/:course/:idstud    controllers.Students.addToStudyPlan(course: Long, idstud: Long)
+GET     /student/rmfromsp/:course/:idstud   controllers.Students.rmFromStudyPlan(course: Long, idstud: Long)
 GET     /student/career                     controllers.Students.career()
 GET     /student/studyplan                  controllers.Students.studyplan()
 GET     /student/studyplan/appreq           controllers.Students.appreq()
