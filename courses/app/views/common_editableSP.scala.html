@@ -1,3 +1,111 @@
+@(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
+
 <!-- Dialog del Nuovo Corso -->
 
+
+
+@externCourseFormModal(courseForm, routes.Students.newExternCourse())
+
+<!-- Fine dialog del nuovo corso -->
+
+
+<!-- Dialog dei Dettagli Corso -->
+
+@courseDetailsModal(courses)
+@courseDetailsModal(studyplan)
+
+<!-- Fine dialog dei Dettagli Corso -->
+
+<!---parte centrale -->
+
+<div class="row-fluid">
+  <h2 align="center">@selectedStudent.fullName</h2>
+</div>
+
+</br>
+</br>
+<div class="row-fluid">
+ 
+  <div class="span6">
+    <h2>StudyPlan
+      @if(user.isStudent()) {
+        @if(user.getStudent().isPlanApproved == 0 || user.getStudent().isPlanApproved == null) {
+          (In costruzione)
+        } else {
+          @if(user.getStudent().isPlanApproved == 1) {
+            (In attesa d'approvazione)
+          } else {
+            @if(user.getStudent().isPlanApproved == 2) {
+              (Approvato)
+            }
+          }
+        }
+      }
+    </h2>
+    <!-- se è in richiesta d'approvazione o è accettato, tolgo le colonne per le modifiche -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome Corso</th>
+          <th>Docente</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      @for(course <- studyplan) {
+        <tr>
+	  <td>@course.courseID</td>
+	  <td>@course.courseName</td>
+	  <td>@if(course.professor != null)  {
+                @course.getProfessor.lastName
+              }
+	  </td>
+	  <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+	    <td><a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
+        </tr>
+      }
+      </tbody>
+    </table>
+    <p align="center">
+      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
+      @if(user.isStudent()) {
+        <a data-toggle="modal" href="/student/studyplan/appreq" class="btn btn-primary btn-large">Richiedi Approvazione</a>
+      }
+  </div><!--span1 -->
+
+  <div class="span6">
+    <!--
+       <form class="well form-search">
+         <input type="text" class="input-medium search-query">
+         <button type="submit" class="btn">Search</button>
+       </form>
+     -->
+    <h2>Lista Corsi</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome Corso</th>
+          <th>Docente</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(course <- courses) {
+           <tr>
+	     <td>@course.courseID</td>
+	     <td>@course.courseName</a></td>
+             <td>@if(course.professor != null) {
+	           @course.getProfessor.lastName
+                 }
+	     </td>
+             <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
+             <td><a href="/student/addtosp/@course.courseID/@selectedStudent.userID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
+           </tr>
+        }
+      </tbody>
+    </table>
+  </div><!--span-->
+</div><!--row-->
 
