@@ -1,9 +1,9 @@
-@(courseForm: Form[Course])
+@(courseForm: Form[Course], submitController: play.api.mvc.Call)
 
 @import helper._
 @import helper.twitterBootstrap._
     
-@helper.form(action = routes.SecuredApplication.newExternCourse) {
+@helper.form(action = submitController) {
        <fieldset>
             <legend>Account informations</legend>
             @inputText(

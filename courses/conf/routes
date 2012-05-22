@@ -6,7 +6,6 @@
 GET     /                           controllers.Application.index()
 GET     /home                       controllers.SecuredApplication.index()
 GET     /provadb	                controllers.Application.provadb()
-POST    /newexterncourse            controllers.SecuredApplication.newExternCourse()
 
 # Authentication
 #GET    /login                              controllers.Authentication.login()
@@ -20,6 +19,7 @@ GET     /student/rmfromsp/:course           controllers.Students.rmFromStudyPlan
 GET     /student/career                     controllers.Students.career()
 GET     /student/studyplan                  controllers.Students.studyplan()
 GET     /student/studyplan/appreq           controllers.Students.appreq()
+POST    /student/studyplan                  controllers.Students.newExternCourse()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()

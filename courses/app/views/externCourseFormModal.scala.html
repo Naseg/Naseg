@@ -1,4 +1,4 @@
-@(courseForm: Form[Course], urlChiamante: String)
+@(courseForm: Form[Course], submitController: play.api.mvc.Call)
 
 <div class="modal hide fade" id="windowTitleDialog_newExternCourse" style="display: none; ">
 
@@ -10,7 +10,7 @@
     </div>
     
     <div class="modal-body">
-        @externcourseform(courseForm, urlChiamante)
+        @externcourseform(courseForm, submitController)
     </div>
     
 </div>

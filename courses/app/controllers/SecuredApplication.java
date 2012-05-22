@@ -11,8 +11,8 @@ import models.FormData;
 
 @Security.Authenticated(Secured.class)
 public class SecuredApplication extends Controller {
-
     static Form<Course> courseForm = form(Course.class);
+    static Form<UserCredentials> userCredentialsForm = form(UserCredentials.class);
 
     public static Result index() {
 
@@ -25,16 +25,5 @@ public class SecuredApplication extends Controller {
     return ok(authIndex.render(uc,form(Authentication.Login.class)));
 
     }
-
-    public static Result newExternCourse() {
-        Form<Course> filledForm = courseForm.bindFromRequest();
-        if(filledForm.hasErrors()) {
-            return badRequest(courseform.render(filledForm));  // ho aggiunto un hidden-input per sapere dove redirezionarci, ma non so prenderlo!
-        } else {
-            Course.create(filledForm.get());
-            return ok("creato");
-        }
-    }
-  
 }
 

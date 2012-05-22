@@ -7,8 +7,12 @@ import java.util.*;
 import models.*;
 import views.html.*;
 
+import play.data.Form;
+import models.FormData;
+
 @Security.Authenticated(Secured.class)
 public class Students extends Controller {
+  static Form<Course> courseForm = form(Course.class);
 
   public static Result index() {
     return redirect(routes.Students.studyplan());
@@ -41,6 +45,10 @@ public class Students extends Controller {
   }
 
   public static Result studyplan() {
+    return Students.studyplan(courseForm);
+  }
+
+  public static Result studyplan(Form<Course> form) {
     String username = request().username();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
@@ -51,7 +59,7 @@ public class Students extends Controller {
       for (Course c: Course.currentCourses())
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
-      return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, SecuredApplication.courseForm));
+      return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, form));
     }
     else
     {
@@ -87,6 +95,19 @@ public class Students extends Controller {
     else
     {
       return unauthorized(forbidden.render());
+    }
+  }
+
+  public static Result newExternCourse() {
+    Form<Course> filledForm = courseForm.bindFromRequest();
+    if(filledForm.hasErrors()) {
+      System.out.println(filledForm.errors());
+      return Students.studyplan(filledForm);
+    }
+    else
+    {
+      Course.create(filledForm.get());
+      return ok("creato");
     }
   }
 }
