@@ -1,4 +1,4 @@
-@(student: Student)
+@(student: Student, studentForm: Form[Student])
 
 <div class="modal hide fade" id="windowTitleDialog_studentDetails" style="display: none; ">
 
@@ -10,7 +10,7 @@
   </div>
   
   <div class="modal-body">
-    @studentdetails(student)
+    @studentdetails(student,studentForm)
   </div>
   
 </div>

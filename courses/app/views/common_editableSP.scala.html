@@ -1,9 +1,5 @@
 @(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
 
-<!-- Inclusioni Modal -->
-
-@studentDetailsModal(selectedStudent)
-
 <!-- Dialog del Nuovo Corso -->
 
 @externCourseFormModal(courseForm, routes.Students.newExternCourse())

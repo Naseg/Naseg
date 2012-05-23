@@ -1,4 +1,4 @@
-@(student: Student)
+@(student: Student, studentForm: Form[Student])
 
 <!-- Modal -->
 
@@ -18,12 +18,102 @@
     <a data-dismiss="modal" href="#" class="btn btn-large">Annulla</a>
     <a href="@routes.Admins.suspendStudent(student.userID.longValue)" class="btn btn-primary btn-large">Sospendi lo studente</a>
   </div>
-    
+
 </div>
 
 <!-- Form -->
+@import helper._
+@import helper.twitterBootstrap._
 
-  mettici un form dio la fagiana!    
+@helper.form(action = routes.Admins.editStudentData(student.userID.longValue)) {
+
+    @inputText(
+      studentForm("firstName"),
+      '_label -> "First name"
+    )
+
+    @inputText(
+      studentForm("lastName"),
+      '_label -> "Last name"
+    )
+
+    @inputText(
+      studentForm("courseYear"),
+      '_label -> "Course year",
+      'class -> "mini",
+      '_showConstraints -> false
+    )
+
+    @checkbox(
+      studentForm("admittedConditionally"), 
+      '_label -> "Admitted conditionally",
+      '_showConstraints -> false)
+    )
+
+    @inputText(
+      studentForm("legalResidence"),
+      '_label -> "Legal residence"
+    )
+
+    @inputText(
+      studentForm("currentDomicile"),
+      '_label -> "Current domicile"
+    )
+
+    @inputDate(
+      studentForm("dateOfBirth"),
+      '_label -> "Date of birth (yyyy-mm-dd)"
+    )
+
+    @inputText(
+      studentForm("placeOfBirth"),
+      '_label -> "Place of birth"
+    )
+
+    @inputText(
+      studentForm("officePhone"),
+      '_label -> "Office phone"
+    )
+
+    @inputText(
+      studentForm("mobilePhone"),
+      '_label -> "Mobile Phone"
+    )
+
+    @inputText(
+      studentForm("yearExtensionScholariship"),
+      '_label -> "Year exetension scholariship",
+      'class -> "mini",
+      '_showConstraints -> false
+    )
+
+    @inputText(
+      studentForm("commiteeMembers"),
+      '_label -> "Commitee members"
+    )
+
+    @inputText(
+      studentForm("email"),
+      '_label -> "Email"
+    )
+
+    @select(
+      studentForm("currentAdvisor.supervisorID"), 
+      options(Supervisor.options),
+      '_default -> "--- Choose the advisor ---",
+      '_label -> "Advisor",
+      '_error -> studentForm("currentAdvisor").error.map(_.withMessage("Please select the advisor"))
+    )
+
+    @select(
+      studentForm("isPlanApproved"),
+      options("0" -> "Not yet completed", "1" -> "Waiting for approval", "2" -> "Approved"),
+      '_default -> "--- Select an option ---",
+      '_label -> "Study Plan",
+      '_error -> studentForm("isPlanApproved").error.map(_.withMessage("Please select an option"))
+    )
+
+}
 
 <div>
   @if(student.isSuspended() == false) {

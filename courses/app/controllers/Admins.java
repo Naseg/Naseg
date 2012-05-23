@@ -13,6 +13,7 @@ import models.FormData;
 @Security.Authenticated(Secured.class)
 public class Admins extends Controller {
   static Form<Course> courseForm = form(Course.class);
+  static Form<Student> studentFormEditing = form(Student.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
@@ -43,6 +44,12 @@ public class Admins extends Controller {
   }
 
   public static Result studentDetails(Long studentId) {
+    Student student = Student.find.byId(studentId);
+    studentFormEditing.fill(student);
+    return Admins.studentDetails(studentId, studentFormEditing, false);
+  }
+
+  public static Result studentDetails(Long studentId, Form<Student> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
@@ -53,10 +60,37 @@ public class Admins extends Controller {
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
       List<CourseEnrollment> career = student.getEnrollmentsCareer();
-      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,career));
+      if (badRequest)
+        return badRequest(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,career,studentFormEditing));
+      else
+        return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,career,studentFormEditing));
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result editStudentData(Long studentId) {
+    Form<Student> filledForm = studentFormEditing.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      Student student = Student.find.byId(studentId);
+      if (filledForm.hasErrors())
+      {
+        return Admins.studentDetails(studentId,filledForm,true);
+      }
+      else
+      {
+        Student newstudent = filledForm.get();
+        student.delete();
+        Student.create(newstudent);
+        return redirect(routes.Admins.studentDetails(studentId));
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 
   public static Result students() {

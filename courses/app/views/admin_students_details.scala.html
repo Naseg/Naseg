@@ -1,4 +1,4 @@
-@(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course], enrollments: List[CourseEnrollment])
+@(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course], enrollments: List[CourseEnrollment], studentForm: Form[Student])
 
 @admin_base(user) {
 
@@ -7,6 +7,10 @@
 
 
 } {
+
+<!-- Inclusioni Modal -->
+
+@studentDetailsModal(selectedStudent, studentForm)
 
 <!-- Parte centrale -->
 
