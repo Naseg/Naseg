@@ -206,6 +206,66 @@ public class Student extends Model {
       return studyPlan;
     }
 
+/*
+    public String checkStudyPlan()
+    {
+      int internalCredits, externalCredits;
+      int internalInSP, externalInSP;
+      internalInSP = this.internalCreditsSP();
+      externalInSP = this.externalCreditsSP();
+      internalCredits = this.getInternalCredits();
+      externalCredits = this.getExternalCredits();
+      return "";
+    }
+
+    public int getInternalCredits()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      int credits = 0;
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (enrollment.getCourse().isInManifesto)//if internal
+            credits += enrollment.credits;
+      }
+      return credits;
+    }
+
+    public int internalCreditsSP()
+    {
+      List<Course> sp = this.getStudyPlan();
+      int credits = 0;
+      for (Course c : sp)
+      {
+        if (c.isInManifesto)
+          credits += c.credits;
+      }
+      return credits;
+    }
+
+    public int getExternalCredits()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      int credits = 0;
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (!enrollment.getCourse().isInManifesto)//if internal
+            credits += enrollment.credits;
+      }
+      return credits;
+    }
+
+    public int externalCreditsSP()
+    {
+      List<Course> sp = this.getStudyPlan();
+      int credits = 0;
+      for (Course c : sp)
+      {
+        if (!c.isInManifesto)
+          credits += c.credits;
+      }
+      return credits;
+    }*/
+
     public void addToStudyPlan(Long idCourse)
     {
       Course c = Course.find.byId(idCourse);
@@ -218,7 +278,7 @@ public class Student extends Model {
       }
       CourseEnrollment ce = new CourseEnrollment();
       ce.isFinished = false;
-      ce.credits = 3;
+      ce.credits = 0;
       ce.student = this;
       ce.course = c;
       ce.qualification = "";
