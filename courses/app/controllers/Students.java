@@ -91,8 +91,8 @@ public class Students extends Controller {
     if (Secured.isStudent(uc))
     {
       Student student = uc.getStudent();
-      Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
-      return ok(students_careers.render(uc, enrollments));
+      List<CourseEnrollment> career = student.getEnrollmentsCareer();
+      return ok(students_careers.render(uc, career));
     }
     else
     {
