@@ -206,16 +206,37 @@ public class Student extends Model {
       return studyPlan;
     }
 
-
     public String checkStudyPlan()
     {
+      String out = "";
       int internalCredits, externalCredits;
       int internalInSP, externalInSP;
       internalInSP = this.internalCreditsSP();
       externalInSP = this.externalCreditsSP();
       internalCredits = this.getInternalCredits();
       externalCredits = this.getExternalCredits();
-      return "";
+      if (this.courseYear == 1)
+      {
+        if (internalInSP < 15)
+          out += "For the first year, you must have at least 5 internal course";
+      }
+      if (this.courseYear == 3)
+      {
+        if (internalInSP + internalCredits < 15)
+          out += "You must have at least 15 credits at the end of your phd";
+        if (internalInSP + internalCredits + externalInSP + externalCredits < 24)
+          out += "Yout must have at least 24 credits at the end of your phd";
+      }
+      return out;
+    }
+
+    public boolean isStudyPlanOk()
+    {
+      String out = this.checkStudyPlan();
+      if (out.compareTo("") == 0)
+        return true;
+      else
+        return false;
     }
 
     public int getInternalCredits()

@@ -50,21 +50,23 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Nome Corso</th>
-          <th>Docente</th>
+          <th>Course Name</th>
+          <th>Professor</th>
+          <th>Type</th>
+          <th>Start Date</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
       @for(course <- studyplan) {
         <tr>
-	  <td>@course.courseID</td>
 	  <td>@course.courseName</td>
 	  <td>@if(course.professor != null)  {
                 @course.getProfessor.lastName
               }
 	  </td>
+          <td>@course.printType</td>
+          <td>@course.printActualStartDate</td>
 	  <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
 	    <td><a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
         </tr>
