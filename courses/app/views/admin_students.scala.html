@@ -4,6 +4,9 @@
 
 
 } {
+
+<!-- corpo della pagina -->
+
 <div class="span6">
   <h2>Students</h2>
   <table class="table table-bordered">
@@ -24,12 +27,39 @@
         }
     </tbody>
   </table>
-  <br>
-  <br>
+  
+  <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Sodomizza ritardatari</a>
+  
+  <br />
+  <br />
 </div><!--span1 -->
 
 <!--- LA RIMOZIONE DEI CORSI VERRA GESTITA NEL MODAL DETTAGLI -->
 <div class="span6">
   <h2>Filtro</h2>
 </div>
+} {
+
+<!-- modal mail a studenti ritardatari -->
+
+<div class="modal hide fade" id="windowTitleDialog_mailtoSR" style="display: none; ">
+
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Avviso agli studenti ritardatari</h3>
+    <p>
+      Con questo form stai per inviare un sollecito tramite posta elettronica a tutti gli studenti che non hanno ancora definito uno study plan.<br />
+      Vuoi procedere con l'operazione?
+    </p>
+  </div>
+  
+  <div class="modal-body">
+    <a data-dismiss="modal" href="#" class="btn btn-large">Annulla</a>
+    <a data-dismiss="modal" href="#" class="btn btn-primary btn-large">Manda avviso</a>
+  </div>
+  
+</div>
+
 }
