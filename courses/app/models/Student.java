@@ -206,7 +206,7 @@ public class Student extends Model {
       return studyPlan;
     }
 
-/*
+
     public String checkStudyPlan()
     {
       int internalCredits, externalCredits;
@@ -224,7 +224,7 @@ public class Student extends Model {
       int credits = 0;
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (enrollment.getCourse().isInManifesto)//if internal
+        if (enrollment.getCourse().isInManifesto && enrollment.credits!=null)//if internal
             credits += enrollment.credits;
       }
       return credits;
@@ -236,7 +236,7 @@ public class Student extends Model {
       int credits = 0;
       for (Course c : sp)
       {
-        if (c.isInManifesto)
+        if (c.isInManifesto && c.credits!=null)
           credits += c.credits;
       }
       return credits;
@@ -248,7 +248,7 @@ public class Student extends Model {
       int credits = 0;
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (!enrollment.getCourse().isInManifesto)//if internal
+        if (!enrollment.getCourse().isInManifesto && enrollment.credits!=null)//if internal
             credits += enrollment.credits;
       }
       return credits;
@@ -260,11 +260,11 @@ public class Student extends Model {
       int credits = 0;
       for (Course c : sp)
       {
-        if (!c.isInManifesto)
+        if (!c.isInManifesto && c.credits!=null)
           credits += c.credits;
       }
       return credits;
-    }*/
+    }
 
     public void addToStudyPlan(Long idCourse)
     {
