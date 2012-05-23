@@ -49,11 +49,11 @@ public class Admins extends Controller {
       Student student = Student.find.byId(studentId);
       List<Course> studyPlan = student.getStudyPlan();
       List<Course> coursesNotInSp = new ArrayList();
-      for (Course c: Course.all())
+      for (Course c: Course.currentCourses())
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
-      Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
-      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,enrollments));
+      List<CourseEnrollment> career = student.getEnrollmentsCareer();
+      return ok(admin_students_details.render(uc,student,studyPlan,coursesNotInSp,courseForm,career));
     }
     else
       return unauthorized(forbidden.render());

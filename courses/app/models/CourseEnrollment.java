@@ -60,11 +60,19 @@ public class CourseEnrollment extends Model {
       return c;
     }
 
-    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
+    public static List<Course> enrollmentsToCourses(List<CourseEnrollment> enrollments)
     {
       List<Course> out = new ArrayList();
       for (CourseEnrollment enrollment : enrollments)
 	out.add(enrollment.getCourse());
       return out;
+    }
+
+    public String printResult()
+    {
+      if (this.credits == this.getCourse().credits)
+        return "Passed";
+      else
+        return "Not passed";
     }
 }
