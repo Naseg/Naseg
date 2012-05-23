@@ -234,13 +234,21 @@ public class Student extends Model {
         if (internalInSP < 15)
           out += "For the first year, you must have at least 5 internal course";
       }
-      if (this.courseYear == 3)
+      else if (this.courseYear == 2)
+      {
+      }
+      else if (this.courseYear == 3)
       {
         if (internalInSP + internalCredits < 15)
           out += "You must have at least 15 credits at the end of your phd";
         if (internalInSP + internalCredits + externalInSP + externalCredits < 24)
           out += "Yout must have at least 24 credits at the end of your phd";
       }
+      else
+      {
+        out += "Your course year is unrecognized.";
+      }
+      
       return out;
     }
 
