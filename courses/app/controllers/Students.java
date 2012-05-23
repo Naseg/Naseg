@@ -115,20 +115,40 @@ public class Students extends Controller {
 
   public static Result newExternCourse() {
     Form<Course> filledForm = courseForm.bindFromRequest();
-    if(filledForm.hasErrors()) {
-      return Students.studyplan(filledForm);
+    String username = request().username();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    
+    if (Secured.isStudent(uc))
+    {
+      if (filledForm.hasErrors())
+      {
+        Student student = uc.getStudent();
+        List<Course> studyPlan = student.getStudyPlan();
+        List<Course> coursesNotInSp = new ArrayList();
+        
+        for (Course c: Course.currentCourses())
+          if (!studyPlan.contains(c))
+            coursesNotInSp.add(c);
+        
+        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, filledForm));
+      }
+      else
+      {
+        Course newcourse = filledForm.get();
+        newcourse.academicYear = Course.AcademicYear();
+        newcourse.credits = 3;
+        newcourse.isInManifesto = false;
+        newcourse.notes = "external course";
+        newcourse.isbyUNITN = false;
+        newcourse.deleted = false;
+        Course.create(newcourse);
+        
+        return redirect(routes.Students.studyplan());
+      }
     }
     else
     {
-      Course newcourse = filledForm.get();
-      newcourse.academicYear = Course.AcademicYear();
-      newcourse.credits = 3;
-      newcourse.isInManifesto = false;
-      newcourse.notes = "external course";
-      newcourse.isbyUNITN = false;
-      newcourse.deleted = false;
-      Course.create(newcourse);
-      return redirect(routes.Students.studyplan());
+      return unauthorized(forbidden.render());
     }
   }
 }

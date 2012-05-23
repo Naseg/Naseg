@@ -9,17 +9,18 @@
 
 
 } {
+ 
+<!-- script nonAuthIndex -->
 
-<script language="JavaScript">
+@if(form.hasGlobalErrors) { 
 
-    function autofun() {
-        
-        @if(form.hasGlobalErrors) { 
-            $('#windowTitleDialog').modal('show')
-        }
-    }
-    
-</script>
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog').modal('show')
+  }
+  </script>
+  
+}
 
 }
 

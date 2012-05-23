@@ -10,5 +10,17 @@
 
 @common_editableSP(user, student, studyplan, courses, courseForm)
 
+} {
+
+<!-- script student_studyplans -->
+
+@if(courseForm.hasGlobalErrors) {
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog_newExternCourse').modal('show')
+  }
+  </script>
+}
+
 }
 
