@@ -84,6 +84,30 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  public static Result suspendStudent(Long id) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      Student student = Student.find.byId(id);
+      student.setSuspended(true);
+      return ok();
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result unsuspendStudent(Long id) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      Student student = Student.find.byId(id);
+      student.setSuspended(false);
+      return ok();
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
   public static Result supervisors(Long id) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 

@@ -37,6 +37,8 @@ GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: L
 GET     /admin/students                     controllers.Admins.students()
 GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
 GET     /admin/suspended_students           controllers.Admins.suspendedStudents()
+GET     /admin/suspend_student/:id          controllers.Admins.suspendStudent(id: Long)
+GET     /admin/unsuspend_student/:id        controllers.Admins.unsuspendStudent(id: Long)
 GET     /admin/credentials                  controllers.Admins.credentials()
 
 # Map static resources from the /public folder to the /assets URL path
