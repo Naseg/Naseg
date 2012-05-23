@@ -26,7 +26,7 @@
 @import helper.twitterBootstrap._
 
 @helper.form(action = routes.Admins.editStudentData(student.userID.longValue)) {
-
+    <fieldset>
     @inputText(
       studentForm("firstName"),
       '_label -> "First name"
@@ -113,6 +113,41 @@
       '_error -> studentForm("isPlanApproved").error.map(_.withMessage("Please select an option"))
     )
 
+    <input type="hidden" value="@studentForm("scholarshipType").value" name="scholarshipType"/>
+    <input type="hidden" value="@studentForm("lockerNumber").value" name="lockerNumber"/>
+    <input type="hidden" value="@studentForm("phdCycle").value" name="phdCycle"/>
+    <input type="hidden" value="@studentForm("yearExtensionScholarship").value" name="yearExtensionScholarship"/>
+    <input type="hidden" value="@studentForm("officeWorkingPlace").value" name="officeWorkingPlace"/>
+    <input type="hidden" value="@studentForm("fullName").value" name="FullName"/>
+    <input type="hidden" value="@studentForm("isSuspended").value" name="isSuspended"/>
+    <input type="hidden" value="@studentForm("userID").value" name="userID"/>
+    <input type="hidden" value="@studentForm("phdScholarship").value" name="phdScholarship"/>
+    <input type="hidden" value="@studentForm("yearlyFeeToSchool").value" name="yearlyFeeToSchool"/>
+    <input type="hidden" value="@studentForm("yearlyFeeToCenter").value" name="yearlyFeeToCenter"/>
+    <input type="hidden" value="@studentForm("hasPcRights").value" name="hasPcRights"/>
+    <input type="hidden" value="@studentForm("preDoctoralScholarship").value" name="preDoctoralScholarship"/>
+    <input type="hidden" value="@studentForm("monthsPredocScholarship").value" name="monthsPredocScholarship"/>
+    <input type="hidden" value="@studentForm("yearExtensionScholarship").value" name="yearExtensionScholarship"/>
+    <input type="hidden" value="@studentForm("months").value" name="months"/>
+    <input type="hidden" value="@studentForm("personalFundsAvailable").value" name="personalFundsAvailable"/>
+    <input type="hidden" value="@studentForm("isGraduated").value" name="isGraduated"/>
+    <input type="hidden" value="@studentForm("graduationDate").value" name="graduationDate"/>
+    <input type="hidden" value="@studentForm("deleted").value" name="deleted"/>
+    <input type="hidden" value="@studentForm("fundingInstitution.fundinginstitutionID").value" name="fundingInstitution.fundinginstitutionID"/>
+   <input type="hidden" value="@studentForm("university.universityID").value" name="university.universityID"/>
+   <input type="hidden" value="@studentForm("countryOfProvenance.countryID").value" name="countryOfProvenance.countryID"/>
+   <input type="hidden" value="@studentForm("universityOfProvenance.universityID").value" name="universityOfProvenance.universityID"/>
+   <input type="hidden" value="@studentForm("citizenship.countryID").value" name="citizenship.countryID"/>
+   <input type="hidden" value="@studentForm("tutor.supervisorID").value" name="tutor.supervisorID"/>
+   <input type="hidden" value="@studentForm("fundsOwner.supervisorID").value" name="fundsOwner.supervisorID"/>
+   <input type="hidden" value="@studentForm("ItalianTaxpayerCode").value" name="ItalianTaxpayerCode"/>
+   <input type="hidden" value="@studentForm("photoProfiled").value" name="photoProfiled"/>
+   <input type="hidden" value="@studentForm("user.usercredentialID").value" name="user.usercredentialID"/>
+    </fieldset>
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+    </div>
 }
 
 <div>

@@ -45,7 +45,7 @@ public class Admins extends Controller {
 
   public static Result studentDetails(Long studentId) {
     Student student = Student.find.byId(studentId);
-    studentFormEditing.fill(student);
+    studentFormEditing = studentFormEditing.fill(student);
     return Admins.studentDetails(studentId, studentFormEditing, false);
   }
 
@@ -81,9 +81,7 @@ public class Admins extends Controller {
       }
       else
       {
-        Student newstudent = filledForm.get();
-        student.delete();
-        Student.create(newstudent);
+        filledForm.get().update();
         return redirect(routes.Admins.studentDetails(studentId));
       }
     }
