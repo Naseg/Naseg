@@ -90,7 +90,7 @@ public class Admins extends Controller {
     {
       Student student = Student.find.byId(id);
       student.setSuspended(true);
-      return ok();
+      return Admins.studentDetails(id);
     }
     else
       return unauthorized(forbidden.render());
@@ -102,7 +102,7 @@ public class Admins extends Controller {
     {
       Student student = Student.find.byId(id);
       student.setSuspended(false);
-      return ok();
+      return Admins.suspendedStudents();
     }
     else
       return unauthorized(forbidden.render());

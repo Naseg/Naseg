@@ -373,6 +373,11 @@ public class Student extends Model {
       this.update();
     }
 
+    public boolean isSuspended()
+    {
+      return this.isSuspended;
+    }
+
     public static class CompareByName implements Comparator<Student> {
       @Override
       public int compare (Student s1, Student s2) {
