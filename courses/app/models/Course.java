@@ -126,7 +126,7 @@ public class Course extends Model {
         return "";
     }
 
-  public Supervisor getProfessor()
+    public Supervisor getProfessor()
     {
       Supervisor s = this.professor;
       if (s != null)
@@ -156,5 +156,13 @@ public class Course extends Model {
             return c1.actualStartDate.compareTo(c2.actualStartDate)*-1;
         }
       }
+    }
+
+    public String printType()
+    {
+      if (this.isInManifesto)
+        return "Internal";
+      else
+        return "External";
     }
 }
