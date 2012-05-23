@@ -212,7 +212,7 @@ public class Student extends Model {
       List<CourseEnrollment> career = new ArrayList();
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (enrollment.isFinished)
+        if (enrollment.isFinished != null && enrollment.isFinished)
         {
           career.add(enrollment);
         }
