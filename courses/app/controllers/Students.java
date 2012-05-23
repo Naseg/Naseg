@@ -18,7 +18,7 @@ public class Students extends Controller {
     return redirect(routes.Students.studyplan());
   }
 
-//rivedere add e rm
+  //rivedere add e rm
   public static Result addToStudyPlan(Long idCourse, Long idStudent) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
@@ -60,10 +60,10 @@ public class Students extends Controller {
   }
 
   public static Result studyplan() {
-    return Students.studyplan(courseForm);
+    return Students.studyplan(courseForm,false);
   }
 
-  public static Result studyplan(Form<Course> form) {
+  public static Result studyplan(Form<Course> form, boolean badRequest) {
     String username = request().username();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
@@ -74,7 +74,10 @@ public class Students extends Controller {
       for (Course c: Course.currentCourses())
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
-      return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
+      if (badRequest)
+        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
+      else
+        return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
     }
     else
     {
@@ -115,22 +118,12 @@ public class Students extends Controller {
 
   public static Result newExternCourse() {
     Form<Course> filledForm = courseForm.bindFromRequest();
-    String username = request().username();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-    
     if (Secured.isStudent(uc))
     {
       if (filledForm.hasErrors())
       {
-        Student student = uc.getStudent();
-        List<Course> studyPlan = student.getStudyPlan();
-        List<Course> coursesNotInSp = new ArrayList();
-        
-        for (Course c: Course.currentCourses())
-          if (!studyPlan.contains(c))
-            coursesNotInSp.add(c);
-        
-        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, filledForm));
+        return Students.studyplan(filledForm,true);
       }
       else
       {
@@ -142,7 +135,8 @@ public class Students extends Controller {
         newcourse.isbyUNITN = false;
         newcourse.deleted = false;
         Course.create(newcourse);
-        
+
+        Students.addToStudyPlan(newcourse.courseID.longValue(),uc.getStudent().userID.longValue());
         return redirect(routes.Students.studyplan());
       }
     }
@@ -152,5 +146,3 @@ public class Students extends Controller {
     }
   }
 }
-
-
