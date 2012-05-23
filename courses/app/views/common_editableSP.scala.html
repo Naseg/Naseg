@@ -2,7 +2,9 @@
 
 <!-- Inclusioni Modal -->
 
-@studentDetailsModal(selectedStudent)
+@if(user.isAdmin()) {
+  @studentDetailsModal(selectedStudent)
+}
 
 <!-- Dialog del Nuovo Corso -->
 
@@ -76,7 +78,7 @@
     <p align="center">
       <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
       @if(user.isStudent()) {
-        <a data-toggle="modal" href="/student/studyplan/appreq" class="btn btn-primary btn-large">Richiedi Approvazione</a>
+        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">Richiedi Approvazione</a>
       }
   </div><!--span1 -->
 

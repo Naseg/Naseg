@@ -18,7 +18,6 @@ public class Students extends Controller {
     return redirect(routes.Students.studyplan());
   }
 
-  //rivedere add e rm
   public static Result addToStudyPlan(Long idCourse, Long idStudent) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
@@ -60,10 +59,10 @@ public class Students extends Controller {
   }
 
   public static Result studyplan() {
-    return Students.studyplan(courseForm,false);
+    return Students.studyplan(courseForm,false,"");
   }
 
-  public static Result studyplan(Form<Course> form, boolean badRequest) {
+  public static Result studyplan(Form<Course> form, boolean badRequest, String appreqMsg) {
     String username = request().username();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isStudent(uc))
@@ -75,9 +74,9 @@ public class Students extends Controller {
         if (!studyPlan.contains(c))
           coursesNotInSp.add(c);
       if (badRequest)
-        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
+        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form, appreqMsg));
       else
-        return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form));
+        return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form, appreqMsg));
     }
     else
     {
@@ -106,9 +105,18 @@ public class Students extends Controller {
     if (Secured.isStudent(uc))
     {
       Student student = uc.getStudent();
-      student.approvalRequest();
-
-      return redirect(routes.Students.studyplan());
+      
+      if (student.isStudyPlanOk())
+      {
+        student.approvalRequest();      
+        return Students.studyplan(courseForm,false,"Richiesta inviata correttamente.");
+      }
+      else
+      {
+        String msg = student.checkStudyPlan();
+        return Students.studyplan(courseForm,false,msg);
+      }
+      
     }
     else
     {
@@ -123,7 +131,7 @@ public class Students extends Controller {
     {
       if (filledForm.hasErrors())
       {
-        return Students.studyplan(filledForm,true);
+        return Students.studyplan(filledForm,true,"");
       }
       else
       {
