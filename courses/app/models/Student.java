@@ -206,6 +206,20 @@ public class Student extends Model {
       return studyPlan;
     }
 
+    public List<CourseEnrollment> getEnrollmentsCareer()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      List<CourseEnrollment> career = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (enrollment.isFinished)
+        {
+          career.add(enrollment);
+        }
+      }
+      return career;
+    }
+
     public String checkStudyPlan()
     {
       String out = "";

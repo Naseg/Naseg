@@ -1,4 +1,4 @@
-@(user: UserCredentials, enrollments: Set[CourseEnrollment])
+@(user: UserCredentials, enrollments: List[CourseEnrollment])
 
 <!-- Dialog dei Dettagli Corso -->
 @courseDetailsModal(CourseEnrollment.enrollmentsToCourses(enrollments))
@@ -9,31 +9,32 @@
 
 <div class="row-fluid">
     <div class="span6">
-        <h2>Carriera</h2>
+        <h2>Carrer</h2>
         <table class="table table-bordered">
             <thead>
         <tr>
-          <th>#</th>
-          <th>Nome Corso</th>
-          <th>Docente</th>
-          <th>Esito</th>
-          <th>Crediti</th>
+          <th>Course Name</th>
+          <th>Professor</th>
+          <th>Type</th>
+          <th>Result</th>
+          <th>Qualification</th>
+          <th>Credits</th>
+          <th>Year</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         @for(enrollment <- enrollments) {
           <tr>
-	    <td>@enrollment.getCourse.courseID</td>
 	    <td>@enrollment.getCourse.courseName</td>
 	    <td>@if(enrollment.getCourse.professor != null)  {
 	      @enrollment.getCourse.getProfessor.lastName
 	    }</td>
-	    @if(enrollment.credits == enrollment.credits) {
-	      <td>Passato</td>
-	    } else {
-              <td>Non Passato</td>
-            }
-	    <td>@enrollment.credits</td>
+            <td>@enrollment.getCourse.printType</td>
+            <td>@enrollment.printResult</td>
+            <td>@enrollment.qualification</td>
+            <td>@enrollment.credits</td>
+            <td>@enrollment.getCourse.academicYear</td>
             <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
 	    </td>
           </tr>
