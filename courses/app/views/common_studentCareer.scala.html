@@ -8,10 +8,10 @@
 <!-- Parte centrale -->
 
 <div class="row-fluid">
-    <div class="span6">
-        <h2>Carrer</h2>
-        <table class="table table-bordered">
-            <thead>
+  <div class="span6">
+    <h2>Carrer</h2>
+    <table class="table table-bordered">
+      <thead>
         <tr>
           <th>Course Name</th>
           <th>Professor</th>
@@ -26,23 +26,24 @@
       <tbody>
         @for(enrollment <- enrollments) {
           <tr>
-	    <td>@enrollment.getCourse.courseName</td>
-	    <td>@if(enrollment.getCourse.professor != null)  {
-	      @enrollment.getCourse.getProfessor.lastName
-	    }</td>
+            <td>@enrollment.getCourse.courseName</td>
+            <td>@if(enrollment.getCourse.professor != null)  { @enrollment.getCourse.getProfessor.lastName }</td>
             <td>@enrollment.getCourse.printType</td>
             <td>@enrollment.printResult</td>
             <td>@enrollment.qualification</td>
             <td>@enrollment.credits</td>
             <td>@enrollment.getCourse.academicYear</td>
-            <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
-	    <!--</td>-->
+            <td>
+              <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}">
+                <img src="@routes.Assets.at("images/details.png")" />
+              </a>
+            </td>
           </tr>
-          }
+        }
       </tbody>
     </table>
     <p align="center">
-        <!-- noting for now -->
+      <!-- noting for now -->
     </p>
   </div>
 </div>

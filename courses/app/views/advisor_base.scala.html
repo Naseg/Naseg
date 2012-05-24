@@ -4,43 +4,42 @@
 
 <!---parte sx -->
 
-    <ul class="nav nav-list">
-        <li class="nav-header"><font size="4" face="Courier">Students</font></li>
-        <!-- Mostrare SOLO se ci sono approvazioni in sospeso -->
-        @if(user.getSupervisor().getApprovalRequests() > 0) {
-            @if(user.getSupervisor().getApprovalRequests() == 1) {
-                <li>@user.getSupervisor().getApprovalRequests() richiesta di approvazione in sospeso</li>
-            } else {
-                <li>@user.getSupervisor().getApprovalRequests() richieste di approvazione in sospeso</li>
-            }
+<ul class="nav nav-list">
+  <li class="nav-header"><font size="4" face="Courier">Students</font></li>
+  <!-- Mostrare SOLO se ci sono approvazioni in sospeso -->
+  @if(user.getSupervisor().getApprovalRequests() > 0) {
+    @if(user.getSupervisor().getApprovalRequests() == 1) {
+      <li>@user.getSupervisor().getApprovalRequests() richiesta di approvazione in sospeso</li>
+    } else {
+      <li>@user.getSupervisor().getApprovalRequests() richieste di approvazione in sospeso</li>
+    }
+  }
+  <br />
+  @for(student <- students) {
+    <li>
+      <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
+        <!-- Se ha richieste d'approvazione -->
+        @if(student.isPlanApproved == 1) {
+          <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
+        } else {
+          <!-- altrimenti -->
+          <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
+          <!------------------------------------>
         }
-        </br>
-        @for(student <- students) {
-          	<li>
-          	    <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
-	                <!-- Se ha richieste d'approvazione -->
-	                @if(student.isPlanApproved == 1) {
-	                    <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
-	                } else {
-	                <!-- altrimenti -->
-	                    <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
-	                <!------------------------------------>
-	                }
-	                <font size="4" face="Courier">@student.fullName</font>
-	            </a>
-	        </li>
-	        @sideContents
-        }
-        
-    </ul>
+        <font size="4" face="Courier">@student.fullName</font>
+      </a>
+    </li>
+    @sideContents
+  }
+</ul>
 
 } {
 <!---parte centrale -->
 
-    <div class="row-fluid">
-	    @centralLeftContents
-	    @centralRightContents
-	<div>
+<div class="row-fluid">
+  @centralLeftContents
+  @centralRightContents
+<div>
 
 } {
 

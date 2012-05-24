@@ -10,29 +10,29 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-	<th>Course Name</th>
-	<th>Professor</th>
-	<th>Year</th>
+        <th>Course Name</th>
+        <th>Professor</th>
+        <th>Year</th>
         <th>Start Date</th>
       </tr>
     </thead>
     <tbody>
       @for(course <- courses) {
-          <tr>
-            <td>@course.courseName</td>
-            <td>@if(course.getProfessor()!=null) {
-              @course.getProfessor().firstName @course.getProfessor().lastName
-            }</td>
-            <td>@course.academicYear</td>
-            <td>@course.printActualStartDate</td>
-          </tr>
-        }
+        <tr>
+          <td>@course.courseName</td>
+          <td>@if(course.getProfessor()!=null) {
+                @course.getProfessor().firstName @course.getProfessor().lastName
+                }</td>
+          <td>@course.academicYear</td>
+          <td>@course.printActualStartDate</td>
+        </tr>
+      }
     </tbody>
   </table>
   <p align="right">
     <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
-    <br>
-    <br>
+    <br />
+    <br />
 </div><!--span1 -->
 
 <div class="span6">

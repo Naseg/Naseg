@@ -18,13 +18,13 @@
       </tr>
     </thead>
     <tbody>
-        @for(student <- students) {
-          <tr>            
-              <td><a href=@routes.Admins.studentDetails(student.userID.longValue())>@student.firstName</a></td>
-              <td>@student.lastName</td>
-              <td>@student.printIsPlanApproved</td>
-          </tr>
-        }
+      @for(student <- students) {
+        <tr>            
+          <td><a href=@routes.Admins.studentDetails(student.userID.longValue())>@student.firstName</a></td>
+          <td>@student.lastName</td>
+          <td>@student.printIsPlanApproved</td>
+        </tr>
+      }
     </tbody>
   </table>
   

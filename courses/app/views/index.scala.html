@@ -1,65 +1,70 @@
 @(form: Form[Authentication.Login])(authstate: Html)(additionalLinks: Html)(script: Html)
 
 @main {
+
 <!-- Parte Sx -->
 
-    @additionalLinks
+@additionalLinks
 
-    <ul class="nav nav-list">
-        <li class="nav-header"><font size="4" face="Courier">Link utili</font></li>
-        <li><a href="http://ict.unitn.it/announcements"><font size="3" face="Courier">News e Avvisi</font></a></li>
-        <li><a href="http://ict.unitn.it/contacts"><font size="3" face="Courier">Contattaci</font></a></li>
-    </ul>
+<ul class="nav nav-list">
+  <li class="nav-header"><font size="4" face="Courier">Link utili</font></li>
+  <li><a href="http://ict.unitn.it/announcements"><font size="3" face="Courier">News e Avvisi</font></a></li>
+  <li><a href="http://ict.unitn.it/contacts"><font size="3" face="Courier">Contattaci</font></a></li>
+</ul>
 
+<div class="modal hide fade" id="windowTitleDialog" style="display: none; ">
 
- <div class="modal hide fade" id="windowTitleDialog" style="display: none; ">
-				<div class="modal-header">
-					<a href="#" class="close" data-dismiss="modal"><img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" /></a>
-					<h3>Login</h3>
-				</div><!--modal header -->
-					<div class="modal-body">
-			    @helper.form(routes.Authentication.authenticate) {
-			        @if(form.hasGlobalErrors) { 
-			            <p class="error">
-			              @form.globalError.message
-			            </p>
-			        } 
-<!--                                <form class="form-horizontal" name="formLogin" action="/login" method="POST">-->
-                                   <fieldset>
-                                       <legend>LOGIN</legend>
-                                       <div class="control-group">
-                                           <label class="control-label" for="Username">Username</label>
-                                           <div class="controls">
-                                               <input type="text" class="input-xlarge" name="username" id="username" placeholder="username@@unitn.it">
-                                           </div>
-                                       </div>
-                                       <div class="control-group">
-                                           <label class="control-label" for="Psw">Password</label>
-                                           <div class="controls">
-                                               <input type="password" class="input-xlarge" name="password" id="password" placeholder="password">   
-                                               <p class="help-block">UnitnItc</p>
-                                           </div>
-                                       </div>
-                                   </fieldset>
-                                   <div><input data-dismiss="modal" type="reset" value="cancella">
-                                   <input type="submit" value="login">
-                                   </div>
-                              <!-- </form>-->
-                           } 
-					</div><!--modal body -->
-				<div class="modal-footer">
-				    <!--
-					<a href="/" class="btn" onclick="closeDialog ();">Cancella</a>
-					<a href="#" class="btn btn-primary" onclick="okClicked ();">Login</a> -->
-				</div>
-		</div> <!--modal hide fade-->
-
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Login</h3>
+  </div><!--modal header -->
+  
+  <div class="modal-body">
+    @helper.form(routes.Authentication.authenticate) {
+      @if(form.hasGlobalErrors) { 
+        <p class="error">
+          @form.globalError.message
+        </p>
+      } 
+      <fieldset>
+        <legend>LOGIN</legend>
+        <div class="control-group">
+          <label class="control-label" for="Username">Username</label>
+          <div class="controls">
+            <input type="text" class="input-xlarge" name="username" id="username" placeholder="username@@unitn.it"> 
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="Psw">Password</label>
+          <div class="controls">
+            <input type="password" class="input-xlarge" name="password" id="password" placeholder="password">   
+            <p class="help-block">
+              UnitnItc
+            </p>
+          </div>
+        </div>
+      </fieldset>
+      <div>
+        <input data-dismiss="modal" type="reset" value="cancella">
+        <input type="submit" value="login">
+      </div>
+      <!-- </form>-->
+    } 
+  </div><!--modal body -->
+  
+  <div class="modal-footer">
+    <!--
+    <a href="/" class="btn" onclick="closeDialog ();">Cancella</a>
+    <a href="#" class="btn btn-primary" onclick="okClicked ();">Login</a> -->
+  </div>
+  
+</div> <!--modal hide fade-->
 
 } { <!-- Parte centrale -->
 
-
-            <h1>Aggiungi qualcosa qui</h1>
-
+<h1>Aggiungi qualcosa qui</h1>
 
 } { @authstate } {
  
