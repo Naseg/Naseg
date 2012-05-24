@@ -14,6 +14,7 @@ import models.FormData;
 public class Admins extends Controller {
   static Form<Course> courseForm = form(Course.class);
   static Form<Student> studentFormEditing = form(Student.class);
+  static Form<Student> newStudentForm = form(Student.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
@@ -92,16 +93,50 @@ public class Admins extends Controller {
   }
 
   public static Result students() {
+    return Admins.students(newStudentForm,false);
+  }
+
+  public static Result students(Form<Student> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
       List<Student> students = Student.getNotSuspended();
       Collections.sort(students,new Student.CompareByName());
       Collections.sort(students,new Student.CompareByStudyPlan());
-      return ok(admin_students.render(uc,students));
+      if (badRequest)
+        return badRequest(admin_students.render(uc,students,form));
+      else
+        return ok(admin_students.render(uc,students,form));
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result newStudent() {
+    Form<Student> filledForm = newStudentForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.students(filledForm,true);
+      }
+      else
+      {
+        Student s = filledForm.get();
+        s.courseYear = 0;
+        s.admittedConditionally = false;
+        s.isPlanApproved = 0;
+        Student.create(s);
+        return redirect(routes.Admins.students());
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 
   public static Result suspendedStudents() {
