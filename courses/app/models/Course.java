@@ -100,7 +100,7 @@ public class Course extends Model {
     {
       List<CourseEnrollment> out = new ArrayList(this.coursesEnrollmentSet);
       for (CourseEnrollment ce : out)
-        out.refresh(); //force fetching from db
+        ce.refresh(); //force fetching from db
       return out;
     }
 
