@@ -24,8 +24,18 @@ public class Secured extends Security.Authenticator {
         return (uc.getStudent() != null);
     }
 
-    public static boolean isSupervisor(UserCredentials uc) {
+    public static boolean isProfessor(UserCredentials uc) {
         return (uc.getSupervisor() != null);
+    }
+
+    public static boolean isSupervisor(UserCredentials uc) {
+        Supervisor s = uc.getSupervisor();
+        if (s == null)
+          return false;
+        else
+        {
+          return (s.getStudentsAdvisored().size() > 0);
+        }
     }
 
     public static boolean isAdmin(UserCredentials uc) {

@@ -63,7 +63,11 @@ public class Course extends Model {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "url")
-    public String url;
+    public String url;/*
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "votespage")
+    public String votespage;*/
     @NotNull
     @Column(name = "is_payment_completed")
     public boolean isPaymentCompleted;
@@ -90,6 +94,14 @@ public class Course extends Model {
 
     public static void delete(Long id) {
       find.ref(id).delete();
+    }
+
+    public List<CourseEnrollment> getCoursesEnrollment()
+    {
+      List<CourseEnrollment> out = new ArrayList(this.coursesEnrollmentSet);
+      for (CourseEnrollment ce : out)
+        out.refresh(); //force fetching from db
+      return out;
     }
 
     public static List<Course> currentCourses() {

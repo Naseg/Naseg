@@ -60,6 +60,13 @@ public class CourseEnrollment extends Model {
       return c;
     }
 
+    public Student getStudent()
+    {
+      Student s = this.student;
+      s.refresh();//Integer a = c.credits;//does nothing, force fetching from db
+      return s;
+    }
+
     public static List<Course> enrollmentsToCourses(List<CourseEnrollment> enrollments)
     {
       List<Course> out = new ArrayList();

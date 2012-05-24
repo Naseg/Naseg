@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `planned_course_period` varchar(255) character set latin1 NOT NULL default 'UNKNOWN' COMMENT 'EG summer 2013',
   `are_all_marks_defined` tinyint(1) NOT NULL default '0' COMMENT 'have all students been graded?',
   `url` varchar(255) character set latin1 NOT NULL default 'UNKNOWN',
+--  `votespage` varchar(255) character set latin1 NOT NULL default 'UNKNOWN',
   `is_payment_completed` tinyint(1) NOT NULL default '0' COMMENT 'did the guy get the money?',
   `deleted` tinyint(1) NOT NULL default '0',
   `professor` int(11) default NULL,
