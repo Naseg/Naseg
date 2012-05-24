@@ -15,21 +15,58 @@ public class Admins extends Controller {
   static Form<Course> courseForm = form(Course.class);
   static Form<Student> studentFormEditing = form(Student.class);
   static Form<Student> newStudentForm = form(Student.class);
+  static Form<UserCredentials> ucForm = form(UserCredentials.class);
+  static Form<UserRole> urForm = form(UserRole.class);
+  static Form<Supervisor> supervisorForm = form(Supervisor.class);
+  static Form<Course> internalCourseForm = form(Course.class);
+  static Form<Course> externalCourseForm = form(Course.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
   }
 
+
+
   public static Result courses() {
+    return Admins.courses(internalCourseForm,externalCourseForm,false);
+  }
+
+  public static Result courses(Form<Course> intForm, Form<Course> extForm, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
       List<Course> courses = Course.currentCourses();
       Collections.sort(courses,new Course.CompareByDate());
-      return ok(admin_courses.render(uc,courses));
+      if (badRequest)
+        return badRequest(admin_courses.render(uc,courses,intForm,extForm));
+      else
+        return ok(admin_courses.render(uc,courses,intForm,extForm));
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result newInternalCourse() {
+    Form<Course> filledForm = internalCourseForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.courses(filledForm,externalCourseForm,true);
+      }
+      else
+      {
+        Course.create(filledForm.get());
+        return redirect(routes.Admins.courses());
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 
   public static Result oldcourses() {
@@ -176,29 +213,113 @@ public class Admins extends Controller {
   }
 
   public static Result supervisors(Long id) {
+    return Admins.supervisors(id,supervisorForm,false);
+  }
+
+  public static Result supervisors(Long id, Form<Supervisor> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 
     if (Secured.isAdmin(uc))
     {
       List<Supervisor> supervisors = Supervisor.all();
       Collections.sort(supervisors,new Supervisor.CompareByName());
-      return ok(admin_supervisors.render(uc,supervisors,id));
+      if (badRequest)
+        return badRequest(admin_supervisors.render(uc,supervisors,id,form));
+      else
+        return ok(admin_supervisors.render(uc,supervisors,id,form));
     }
     else
       return unauthorized(forbidden.render());
   }
 
-  public static Result credentials() {
+  public static Result newSupervisor() {
+    Form<Supervisor> filledForm = supervisorForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.supervisors(-1l,filledForm,true);
+      }
+      else
+      {
+        Supervisor.create(filledForm.get());
+        return redirect(routes.Admins.supervisors(-1l));
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
 
+  public static Result credentials() {
+    return Admins.credentials(ucForm,urForm,false);
+  }
+
+  public static Result credentials(Form<UserCredentials> userForm, Form<UserRole> roleForm, boolean badRequest) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
       List<UserCredentials> ucs = UserCredentials.all();
       Collections.sort(ucs,new UserCredentials.CompareByUserName());
       Collections.sort(ucs,new UserCredentials.CompareByRole());
-      return ok(admin_credentials.render(uc,ucs,UserRole.all()));
+      if (badRequest)
+        return badRequest(admin_credentials.render(uc,ucs,UserRole.all(),userForm, roleForm));
+      else
+        return ok(admin_credentials.render(uc,ucs,UserRole.all(),userForm, roleForm));
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result newUserCredential() {
+    Form<UserCredentials> filledForm = ucForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.credentials(filledForm,urForm,true);
+      }
+      else
+      {
+        UserCredentials.create(filledForm.get());
+        return redirect(routes.Admins.credentials());
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  public static Result newUserRole() {
+    Form<UserRole> filledForm = urForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.credentials(ucForm,filledForm,true);
+      }
+      else
+      {
+        UserRole ur = filledForm.get();
+        ur.deleted = false;
+        UserRole.create(ur);
+        return redirect(routes.Admins.credentials());
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 }

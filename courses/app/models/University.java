@@ -50,4 +50,12 @@ public class University extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }
+
+    public static Map<String,String> options() {
+      LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+      for(University u: University.find.orderBy("nameUniversity").findList()) {
+        options.put(u.universityID.toString(), u.nameUniversity);
+      }
+      return options;
+    }
 }
