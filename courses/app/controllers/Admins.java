@@ -20,12 +20,11 @@ public class Admins extends Controller {
   static Form<Supervisor> supervisorForm = form(Supervisor.class);
   static Form<Course> internalCourseForm = form(Course.class);
   static Form<Course> externalCourseForm = form(Course.class);
+  static Form<Course> courseEditingForm = form(Course.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
   }
-
-
 
   public static Result courses() {
     return Admins.courses(internalCourseForm,externalCourseForm,false);
@@ -44,6 +43,48 @@ public class Admins extends Controller {
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result courseDetails(Long id) {
+    Course c = Course.find.byId(id);
+    courseEditingForm = courseEditingForm.fill(c);
+    return Admins.courseDetails(id,courseEditingForm,false);
+  }
+
+  public static Result courseDetails(Long id, Form<Course> form, boolean badRequest) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      if (badRequest)
+        return badRequest(admin_course_details.render(uc,id,form));
+      else
+        return ok(admin_course_details.render(uc,id,form));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result editCourse(Long id) {
+    Form<Course> filledForm = courseEditingForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.courseDetails(id,filledForm,true);
+      }
+      else
+      {
+        filledForm.get().update();
+        return redirect(routes.Admins.courseDetails(id));
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 
   public static Result newInternalCourse() {

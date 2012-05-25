@@ -1,0 +1,124 @@
+@(user: UserCredentials, courseID: Long, courseForm: Form[Course])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@admin_base(user) {
+
+<!-- Parte side -->
+
+} {
+
+<!-- Parte centrale -->
+@helper.form(action = routes.Admins.editCourse(courseID))  {
+    <fieldset>
+        @inputText(
+        courseForm("courseName"),
+        '_label -> "Course name"
+        )
+
+        @inputText(
+        courseForm("notes"), 
+        '_label -> "Notes", 
+        '_error -> courseForm.globalError
+        )
+
+        @inputText(
+        courseForm("institution"),
+        '_label -> "Institution"
+        )
+
+        @inputText(
+        courseForm("place"),
+        '_label -> "Place"
+        )
+
+        @inputText(
+        courseForm("plannedCoursePeriod"),
+        '_label -> "Planned course period"
+        )
+
+        @inputText(
+        courseForm("url"),
+        '_label -> "Url"
+        )
+
+        @inputText(
+        courseForm("credits"), 
+        '_label -> "Credits", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        courseForm("academicYear"), 
+        '_label -> "Academic year", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        courseForm("budgetedCost"), 
+        '_label -> "Budgeted cost", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        courseForm("actualCost"), 
+        '_label -> "Actual cost", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @select(
+        courseForm("professor.supervisorID"), 
+        options(Supervisor.options),
+        '_default -> "--- Choose the professor ---",
+        '_label -> "Professors",
+        '_error -> courseForm("professor").error.map(_.withMessage("Please select the professor"))
+        )
+
+        @checkbox(
+        courseForm("isByUNITN"), 
+        '_label -> "Is a UNITN course",
+        '_showConstraints -> false)
+
+        @checkbox(
+        courseForm("isPaid"), 
+        '_label -> "Is paid",
+        '_showConstraints -> false)
+
+        @checkbox(
+        courseForm("isPaymentCompleted"), 
+        '_label -> "Payment completed",
+        '_showConstraints -> false)
+
+        @inputDate(
+        courseForm("actualStartDate"),
+        '_label -> "Start Date (yyyy-mm-dd)"
+        )
+
+        @checkbox(
+        courseForm("areAllMarksDefined"), 
+        '_label -> "Are all marks defined",
+        '_showConstraints -> false)
+
+        @checkbox(
+        courseForm("isInManifesto"), 
+        '_label -> "Is internal",
+        '_showConstraints -> false)
+
+        @checkbox(
+        courseForm("deleted"), 
+        '_label -> "Delete",
+        '_showConstraints -> false)
+
+        <input type="hidden" value="@courseForm("courseID").value" name="courseID"/>
+    </fieldset>
+    <div class="actions">
+      <a data-dismiss="modal" href="@routes.Admins.courses()" class="btn btn-large">Cancel</a>
+      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+    </div>
+    }
+
+} {
+
+
+}

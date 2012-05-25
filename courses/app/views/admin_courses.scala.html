@@ -17,6 +17,7 @@
         <th>Professor</th>
         <th>Year</th>
         <th>Start Date</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,11 @@
                 }</td>
           <td>@course.academicYear</td>
           <td>@course.printActualStartDate</td>
+          <td>
+            <a data-toggle="modal" href="@routes.Admins.courseDetails(course.courseID.longValue)">
+              <img src="@routes.Assets.at("images/details.png")" />
+            </a>
+          </td>
         </tr>
       }
     </tbody>
@@ -93,8 +99,8 @@
         )
 
         @inputText(
-        internalCourseForm("accademicYear"), 
-        '_label -> "Accademic year", 'class -> "mini",
+        internalCourseForm("academicYear"), 
+        '_label -> "Academic year", 'class -> "mini",
         '_showConstraints -> false
         )
 
