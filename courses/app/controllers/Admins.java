@@ -21,6 +21,7 @@ public class Admins extends Controller {
   static Form<Course> internalCourseForm = form(Course.class);
   static Form<Course> externalCourseForm = form(Course.class);
   static Form<Course> courseEditingForm = form(Course.class);
+  static Form<Supervisor> editSupervisorForm = form(Supervisor.class);
 
   public static Result index() {
     return redirect(routes.Admins.courses());
@@ -78,7 +79,7 @@ public class Admins extends Controller {
       else
       {
         filledForm.get().update();
-        return redirect(routes.Admins.courseDetails(id));
+        return redirect(routes.Admins.courses());
       }
     }
     else
@@ -254,10 +255,13 @@ public class Admins extends Controller {
   }
 
   public static Result supervisors(Long id) {
-    return Admins.supervisors(id,supervisorForm,false);
+    Supervisor s = Supervisor.find.byId(id);
+    if (s!=null)
+      editSupervisorForm = editSupervisorForm.fill(s);
+    return Admins.supervisors(id,supervisorForm,editSupervisorForm,false);
   }
 
-  public static Result supervisors(Long id, Form<Supervisor> form, boolean badRequest) {
+  public static Result supervisors(Long id, Form<Supervisor> newForm, Form<Supervisor> editForm, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 
     if (Secured.isAdmin(uc))
@@ -265,12 +269,35 @@ public class Admins extends Controller {
       List<Supervisor> supervisors = Supervisor.all();
       Collections.sort(supervisors,new Supervisor.CompareByName());
       if (badRequest)
-        return badRequest(admin_supervisors.render(uc,supervisors,id,form));
+        return badRequest(admin_supervisors.render(uc,supervisors,id,newForm,editForm));
       else
-        return ok(admin_supervisors.render(uc,supervisors,id,form));
+        return ok(admin_supervisors.render(uc,supervisors,id,newForm,editForm));
     }
     else
       return unauthorized(forbidden.render());
+  }
+
+  public static Result editSupervisor(Long id) {
+    Form<Supervisor> filledForm = editSupervisorForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.supervisors(id,supervisorForm,filledForm,true);
+      }
+      else
+      {
+        filledForm.get().update();
+        return redirect(routes.Admins.supervisors(id));
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
   }
 
   public static Result newSupervisor() {
@@ -282,7 +309,7 @@ public class Admins extends Controller {
       if (filledForm.hasErrors())
       {
         System.out.println("Errore");
-        return Admins.supervisors(-1l,filledForm,true);
+        return Admins.supervisors(-1l,filledForm,editSupervisorForm,true);
       }
       else
       {

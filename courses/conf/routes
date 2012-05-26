@@ -5,7 +5,6 @@
 # Home page
 GET     /                                   controllers.Application.index()
 GET     /home                               controllers.SecuredApplication.index()
-GET     /provadb	                          controllers.Application.provadb()
 
 # Authentication
 #GET    /login                              controllers.Authentication.login()
@@ -38,6 +37,7 @@ GET     /admin/oldcourses                   controllers.Admins.oldcourses()
 POST    /admin/supervisors                  controllers.Admins.newSupervisor()
 GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)
 GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
+POST     /admin/supervisors/:id              controllers.Admins.editSupervisor(id: Long)
 GET     /admin/students                     controllers.Admins.students()
 POST    /admin/students                     controllers.Admins.newStudent()
 GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
