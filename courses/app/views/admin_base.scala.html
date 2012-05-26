@@ -1,4 +1,4 @@
-@(user: UserCredentials)(sideContents: Html)(centralContents: Html)(modals: Html)
+@(user: UserCredentials)(sideContents: Html)(centralContents: Html)(modals: Html)(script: Html)
 
 @main { 
 
@@ -31,5 +31,7 @@ Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout<
 } {
  
 <!-- script admin_base -->
+
+@script
 
 }
