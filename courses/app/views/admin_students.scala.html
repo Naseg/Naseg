@@ -32,6 +32,7 @@
   </table>
   <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Sodomizza nell'ano ritardatari</a>
   <a data-toggle="modal" href="#windowTitleDialog_newStudent" class="btn btn-primary">Create new student</a>
+  <a data-toggle="modal" href="@routes.Admins.suspendedStudents" class="btn btn-primary">View suspended students</a>
   <br />
   <br />
 </div><!--span1 -->
@@ -85,17 +86,19 @@
         '_label -> "Last name"
         )
 
-       <!-- @inputText(
-        newStudentForm("courseYear"),
-        '_label -> "Course year",
-        'class -> "mini",
-        '_showConstraints -> false
-        )-->
+        @inputText(
+        newStudentForm("fullName"),
+        '_label -> "Full name"
+        )
 
-       <!-- @@checkbox(
-        newStudentForm("admittedConditionally"), 
-        '_label -> "Admitted conditionally",
-        '_showConstraints -> false) -->
+        (<a href=@routes.Admins.credentials()>Create it</a>)
+        @select(
+        newStudentForm("user.usercredentialID"), 
+        options(UserCredentials.optionsForStudent),
+        '_default -> "--- Select the username ---",
+        '_label -> "UserName",
+        '_error -> newStudentForm("user").error.map(_.withMessage("Please select the UserName"))
+        )
 
         @inputText(
         newStudentForm("legalResidence"),
@@ -128,18 +131,6 @@
         )
 
         @inputText(
-        newStudentForm("yearExtensionScholariship"),
-        '_label -> "Year exetension scholariship",
-        'class -> "mini",
-        '_showConstraints -> false
-        )
-
-        <!--@inputText(
-        newStudentForm("commiteeMembers"),
-        '_label -> "Commitee members"
-        )-->
-
-        @inputText(
         newStudentForm("email"),
         '_label -> "Email"
         )
@@ -151,14 +142,6 @@
         '_label -> "Advisor",
         '_error -> newStudentForm("currentAdvisor").error.map(_.withMessage("Please select the advisor"))
         )
-
-        <!--@select(
-        newStudentForm("isPlanApproved"),
-        options("0" -> "Not yet completed", "1" -> "Waiting for approval", "2" -> "Approved"),
-        '_default -> "--- Select an option ---",
-        '_label -> "Study Plan",
-        '_error -> newStudentForm("isPlanApproved").error.map(_.withMessage("Please select an option"))
-        )-->
 
         @inputText(
         newStudentForm("scholarshipType"),
@@ -175,7 +158,6 @@
         '_label -> "Year extension scholarship"
         )
 
-
         @inputText(
         newStudentForm("lockerNumber"),
         '_label -> "Locker Number"
@@ -186,34 +168,63 @@
         '_label -> "Office working place"
         )
 
-        <input type="hidden" value="" name="commiteeMembers"/>
+        @select(
+        newStudentForm("universityOfProvenance.universityID"), 
+        options(University.options),
+        '_default -> "--- Choose the university ---",
+        '_label -> "University of provenance",
+        '_error -> newStudentForm("universityOfProvenance").error.map(_.withMessage("Please select the university"))
+        )
 
-<!--
-        <input type="hidden" value="@newStudentForm("officeWorkingPlace").value" name="officeWorkingPlace"/>
-        <input type="hidden" value="@newStudentForm("fullName").value" name="FullName"/>
-        <input type="hidden" value="@newStudentForm("isSuspended").value" name="isSuspended"/>
-        <input type="hidden" value="@newStudentForm("phdScholarship").value" name="phdScholarship"/>
-        <input type="hidden" value="@newStudentForm("yearlyFeeToSchool").value" name="yearlyFeeToSchool"/>
-        <input type="hidden" value="@newStudentForm("yearlyFeeToCenter").value" name="yearlyFeeToCenter"/>
-        <input type="hidden" value="@newStudentForm("hasPcRights").value" name="hasPcRights"/>
-        <input type="hidden" value="@newStudentForm("preDoctoralScholarship").value" name="preDoctoralScholarship"/>
-        <input type="hidden" value="@newStudentForm("monthsPredocScholarship").value" name="monthsPredocScholarship"/>
-        <input type="hidden" value="@newStudentForm("yearExtensionScholarship").value" name="yearExtensionScholarship"/>
-        <input type="hidden" value="@newStudentForm("months").value" name="months"/>
-        <input type="hidden" value="@newStudentForm("personalFundsAvailable").value" name="personalFundsAvailable"/>
-        <input type="hidden" value="@newStudentForm("isGraduated").value" name="isGraduated"/>
-        <input type="hidden" value="@newStudentForm("graduationDate").value" name="graduationDate"/>
-        <input type="hidden" value="@newStudentForm("deleted").value" name="deleted"/>
-        <input type="hidden" value="@newStudentForm("fundingInstitution.fundinginstitutionID").value" name="fundingInstitution.fundinginstitutionID"/>
-        <input type="hidden" value="@newStudentForm("university.universityID").value" name="university.universityID"/>
-        <input type="hidden" value="@newStudentForm("countryOfProvenance.countryID").value" name="countryOfProvenance.countryID"/>
-        <input type="hidden" value="@newStudentForm("universityOfProvenance.universityID").value" name="universityOfProvenance.universityID"/>
-        <input type="hidden" value="@newStudentForm("citizenship.countryID").value" name="citizenship.countryID"/>
-        <input type="hidden" value="@newStudentForm("tutor.supervisorID").value" name="tutor.supervisorID"/>
-        <input type="hidden" value="@newStudentForm("fundsOwner.supervisorID").value" name="fundsOwner.supervisorID"/>
-        <input type="hidden" value="@newStudentForm("ItalianTaxpayerCode").value" name="ItalianTaxpayerCode"/>
-        <input type="hidden" value="@newStudentForm("photoProfiled").value" name="photoProfiled"/>
-        <input type="hidden" value="@newStudentForm("user.usercredentialID").value" name="user.usercredentialID"/>  -->
+        @select(
+        newStudentForm("university.universityID"), 
+        options(University.options),
+        '_default -> "--- Choose the university ---",
+        '_label -> "University",
+        '_error -> newStudentForm("university").error.map(_.withMessage("Please select the university"))
+        )
+
+        @select(
+        newStudentForm("fundingInstitution.fundinginstitutionID"), 
+        options(FundingInstitution.options),
+        '_default -> "--- Choose the Funding Institution ---",
+        '_label -> "Funding Institution",
+        '_error -> newStudentForm("fundingInstitution").error.map(_.withMessage("Please select the Funding Institution"))
+        )
+
+        @select(
+        newStudentForm("countryOfProvenance.countryID"), 
+        options(Country.options),
+        '_default -> "--- Choose the country ---",
+        '_label -> "Country Of Provenance",
+        '_error -> newStudentForm("countryOfProvenance").error.map(_.withMessage("Please select the country of provenance"))
+        )
+
+        @select(
+        newStudentForm("citizenship.countryID"), 
+        options(Country.options),
+        '_default -> "--- Choose the country ---",
+        '_label -> "Citizenship",
+        '_error -> newStudentForm("citizenship").error.map(_.withMessage("Please select the country of provenance"))
+        )
+
+        @select(
+        newStudentForm("fundsOwner.supervisorID"), 
+        options(Supervisor.options),
+        '_default -> "--- Choose the funds owner ---",
+        '_label -> "Funds Owner",
+        '_error -> newStudentForm("fundsOwner").error.map(_.withMessage("Please select the funds owner"))
+        )
+
+        @select(
+        newStudentForm("tutor.supervisorID"), 
+        options(Supervisor.options),
+        '_default -> "--- Choose the tutor ---",
+        '_label -> "Tutor",
+        '_error -> newStudentForm("tutor").error.map(_.withMessage("Please select the tutor"))
+        )
+
+        <input type="hidden" value="---" name="commiteeMembers"/>
       </fieldset>
     <div class="actions">
       <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>

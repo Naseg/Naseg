@@ -1,4 +1,7 @@
-@(user: UserCredentials, supervisors: List[Supervisor], supervisorId: Long)
+@(user: UserCredentials, supervisors: List[Supervisor], supervisorId: Long, supervisorForm: Form[Supervisor], editSupervisorForm: Form[Supervisor])
+
+@import helper._
+@import helper.twitterBootstrap._
 
 @admin_base(user) {
 
@@ -31,11 +34,16 @@
         }
     </tbody>
   </table>
+  <a data-toggle="modal" href="#windowTitleDialog_newSupervisor" class="btn btn-primary">Create new supervisor</a>
   <br />
   <br />
 </div><!--span1 -->
 
 @if(supervisorId != -1) {
+  @if(user.isAdmin()) {
+    <a data-toggle="modal" href="#windowTitleDialog_supervisorDetails">Supervisor details</a>
+  }
+
 <div class="span6">
   <h2>Students Advisored By @Supervisor.find.byId(supervisorId).lastName</h2>
   <table class="table table-bordered">
@@ -47,7 +55,7 @@
       </tr>
     </thead>
     <tbody>
-      @for(student <- Supervisor.find.byId(supervisorId).getStudentsAdvisored()) {
+      @for(student <- Supervisor.find.byId(supervisorId).getStudentsAdvisored())        {
           <tr>
               <td>@student.userID</td>
               <td>@student.firstName</td>
@@ -59,7 +67,131 @@
   <br />
   <br />
 </div><!--span1 -->
+
+<!-- modal edit supervisor -->
+
+<div class="modal hide fade" id="windowTitleDialog_supervisorDetails" style="display: none; ">
+  <div class="modal-body">
+    @helper.form(action = routes.Admins.editSupervisor(supervisorId))  {
+      <fieldset>
+        @inputText(
+        editSupervisorForm("firstName"),
+        '_label -> "First name"
+        )
+
+        @inputText(
+        editSupervisorForm("lastName"),
+        '_label -> "Last name"
+        )
+
+        @checkbox(
+        editSupervisorForm("canBeAdvisor"), 
+        '_label -> "Can be advisor",
+        '_showConstraints -> false)
+
+        @checkbox(
+        editSupervisorForm("isActive"), 
+        '_label -> "Is Active",
+        '_showConstraints -> false)
+
+        @checkbox(
+        editSupervisorForm("deleted"), 
+        '_label -> "Delete",
+        '_showConstraints -> false)
+
+        @checkbox(
+        editSupervisorForm("isInternal"), 
+        '_label -> "Is Internal",
+        '_showConstraints -> false)
+
+        @inputText(
+        editSupervisorForm("email"),
+        '_label -> "Email"
+        )
+
+        <input type="hidden" value="@editSupervisorForm("user.usercredentialID").value" name="user.usercredentialID"/>
+    <!--    @@select(
+        editSupervisorForm("user.usercredentialID"), 
+        options(UserCredentials.optionsForSupervisor),
+        '_default -> editSupervisorForm("user.usr,
+        '_label -> "UserName",
+        '_error -> editSupervisorForm("user").error.map(_.withMessage("Please select the UserName"))
+        )-->
+
+        <input type="hidden" value="@editSupervisorForm("supervisorID").value" name="supervisorID"/>
+      </fieldset>
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+    </div>
+  }
+  </div>
+</div>
+
 }
+<!-- modal create supervisor -->
+
+<div class="modal hide fade" id="windowTitleDialog_newSupervisor" style="display: none; ">
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Create new supervisor</h3>
+  </div>
+  <div class="modal-body">
+    @helper.form(action = routes.Admins.newSupervisor())  {
+      <fieldset>
+        @inputText(
+        supervisorForm("firstName"),
+        '_label -> "First name"
+        )
+
+        @inputText(
+        supervisorForm("lastName"),
+        '_label -> "Last name"
+        )
+
+        @checkbox(
+        supervisorForm("canBeAdvisor"), 
+        '_label -> "Can be advisor",
+        '_showConstraints -> false)
+
+        <input type="hidden" value="1" name="isActive"/>
+        <input type="hidden" value="0" name="deleted"/>
+      <!--  @@checkbox(
+        supervisorForm("isActive"), 
+        '_label -> "Is Active",
+        '_showConstraints -> false)
+        )-->
+
+        @checkbox(
+        supervisorForm("isInternal"), 
+        '_label -> "Is Internal",
+        '_showConstraints -> false)
+
+        @inputText(
+        supervisorForm("email"),
+        '_label -> "Email"
+        )
+
+        (<a href=@routes.Admins.credentials()>Create it</a>)
+        @select(
+        supervisorForm("user.usercredentialID"), 
+        options(UserCredentials.optionsForSupervisor),
+        '_default -> "--- Select the username ---",
+        '_label -> "UserName",
+        '_error -> supervisorForm("user").error.map(_.withMessage("Please select the UserName"))
+        )
+      </fieldset>
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+    </div>
+  }
+  </div>
+</div>
+
+
 <!--- LA RIMOZIONE DEI CORSI VERRA GESTITA NEL MODAL DETTAGLI -->
 } {
 

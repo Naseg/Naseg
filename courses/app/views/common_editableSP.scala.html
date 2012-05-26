@@ -75,7 +75,9 @@
       </tbody>
     </table>
     <p align="center">
+      @if(user.isStudent()) {
       <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
+      }
       @if(user.isStudent()) {
         <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">Richiedi Approvazione</a>
       }

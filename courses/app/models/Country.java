@@ -53,4 +53,12 @@ public class Country extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }
+
+    public static Map<String,String> options() {
+      LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+      for(Country c: Country.find.orderBy("name").findList()) {
+        options.put(c.countryID.toString(), c.name);
+      }
+      return options;
+    }
 }

@@ -62,6 +62,14 @@ public class Supervisor extends Model {
       return find.all();
     }
 
+    public static List<Supervisor> allSupervisors() {
+      List<Supervisor> out = new ArrayList();
+      for (Supervisor s : find.all())
+        if (s.getStudentsAdvisored().size() > 0) //if it is an advisor
+          out.add(s);
+      return out;
+    }
+
     public static void create(Supervisor supervisor) {
       supervisor.save();
     }

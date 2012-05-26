@@ -5,7 +5,6 @@
 # Home page
 GET     /                                   controllers.Application.index()
 GET     /home                               controllers.SecuredApplication.index()
-GET     /provadb	                          controllers.Application.provadb()
 
 # Authentication
 #GET    /login                              controllers.Authentication.login()
@@ -31,9 +30,14 @@ POST    /supervisor/watchstudent/rejectSP   controllers.Supervisors.rejectSP()
 # Administration
 GET     /admin                              controllers.Admins.index()
 GET     /admin/courses                      controllers.Admins.courses()
+GET     /admin/course_details/:id           controllers.Admins.courseDetails(id: Long)
+POST    /admin/course_details/:id           controllers.Admins.editCourse(id: Long)
+POST    /admin/courses                      controllers.Admins.newInternalCourse()
 GET     /admin/oldcourses                   controllers.Admins.oldcourses()
+POST    /admin/supervisors                  controllers.Admins.newSupervisor()
 GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)
 GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
+POST     /admin/supervisors/:id              controllers.Admins.editSupervisor(id: Long)
 GET     /admin/students                     controllers.Admins.students()
 POST    /admin/students                     controllers.Admins.newStudent()
 GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
@@ -42,6 +46,8 @@ GET     /admin/suspended_students           controllers.Admins.suspendedStudents
 GET     /admin/suspend_student/:id          controllers.Admins.suspendStudent(id: Long)
 GET     /admin/unsuspend_student/:id        controllers.Admins.unsuspendStudent(id: Long)
 GET     /admin/credentials                  controllers.Admins.credentials()
+POST    /admin/credentials                  controllers.Admins.newUserCredential()
+POST    /admin/credentials/newrole          controllers.Admins.newUserRole()
 
 # Professor
 GET     /professor/examresults/:id          controllers.Professors.results(id: Long)

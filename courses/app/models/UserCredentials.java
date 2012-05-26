@@ -48,6 +48,24 @@ public class UserCredentials extends Model {
       find.ref(id).delete();
     }
 
+    public static Map<String,String> optionsForStudent() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(UserCredentials uc: UserCredentials.find.orderBy("userName").findList()) {
+          if (uc.getStudent() == null) //if uc not already took by student
+            options.put(uc.usercredentialID.toString(), uc.userName);
+        }
+        return options;
+    }
+
+    public static Map<String,String> optionsForSupervisor() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(UserCredentials uc: UserCredentials.find.orderBy("userName").findList()) {
+          if (uc.getSupervisor() == null) //if uc not already took by supervisor
+            options.put(uc.usercredentialID.toString(), uc.userName);
+        }
+        return options;
+    }
+
     public static UserCredentials authenticate(String username, String password) {
       return find.where()
         .eq("userName", username)
@@ -97,7 +115,7 @@ public class UserCredentials extends Model {
       return this.getStudent() != null;
     }
 
-    public UserRole getUserRol()
+    public UserRole getRole()
     {
       UserRole ur = this.userRol;
       ur.refresh(); //does nothing, force fetch from db

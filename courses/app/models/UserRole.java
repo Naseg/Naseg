@@ -41,4 +41,12 @@ public class UserRole extends Model {
     public static void delete(Long id) {
       find.ref(id).delete();
     }
+
+    public static Map<String,String> options() {
+      LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+      for(UserRole u: UserRole.find.orderBy("role").findList()) {
+        options.put(u.userrolID.toString(), u.role);
+      }
+      return options;
+    }
 }
