@@ -53,6 +53,12 @@ public class Authentication extends Controller {
 		routes.Supervisors.index()
 		);
 	    }
+            else if (Secured.isProfessor(uc))
+            {
+              return redirect(
+                routes.Professors.index()
+		);
+            }
 	    else if (Secured.isAdmin(uc))
 	    {
 	      return redirect(
