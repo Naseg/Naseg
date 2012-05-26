@@ -35,7 +35,6 @@ public class Professors extends Controller {
     if (Secured.isProfessor(uc))
     {
       Course course = Course.find.byId(id);
-
       return ok(professor_examResults.render(course));
     }
     else

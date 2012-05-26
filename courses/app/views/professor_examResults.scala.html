@@ -1,19 +1,58 @@
-@(course: Course)
+@(user: UserCredentials, course: Course)
 
-<table>
-  <thead>
-    
-  </thead>
-  <tbody>
-    <tr>Corso</tr>
-    <tr>Voto</tr>
-    <tr>Passato</tr>
-    @for(enroll <- course.getCoursesEnrollment()) {
-    
-      <td></td>
-      <td></td>
-      <td></td>
-    }
-  </tbody>
-</table>
+@main {
 
+<!-- laterale -->
+
+<ul class="nav nav-list">
+  <li class="nav-header"><font size="4" face="Courier">Info:</font></li>
+  <li> <font size="3" face="Courier">@course.courseName</font></li>
+  <li> <font size="3" face="Courier">Anno: @course.academicYear</font></li>
+</ul>
+
+} {
+
+<!-- centrale -->
+
+<div class="row-fluid">
+
+  <div class="span6">
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Voto</th>
+          <th>Passato</th>
+        </tr>
+      </thead>
+      </thead>
+      <tbody>
+        @for(enroll <- course.getCoursesEnrollment()) {
+          <tr>
+            <td><input type="text" /></td>
+            <td><input type="checkbox" name="checkPassato" value="" /></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <a data-dismiss="modal" href="#" class="btn btn-large btn-primary">Confirm</a>
+    </div>
+    
+  </div>
+  
+</div>
+
+} {
+
+<!-- authstate -->
+
+Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+<!-- script professor_examResult -->
+
+}
