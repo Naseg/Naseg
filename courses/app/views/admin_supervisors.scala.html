@@ -121,7 +121,7 @@
         <input type="hidden" value="@editSupervisorForm("supervisorID").value" name="supervisorID"/>
       </fieldset>
     <div class="actions">
-      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <a href="@routes.Admins.supervisors(supervisorId)" class="btn btn-large">Cancel</a> <!-- ricarico la pagina per riottenere i dati non modificati -->
       <input type="submit" class="btn btn-large btn-primary" value="Submit">
     </div>
   }
@@ -198,5 +198,21 @@
 } {
 
 <!-- script admin_supervisors -->
+
+@if(supervisorForm.hasErrors) {
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog_newSupervisor').modal('show')
+  }
+  </script>
+} else {
+    @if(editSupervisorForm.hasErrors) {
+    <script language="JavaScript">
+    function autofun() {
+      $('#windowTitleDialog_supervisorDetails').modal('show')
+    }
+    </script>
+    }
+}
 
 }
