@@ -20,15 +20,17 @@
             <tr>
               <td>@enroll.getStudent().fullName</td>
               <td>
-                @inputText(
+                <input type="text" name="qualification-@enroll.getStudent().userID" />
+                <!--@inputText(
                   courseForm("qualification")
-                )
+                )-->
               </td>
               <td>
-                @checkbox(
+                <input type="checkbox" name="passed-@enroll.getStudent().userID" value=""/>
+                <!--@checkbox(
                   courseForm("passed"), 
                   '_showConstraints -> false
-                )
+                )-->
               </td>
             </tr>
           }
