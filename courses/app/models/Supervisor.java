@@ -78,6 +78,16 @@ public class Supervisor extends Model {
       find.ref(id).delete();
     }
 
+    public List<Course> getCoursesSet() {
+      List<Course> out = new ArrayList();
+      for (Course c: this.coursesSet)
+      {
+        c.refresh();  // force fetching from db
+        out.add(c);
+      }
+      return out;
+    }
+
     public static Map<String,String> options() {
         LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
         for(Supervisor s: Supervisor.find.orderBy("lastName").findList()) {
