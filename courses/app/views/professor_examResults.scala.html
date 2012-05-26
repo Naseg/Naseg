@@ -1,5 +1,19 @@
-@(id: Long)
+@(course: Course)
 
-No. No. No. 
-Vai in mona.
+<table>
+  <thead>
+    
+  </thead>
+  <tbody>
+    <tr>Corso</tr>
+    <tr>Voto</tr>
+    <tr>Passato</tr>
+    @for(enroll <- course.getCoursesEnrollment()) {
+    
+      <td></td>
+      <td></td>
+      <td></td>
+    }
+  </tbody>
+</table>
 

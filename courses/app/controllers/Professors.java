@@ -16,9 +16,11 @@ public class Professors extends Controller {
 
   public static Result results(Long id) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-    if (Secured.isAdmin(uc)) //FAKE -- mettere a posto!
+    if (Secured.isProfessor(uc))
     {
-      return ok(professor_examResults.render(id));
+      Course course = Course.find.byId(id);
+      
+      return ok(professor_examResults.render(course));
     }
     else
       return unauthorized(forbidden.render());
