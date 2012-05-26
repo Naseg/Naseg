@@ -20,7 +20,7 @@ public class Professors extends Controller {
     {
       Course course = Course.find.byId(id);
       
-      return ok(professor_examResults.render(course));
+      return ok(professor_examResults.render(uc, course));
     }
     else
       return unauthorized(forbidden.render());
