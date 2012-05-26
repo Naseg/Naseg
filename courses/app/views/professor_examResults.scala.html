@@ -8,6 +8,7 @@
   <li class="nav-header"><font size="4" face="Courier">Info:</font></li>
   <li> <font size="3" face="Courier">@course.courseName</font></li>
   <li> <font size="3" face="Courier">Anno: @course.academicYear</font></li>
+  <li> <font size="3" face="Courier">Crediti: @course.credits</font></li>
 </ul>
 
 } {
@@ -21,16 +22,17 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+          <th>Studente</th>
           <th>Voto</th>
           <th>Passato</th>
         </tr>
       </thead>
-      </thead>
       <tbody>
         @for(enroll <- course.getCoursesEnrollment()) {
           <tr>
+            <td>@enroll.getStudent().fullName</td>
             <td><input type="text" /></td>
-            <td><input type="checkbox" name="checkPassato" value="" /></td>
+            <td><input type="checkbox" name="checkPassato" value="@enroll" /></td>
           </tr>
         }
       </tbody>
