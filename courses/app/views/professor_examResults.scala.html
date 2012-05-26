@@ -1,4 +1,4 @@
-@(user: UserCredentials, course: Course)
+@(user: UserCredentials, course: Course, enrollForm: Form[CourseEnrollment])
 
 @main {
 
@@ -19,29 +19,7 @@
 
   <div class="span6">
   
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Studente</th>
-          <th>Voto</th>
-          <th>Passato</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for(enroll <- course.getCoursesEnrollment()) {
-          <tr>
-            <td>@enroll.getStudent().fullName</td>
-            <td><input type="text" /></td>
-            <td><input type="checkbox" name="checkPassato" value="@enroll" /></td>
-          </tr>
-        }
-      </tbody>
-    </table>
-    
-    <div class="actions">
-      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-      <a data-dismiss="modal" href="#" class="btn btn-large btn-primary">Confirm</a>
-    </div>
+    @examResultsform(course, enrollForm, routes.Professors.addResults(course.courseID.longValue))
     
   </div>
   

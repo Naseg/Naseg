@@ -53,6 +53,7 @@ POST    /admin/credentials/newrole          controllers.Admins.newUserRole()
 GET     /professor                          controllers.Professors.index()
 GET     /professor/examresults              controllers.Professors.courses()
 GET     /professor/examresults/:id          controllers.Professors.results(id: Long)
+POST    /professor/examresults/:id          controllers.Professors.addResults(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)

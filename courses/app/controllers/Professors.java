@@ -12,7 +12,7 @@ import models.FormData;
 
 @Security.Authenticated(Secured.class)
 public class Professors extends Controller {
-  static Form<Course> courseForm = form(Course.class);
+  static Form<CourseEnrollment> enrollForm = form(CourseEnrollment.class);
 
   public static Result index() {
     return redirect(routes.Professors.courses());
@@ -35,9 +35,37 @@ public class Professors extends Controller {
     if (Secured.isProfessor(uc))
     {
       Course course = Course.find.byId(id);
-      return ok(professor_examResults.render(uc,course));
+      return ok(professor_examResults.render(uc,course,enrollForm));
     }
     else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result addResults(Long id) {
+    /*Form<Course> filledForm = courseForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isProfessor(uc))
+    {
+      if (filledForm.hasErrors())
+      {
+        return Students.studyplan(filledForm,true,"");
+      }
+      else
+      {
+        Course newcourse = filledForm.get();
+        newcourse.academicYear = Course.AcademicYear();
+        newcourse.credits = 3;
+        newcourse.isInManifesto = false;
+        newcourse.notes = "external course";
+        newcourse.isbyUNITN = false;
+        newcourse.deleted = false;
+        Course.create(newcourse);
+
+        Students.addToStudyPlan(newcourse.courseID.longValue(),uc.getStudent().userID.longValue());
+        return redirect(routes.Students.studyplan());
+      }
+    }
+    else*/
       return unauthorized(forbidden.render());
   }
 }

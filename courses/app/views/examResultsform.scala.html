@@ -1,0 +1,45 @@
+@(course: Course, courseForm: Form[CourseEnrollment], submitController: play.api.mvc.Call)
+
+@import helper._
+@import helper.twitterBootstrap._
+    
+@helper.form(action = submitController) {
+    <fieldset>
+      <legend>Account informations</legend>
+      
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Studente</th>
+            <th>Voto</th>
+            <th>Passato</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(enroll <- course.getCoursesEnrollment()) {
+            <tr>
+              <td>@enroll.getStudent().fullName</td>
+              <td>
+                @inputText(
+                  courseForm("qualification")
+                )
+              </td>
+              <td>
+                @checkbox(
+                  courseForm("passed"), 
+                  '_showConstraints -> false
+                )
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      
+    </fieldset>
+    
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <a data-dismiss="modal" href="#" class="btn btn-large btn-primary">Confirm</a>
+    </div>
+        
+    }
