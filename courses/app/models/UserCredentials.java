@@ -121,18 +121,4 @@ public class UserCredentials extends Model {
       ur.refresh(); //does nothing, force fetch from db
       return ur;
     }
-
-    public static class CompareByRole implements Comparator<UserCredentials> {
-      @Override
-      public int compare (UserCredentials uc1, UserCredentials uc2) {
-  return uc1.userRol.role.compareTo(uc2.userRol.role);
-      }
-    }
-
-    public static class CompareByUserName implements Comparator<UserCredentials> {
-      @Override
-        public int compare (UserCredentials uc1, UserCredentials uc2) {
-        return uc1.userName.compareTo(uc2.userName);
-      }
-    }
 }

@@ -399,45 +399,4 @@ public class Student extends Model {
     {
       return this.isSuspended;
     }
-
-    public static class CompareByName implements Comparator<Student> {
-      @Override
-      public int compare (Student s1, Student s2) {
-        int comparison = s1.lastName.compareTo(s2.lastName);
-        if (comparison == 0)
-        {
-          return s1.firstName.compareTo(s2.firstName);
-        }
-        else
-        {
-          return comparison;
-        }
-      }
-    }
-
-    public static class CompareByStudyPlan implements Comparator<Student> {
-      @Override
-      public int compare (Student s1, Student s2) {
-        //if the studyplan is not compiled put first
-        if (s1.isPlanApproved == s2.isPlanApproved)
-          return 0;
-        if (s1.isPlanApproved == null || s1.isPlanApproved == 0)
-          return -1;
-        else if (s2.isPlanApproved == null || s2.isPlanApproved == 0)
-          return 1;
-        else
-        {
-          //if the studyplan is not aproved put second
-          if (s1.isPlanApproved == 1)
-            return -1;
-          else if (s2.isPlanApproved == 1)
-            return 1;
-          else
-          {
-            //if the studyplan is approved put third
-            return 0;
-          }
-        }
-      }
-    }
 }

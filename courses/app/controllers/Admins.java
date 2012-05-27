@@ -8,7 +8,6 @@ import models.*;
 import views.html.*;
 
 import play.data.Form;
-import models.FormData;
 
 @Security.Authenticated(Secured.class)
 public class Admins extends Controller {
@@ -36,7 +35,7 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<Course> courses = Course.currentCourses();
-      Collections.sort(courses,new Course.CompareByDate());
+      Collections.sort(courses,new Comparators.CourseCompareByDate());
       if (badRequest)
         return badRequest(admin_courses.render(uc,courses,intForm,extForm));
       else
@@ -116,7 +115,7 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<Course> courses = Course.oldCourses();
-      Collections.sort(courses,new Course.CompareByDate());
+      Collections.sort(courses,new Comparators.CourseCompareByDate());
       return ok(admin_oldcourses.render(uc,courses));
     }
     else
@@ -180,8 +179,8 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<Student> students = Student.getNotSuspended();
-      Collections.sort(students,new Student.CompareByName());
-      Collections.sort(students,new Student.CompareByStudyPlan());
+      Collections.sort(students,new Comparators.StudentCompareByName());
+      Collections.sort(students,new Comparators.StudentCompareByStudyPlan());
       if (badRequest)
         return badRequest(admin_students.render(uc,students,form));
       else
@@ -223,7 +222,7 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<Student> students = Student.getSuspended();
-      Collections.sort(students,new Student.CompareByName());
+      Collections.sort(students,new Comparators.StudentCompareByName());
       return ok(admin_suspended_students.render(uc,students));
     }
     else
@@ -267,7 +266,7 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<Supervisor> supervisors = Supervisor.all();
-      Collections.sort(supervisors,new Supervisor.CompareByName());
+      Collections.sort(supervisors,new Comparators.SupervisorCompareByName());
       if (badRequest)
         return badRequest(admin_supervisors.render(uc,supervisors,id,newForm,editForm));
       else
@@ -332,8 +331,8 @@ public class Admins extends Controller {
     if (Secured.isAdmin(uc))
     {
       List<UserCredentials> ucs = UserCredentials.all();
-      Collections.sort(ucs,new UserCredentials.CompareByUserName());
-      Collections.sort(ucs,new UserCredentials.CompareByRole());
+      Collections.sort(ucs,new Comparators.UserCredentialsCompareByUserName());
+      Collections.sort(ucs,new Comparators.UserCredentialsCompareByRole());
       if (badRequest)
         return badRequest(admin_credentials.render(uc,ucs,UserRole.all(),userForm, roleForm));
       else

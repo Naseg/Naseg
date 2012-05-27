@@ -148,28 +148,6 @@ public class Course extends Model {
       return s;
     }
 
-    public static class CompareByDate implements Comparator<Course> {
-      @Override
-      public int compare (Course c1, Course c2) {
-        //from most recent year to the oldest
-        if (c1.academicYear<c2.academicYear)
-          return 1;
-        else if (c1.academicYear>c2.academicYear)
-          return -1;
-        //same year -> ordered by startdate
-        else
-        {
-          //null date is the last element
-          if (c1.actualStartDate == null)
-            return 1;
-          else if (c2.actualStartDate == null)
-            return -1;
-          else
-            return c1.actualStartDate.compareTo(c2.actualStartDate)*-1;
-        }
-      }
-    }
-
     public String printType()
     {
       if (this.isInManifesto)
