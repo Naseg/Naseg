@@ -127,9 +127,9 @@
             <tbody>
                 @for(enrollment <- selectedStudent.getCoursesEnrollmentSet()) {
                     <tr>
-                        <td>@enrollment.getCourse.courseID</td>
-                        <td>@enrollment.getCourse.courseName</td>
-                        <td>@if(enrollment.getCourse.professor != null)  { @enrollment.getCourse.getProfessor.lastName }</td>
+                        <td>@enrollment.fetchCourse.courseID</td>
+                        <td>@enrollment.fetchCourse.courseName</td>
+                        <td>@if(enrollment.fetchCourse.professor != null)  { @enrollment.fetchCourse.getProfessor.lastName }</td>
                         @if(enrollment.credits == enrollment.credits) {
                             <td>Passato</td>
                         } else {
@@ -137,7 +137,7 @@
                         }
                         <td>@enrollment.credits</td>
                         <td>
-                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.getCourse.courseID}">
+                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.fetchCourse.courseID}">
                                 <img src="@routes.Assets.at("images/details.png")" />
                             </a>
                         </td>

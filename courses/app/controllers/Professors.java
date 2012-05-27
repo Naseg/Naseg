@@ -11,6 +11,7 @@ import play.data.Form;
 
 @Security.Authenticated(Secured.class)
 public class Professors extends Controller {
+  static Map<Long,List<Form<CourseEnrollment>>> enrollForms = Collections.synchronizedMap(new HashMap());
   static Form<CourseEnrollment> enrollForm = form(CourseEnrollment.class);
 
   public static Result index() {
@@ -30,34 +31,67 @@ public class Professors extends Controller {
   }
 
   public static Result results(Long id) {
-    return Professors.results(id, enrollForm);
+    Course course = Course.find.byId(id);
+    List<Form<CourseEnrollment>> forms = new ArrayList<Form<CourseEnrollment>>();
+    for (CourseEnrollment enrollment : course.getCoursesEnrollment())
+    {
+      Form<CourseEnrollment> f = form(CourseEnrollment.class);
+      f = f.fill(enrollment);
+      forms.add(f);
+    }
+    enrollForms.put(id,forms);
+    return Professors.results(id, false);
   }
 
-  public static Result results(Long id, Form<CourseEnrollment> form) {
+  public static Result results(Long id, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-    if (Secured.isProfessor(uc))
+    Supervisor s = uc.getSupervisor();
+    Course course = Course.find.byId(id);
+    if (Secured.isProfessor(uc) && course.professor.supervisorID.equals(s.supervisorID))
     {
-      Course course = Course.find.byId(id);
-      return ok(professor_examResults.render(uc,course,form));
+      if (badRequest)
+        return badRequest(professor_examResults.render(uc,course,enrollForms.get(id)));
+      else
+        return ok(professor_examResults.render(uc,course,enrollForms.get(id)));
     }
     else
       return unauthorized(forbidden.render());
   }
 
-  public static Result addResults(Long id) {
+  public static Result addResults(Long courseId) {
     Form<CourseEnrollment> filledForm = enrollForm.bindFromRequest();
+    System.out.println(filledForm);
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-    if (Secured.isProfessor(uc))
+    Supervisor s = uc.getSupervisor();
+    Course course = Course.find.byId(courseId);
+    if (Secured.isProfessor(uc) && course.professor.supervisorID.equals(s.supervisorID))
     {
       if (filledForm.hasErrors())
       {
-        return Professors.results(id, filledForm);
+        ListIterator<Form<CourseEnrollment>> i = enrollForms.get(courseId).listIterator();
+        while (i.hasNext())
+        {
+          Form<CourseEnrollment> f = i.next();
+          if (f.value().get().enrollmentID == Integer.parseInt(filledForm.data().get("enrollmentID")))
+          {
+            i.set(filledForm);
+            break;
+          }
+        }
+        return Professors.results(courseId, true);
       }
       else
       {
         //qui van presi i campi
-        
-        return redirect(routes.Students.studyplan());
+        CourseEnrollment ce = filledForm.get();
+        if (filledForm.data().get("passed") != null)
+        {
+          ce.credits = ce.fetchCourse().credits;
+        }
+        else
+          ce.credits = 0;
+        ce.update();
+        return redirect(routes.Professors.results(courseId));
       }
     }
     else

@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
+import play.db.ebean.Model.Finder;
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -198,9 +199,9 @@ public class Student extends Model {
       int currentYear = Course.AcademicYear();
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (enrollment.getCourse().academicYear == currentYear)
+        if (enrollment.fetchCourse().academicYear == currentYear)
         {
-          studyPlan.add(enrollment.getCourse());
+          studyPlan.add(enrollment.fetchCourse());
         }
       }
       return studyPlan;
@@ -267,7 +268,7 @@ public class Student extends Model {
       int credits = 0;
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (enrollment.getCourse().isInManifesto && enrollment.credits!=null)//if internal
+        if (enrollment.fetchCourse().isInManifesto && enrollment.credits!=null)//if internal
             credits += enrollment.credits;
       }
       return credits;
@@ -291,7 +292,7 @@ public class Student extends Model {
       int credits = 0;
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (!enrollment.getCourse().isInManifesto && enrollment.credits!=null)//if internal
+        if (!enrollment.fetchCourse().isInManifesto && enrollment.credits!=null)//if internal
             credits += enrollment.credits;
       }
       return credits;
@@ -332,7 +333,7 @@ public class Student extends Model {
     {
       for (CourseEnrollment ce : this.getCoursesEnrollmentSet())
       {
-        if (ce.getCourse().courseID == idCourse.intValue())
+        if (ce.fetchCourse().courseID == idCourse.intValue())
           ce.delete();
       }
     }

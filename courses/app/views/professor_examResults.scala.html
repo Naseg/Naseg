@@ -1,4 +1,4 @@
-@(user: UserCredentials, course: Course, enrollForm: Form[CourseEnrollment])
+@(user: UserCredentials, course: Course, enrollForms: List[Form[CourseEnrollment]])
 
 @main {
 
@@ -19,7 +19,7 @@
 
   <div class="span6">
   
-    @examResultsform(course, enrollForm, routes.Professors.addResults(course.courseID.longValue))
+    @examResultsform(course, enrollForms, routes.Professors.addResults(course.courseID.longValue))
     
   </div>
   

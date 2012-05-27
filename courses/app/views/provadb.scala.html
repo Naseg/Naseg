@@ -17,7 +17,7 @@
             <li>
                 @{student.firstName +" "+ student.lastName+": "}
                 @for(enrollment <- student.getCoursesEnrollmentSet) {
-@{enrollment.getCourse.courseName}
+@{enrollment.fetchCourse.courseName}
                 }
             </li>
         }

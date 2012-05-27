@@ -53,17 +53,17 @@ public class CourseEnrollment extends Model {
       find.ref(id).delete();
     }
 
-    public Course getCourse()
+    public Course fetchCourse()
     {
       Course c = this.course;
       c.refresh();//Integer a = c.credits;//does nothing, force fetching from db
       return c;
     }
 
-    public Student getStudent()
+    public Student fetchStudent()
     {
       Student s = this.student;
-      s.refresh();//Integer a = c.credits;//does nothing, force fetching from db
+      s.refresh();//does nothing, force fetching from db
       return s;
     }
 
@@ -71,13 +71,19 @@ public class CourseEnrollment extends Model {
     {
       List<Course> out = new ArrayList();
       for (CourseEnrollment enrollment : enrollments)
-	out.add(enrollment.getCourse());
+	out.add(enrollment.fetchCourse());
       return out;
+    }
+
+
+    public boolean passed()
+    {
+      return (this.credits == this.fetchCourse().credits);
     }
 
     public String printResult()
     {
-      if (this.credits == this.getCourse().credits)
+      if (this.credits == this.fetchCourse().credits)
         return "Passed";
       else
         return "Not passed";
