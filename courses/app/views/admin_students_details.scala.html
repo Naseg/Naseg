@@ -12,10 +12,32 @@
 
 @studentDetailsModal(selectedStudent, studentForm)
 
+<div class="modal hide fade" id="studentDetails_confirmSuspendAction" style="display: none; ">
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Conferma operazione</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      Procedendo con l'operazione lo studente verrà sospeso. Continuare?
+    </p>
+    <a data-dismiss="modal" href="#" class="btn btn-large">Annulla</a>
+    <a href="@routes.Admins.suspendStudent(selectedStudent.userID.longValue)" class="btn btn-primary btn-large">Sospendi lo studente</a>
+  </div>
+</div>
+
 <!-- Parte centrale -->
 
 @common_editableSP(user, selectedStudent, studyplan, courses, courseForm)
 @common_studentCareer(user, enrollments)
+    
+<div>
+  @if(selectedStudent.isSuspended() == false) {
+    <a data-toggle="modal" href="#studentDetails_confirmSuspendAction" class="btn">Sospendi studente</a>
+  }
+</div>
 
 } {
 
