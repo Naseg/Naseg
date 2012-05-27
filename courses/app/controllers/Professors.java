@@ -30,41 +30,37 @@ public class Professors extends Controller {
   }
 
   public static Result results(Long id) {
+    return Professors.results(id, enrollForm);
+  }
+
+  public static Result results(Long id, Form<CourseEnrollment> form) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isProfessor(uc))
     {
       Course course = Course.find.byId(id);
-      return ok(professor_examResults.render(uc,course,enrollForm));
+      return ok(professor_examResults.render(uc,course,form));
     }
     else
       return unauthorized(forbidden.render());
   }
 
   public static Result addResults(Long id) {
-    /*Form<Course> filledForm = courseForm.bindFromRequest();
+    Form<CourseEnrollment> filledForm = enrollForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isProfessor(uc))
     {
       if (filledForm.hasErrors())
       {
-        return Students.studyplan(filledForm,true,"");
+        return Professors.results(id, filledForm);
       }
       else
       {
-        Course newcourse = filledForm.get();
-        newcourse.academicYear = Course.AcademicYear();
-        newcourse.credits = 3;
-        newcourse.isInManifesto = false;
-        newcourse.notes = "external course";
-        newcourse.isbyUNITN = false;
-        newcourse.deleted = false;
-        Course.create(newcourse);
-
-        Students.addToStudyPlan(newcourse.courseID.longValue(),uc.getStudent().userID.longValue());
+        //qui van presi i campi
+        
         return redirect(routes.Students.studyplan());
       }
     }
-    else*/
+    else
       return unauthorized(forbidden.render());
   }
 }
