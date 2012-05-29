@@ -20,7 +20,7 @@
     <div class="modal-body">
         Insert a comment for denying this study plan; it will be send to the student by e-mail
         <br/>
-        <form method="POST" action="/supervisor/studyplan/rejectSP">
+        <form method="POST" action="@routes.Supervisors.rejectSP()">
             <fieldset>
                 <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
                 <br />
@@ -46,7 +46,7 @@
     <div class="modal-body">
         Are you sure of accepting this study plan?<br />You can leave a comment (not required)
         <br />
-        <form method="POST" action="/supervisor/studyplan/acceptSP">
+        <form method="POST" action="@routes.Supervisors.acceptSP()">
             <fieldset>
                 <input type="hidden" name="idStudente" value="@selectedStudent.userID">
                 <br />
