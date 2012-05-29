@@ -1,0 +1,67 @@
+@(course: Course, enrollForms: List[Form[CourseEnrollment]], submitController: play.api.mvc.Call)
+
+@import helper._
+@import helper.twitterBootstrap._
+      <legend>Account informations</legend>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Grade</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for(form <- enrollForms) {
+              @helper.form(action = submitController) {
+                <tr>
+                  <fieldset>
+                    <input type="hidden" value="@form("enrollmentID").value" name="enrollmentID"/>
+                    <input type="hidden" value="@form("course.courseID").value" name="course.courseID"/>
+                    <input type="hidden" value="@form("student.userID").value" name="student.userID"/>
+                    <input type="hidden" value="@form("credits").value" name="credits"/>
+                    <input type="hidden" value="@form("enrolledAt").value" name="enrolledAt"/>
+                    <input type="hidden" value="@form("updatedAt").value" name="updatedAt"/>
+                    <input type="hidden" value="@form("approvedAt").value" name="approvedAt"/>
+                    <td>
+                      @if(form("student.fullName").value) {
+                        @form("student.fullName").value
+                      } else {
+                        @Student.find.byId(Integer.parseInt(form.data.get("student.userID"))).fullName
+                      }
+                    </td>
+                    <td>
+                      @inputText(
+                      form("qualification")
+                      )
+                    </td>
+                    <td>
+                      @if(form.value.isDefined) {
+                        @if(form.value.get.passed) {
+                          <input type="checkbox" name="passed" checked="checked">
+                        } else {
+                          <input type="checkbox" name="passed">
+                        }
+                      } else {
+                        @if(CourseEnrollment.find.byId(Integer.parseInt(form.data.get("enrollmentID"))).passed) {
+                            <input type="checkbox" name="passed" checked="checked">
+                        } else {
+                          <input type="checkbox" name="passed">
+                        }
+                      }
+                    </td>
+                  </fieldset>
+                  <td>
+                    <input type="submit" class="btn primary" value="Submit">
+                  </td>
+                </tr>
+              }
+          }
+        </tbody>
+      </table>
+
+    <div class="actions">
+      <a href="@routes.Application.index" class="btn">Cancel</a>
+    </div>
+ 
+

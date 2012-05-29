@@ -1,17 +1,26 @@
 @(form: Form[Authentication.Login])
 
-@index(form) { <a class="brand" data-toggle="modal" name="login" href="#windowTitleDialog" >Login</a> } {
+@index(form) {
 
-<script language="JavaScript">
+<a class="brand" data-toggle="modal" name="login" href="#windowTitleDialog" >Login</a>
 
-    function autofun() {
-        
-        @if(form.hasGlobalErrors) { 
-            $('#windowTitleDialog').modal('show')
-        }
-    }
-    
-</script>
+} {
+
+
+
+} {
+ 
+<!-- script nonAuthIndex -->
+
+@if(form.hasGlobalErrors) { 
+
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog').modal('show')
+  }
+  </script>
+  
+}
 
 }
 

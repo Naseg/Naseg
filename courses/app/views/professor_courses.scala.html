@@ -1,0 +1,51 @@
+@(user: UserCredentials, courses: List[Course])
+
+@main {
+
+
+} {
+
+<!-- central part -->
+
+<div class="row-fluid">
+  <div class="span6">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Year</th>
+        <th>Start Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(course <- courses) {
+        <tr>
+          <td>@course.courseName</td>
+          <td>@course.academicYear</td>
+          <td>@course.printActualStartDate</td>
+          <td>
+            <a data-toggle="modal" href="@routes.Professors.results(course.courseID.longValue)">
+              <img src="@routes.Assets.at("images/details.png")" />
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+</div>
+
+} {
+
+<!-- authstate -->
+
+Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+<!-- script professor_examResult -->
+
+}
+
+

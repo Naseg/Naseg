@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
+import play.db.ebean.Model.Finder;
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -61,12 +62,30 @@ public class Supervisor extends Model {
       return find.all();
     }
 
+    public static List<Supervisor> allSupervisors() {
+      List<Supervisor> out = new ArrayList();
+      for (Supervisor s : find.all())
+        if (s.getStudentsAdvisored().size() > 0) //if it is an advisor
+          out.add(s);
+      return out;
+    }
+
     public static void create(Supervisor supervisor) {
       supervisor.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
+    }
+
+    public List<Course> getCoursesSet() {
+      List<Course> out = new ArrayList();
+      for (Course c: this.coursesSet)
+      {
+        c.refresh();  // force fetching from db
+        out.add(c);
+      }
+      return out;
     }
 
     public static Map<String,String> options() {
@@ -80,7 +99,22 @@ public class Supervisor extends Model {
     public Set<Student> getStudentsAdvisored()
     {
       Set<Student> students = this.studentsAdvisored;
-      for (Student s : students) { String a = s.firstName; } //do nothing, force fetching from db
+      for (Student s : students) {s.refresh();}//{ String a = s.firstName; }do nothing, force fetching from db
       return students;
+    }
+
+    public int getApprovalRequests()
+    {
+        int count = 0;
+        List<Student> students = new ArrayList(this.getStudentsAdvisored());
+        for (Student student : students)
+        {
+            if (student.waitingForApproval())
+            {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

@@ -1,36 +1,37 @@
-@(user: UserCredentials)(sideContents: Html)(centralContents: Html)
+@(user: UserCredentials)(sideContents: Html)(centralContents: Html)(modals: Html)(script: Html)
 
 @main { 
 
-<!---parte sx -->
+<!-- Left side -->
 
 <ul class="nav nav-list">
-              <li class="nav-header"><font size="4" face="Courier">Amministratore</font></li> <!-- tag scala nome studente -->
-              <li><a  href="/admin/course" ><font size="3" face="Courier"></font>Corsi</a></li>
-              <li><a  href="/admin/student" ><font size="3" face="Courier"></font>Studenti</a></li>
-	      <li><a  href="/admin/professore" ><font size="3" face="Courier"></font>Docenti</a></li>
-	@sideContents
+  <li class="nav-header"><font size="4" face="Courier">Administrator</font></li>
+  <li><a  href="@routes.Admins.courses()" ><font size="3" face="Courier"></font>Courses</a></li>
+  <li><a  href="@routes.Admins.students()" ><font size="3" face="Courier"></font>Students</a></li>
+  <li><a  href="@routes.Admins.supervisors(-1)" ><font size="3" face="Courier"></font>Supervisors</a></li>
+  <li><a  href="@routes.Admins.credentials()" ><font size="3" face="Courier"></font>Credentials</a></li>
+  
+  @sideContents
 </ul>
+
 } {
  
 <!---parte centrale -->
 
+@modals
+
 <div class="row-fluid">	  
 	@centralContents
-</div><!--Row-->
-
-
-
-
+</div>
 
 } {
 
-Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+Logged as: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
 
 } {
+ 
+<!-- script admin_base -->
 
-<script language="JavaScript">
-    
-</script>
+@script
 
 }

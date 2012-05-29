@@ -5,116 +5,113 @@
 <!--<div class="container-fluid">  -->
 
 <div class="row" >
-   <div class="span 4">
-    <p> NomeDocente </p>
-  </div>
-    
-    
+    <div class="span 4">
+        <p> Professor name </p>
+    </div>
+
+
     <div class="span 8">
-      <p> @{course.professor}</p>    
-    </div>   
-  </div>
+        <p> @if(course.getProfessor != null) {
+                @{course.getProfessor.lastName}
+            }</p>
+    </div>
+</div>
+
+<div class="row" >
+    <div class="span 4">
+        <p> course ID </p>
+    </div>
 
 
-
- <div class="row" >
-   <div class="span 4">
-    <p> ID corso </p>
-   </div>
-    
-    
     <div class="span 8">
-      <p> @{course.courseID} </p>    
-    </div>   
-  </div>
+        <p> @{course.courseID} </p>
+    </div>
+</div>
 
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Data inizio </p>
-   </div>
-    
-    
-    <div class="span 8">
-      <p> @{course.actualStartDate} </p>    
-    </div>   
-  </div>
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Star date </p>
+    </div>
 
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Aula </p>
-   </div>
-    
-    
-    <div class="span 8">
-      <p> @{course.place} </p>    
-    </div>   
-  </div>
 
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Crediti </p>
-   </div>
-    
-    
     <div class="span 8">
-      <p> @{course.credits} </p>    
+        <p> @{course.actualStartDate} </p>    
     </div>   
-  </div>
+</div>
 
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Anno Accademico </p>
-   </div>
-    
-    
-    <div class="span 8">
-      <p> "@{course.academicYear}" </p>    
-    </div>   
-  </div>
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Classroom </p>
+    </div>
 
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Sito </p>
-   </div>
-    
-    
+
     <div class="span 8">
-      <p> @{course.url} </p>    
+        <p> @{course.place} </p>    
     </div>   
-  </div>
+</div>
+
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Credits </p>
+    </div>
+
+
+    <div class="span 8">
+        <p> @{course.credits} </p>    
+    </div>   
+</div>
+
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Academic year </p>
+    </div>
+
+
+    <div class="span 8">
+        <p> "@{course.academicYear}" </p>    
+    </div>   
+</div>
+
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Web site </p>
+    </div>
+
+
+    <div class="span 8">
+        <p> @{course.url} </p>    
+    </div>   
+</div>
 
 @if(course.isPaymentCompleted) {
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Pagamento Effettuato </p>
-   </div>
- </div>
-}else{
- <div class="row-fluid" >
-   <div class="span 4">
-    <p> Pagamento non effettuato </p>
-   </div>
- </div>
+    <div class="row-fluid" >
+        <div class="span 4">
+            <p> Paymend made </p>
+        </div>
+    </div>
+} else {
+    <div class="row-fluid" >
+        <div class="span 4">
+            <p> Paymend not made </p>
+        </div>
+    </div>
 }
 
-  <div class="row-fluid" >
-   <div class="span 4">
-    <p> Note del Corso </p>
-    <!-- <p> Institution     @{course.institution} </p> -->
-    <!--<p> isInManifesto     @{course.isInManifesto} </p>
-    <p> isByUnitn @{course.isbyUNITN} </p>
-    <p> isPaid @{course.isPaid} </p>
-    <!-- <p> BudgetedCost     @{course.budgetedCost} </p>
-    <!--<p> plannedCoursePeriod   @{course.plannedCoursePeriod} </p>
-    <p> PagamentoCompletato     @{course.isPaymentCompleted} </p>
-    <p> Cancellato     @{course.deleted} </p>
-    <p> areAllMarksDefined     @{course.areAllMarksDefined} </p>-->
-   </div>
-    
-    
+<div class="row-fluid" >
+    <div class="span 4">
+        <p> Course notes </p>
+<!-- <p> Institution     @{course.institution} </p> -->
+<!--<p> isInManifesto     @{course.isInManifesto} </p>
+<p> isByUnitn @{course.isbyUNITN} </p>
+<p> isPaid @{course.isPaid} </p>
+<!-- <p> BudgetedCost     @{course.budgetedCost} </p>
+<!--<p> plannedCoursePeriod   @{course.plannedCoursePeriod} </p>
+<p> PagamentoCompletato     @{course.isPaymentCompleted} </p>
+<p> Cancellato     @{course.deleted} </p>
+<p> areAllMarksDefined     @{course.areAllMarksDefined} </p>-->
+    </div>
     <div class="span 8">
-      <p> @{course.notes}  </p> 
+        <p> @{course.notes}  </p> 
     </div> 
-   </div>
-
+</div>
 

@@ -1,0 +1,44 @@
+@(courseForm: Form[Course], submitController: play.api.mvc.Call)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@helper.form(action = submitController) {
+       <fieldset>
+            @inputText(
+                courseForm("courseName"),
+                '_label -> "Course name"
+            )
+
+            @inputText(
+                courseForm("institution"),
+                '_label -> "Institution"
+            )
+
+            @inputText(
+                courseForm("place"),
+                '_label -> "Place"
+            )
+
+            @inputText(
+                courseForm("plannedCoursePeriod"),
+                '_label -> "Planned course period"
+            )
+
+            @inputText(
+                courseForm("url"),
+                '_label -> "Url"
+            )
+
+            @inputDate(
+                courseForm("actualStartDate"),
+                '_label -> "Start Date (yyyy-mm-dd)"
+            )
+        </fieldset>
+        <div class="actions">
+            <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+            <input type="submit" class="btn btn-large btn-primary" value="Submit">
+        </div>
+
+    }
+

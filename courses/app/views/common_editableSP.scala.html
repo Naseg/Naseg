@@ -1,0 +1,127 @@
+@(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
+
+<!-- new course dialog -->
+
+@externCourseFormModal(courseForm, routes.Students.newExternCourse())
+
+<!-- end of new course dialog -->
+
+
+<!-- course details dialog -->
+
+@courseDetailsModal(courses)
+@courseDetailsModal(studyplan)
+
+<!-- end of course details dialog -->
+
+<!---parte centrale -->
+
+<div class="row-fluid">
+  <h2 align="center">@selectedStudent.fullName</h2>
+  @if(user.isAdmin()) {
+    <a data-toggle="modal" href="#windowTitleDialog_studentDetails">Student details</a>
+  }
+</div>
+
+<br />
+<br />
+<div class="row-fluid">
+  <div class="span6">
+    <h2>StudyPlan
+      @if(user.isStudent()) {
+        @if(user.getStudent().isPlanApproved == 0 || user.getStudent().isPlanApproved == null) {
+          (In construction)
+        } else {
+          @if(user.getStudent().isPlanApproved == 1) {
+            (Waiting for approval)
+          } else {
+            @if(user.getStudent().isPlanApproved == 2) {
+              (Approved)
+            }
+          }
+        }
+      }
+    </h2>
+    <!-- if is waiting for the advisor approval or is approved, it will take off the couloumns for modifing the study plan -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Professor</th>
+          <th>Type</th>
+          <th>Start Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(course <- studyplan) {
+          <tr>
+            <td>@course.courseName</td>
+            <td>@if(course.professor != null)  { @course.getProfessor.lastName } </td>
+            <td>@course.printType</td>
+            <td>@course.printActualStartDate</td>
+            <td>
+              <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                <img src="@routes.Assets.at("images/details.png")" />
+              </a>
+            </td>
+            <td>
+              <a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID">
+                <img src="@routes.Assets.at("images/removeicon.gif")" />
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <p align="center">
+      @if(user.isStudent()) {
+      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Add extern course</a>
+      }
+      @if(user.isStudent()) {
+        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">ask for approval</a>
+      }
+    </p>
+  </div><!--span1 -->
+
+  <div class="span6">
+    <!--
+       <form class="well form-search">
+         <input type="text" class="input-medium search-query">
+         <button type="submit" class="btn">Search</button>
+       </form>
+     -->
+    <h2>Courses</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Professor</th>
+          <th>Type</th>
+          <th>Start Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(course <- courses) {
+          <tr>
+            <td>@course.courseName</td>
+            <td>@if(course.professor != null) { @course.getProfessor.lastName } </td>
+            <td>@course.printType</td>
+            <td>@course.printActualStartDate</td>
+            <td>
+              <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                <img src="@routes.Assets.at("images/details.png")" />
+              </a>
+            </td>
+            <td>
+              <a href="/student/addtosp/@course.courseID/@selectedStudent.userID">
+                <img src="@routes.Assets.at("images/addicon.png")" />
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div><!--span-->
+</div><!--row-->
+

@@ -1,0 +1,156 @@
+@(user: UserCredentials, students: List[Student], selectedStudent: Student)
+
+@advisor_base(user,students) {
+
+<!-- Parte side -->
+
+} {
+
+<!-- Modal -->
+
+@courseDetailsModal(selectedStudent.getStudyPlan())
+
+<div class="modal hide fade" id="windowTitleDialog_rejectSP" style="display: none; ">
+    <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">
+            <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+        </a>
+        <h3>Reject study plan</h3>
+    </div>
+    <div class="modal-body">
+        Insert a comment for denying this study plan; it will be send to the student by e-mail
+        <br/>
+        <form method="POST" action="@routes.Supervisors.rejectSP()">
+            <fieldset>
+                <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
+                <br />
+                <label for="comment">Comment (required)</label>
+                <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
+            </fieldset>
+            <br />
+            <div class="actions">
+                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
+                <input type="submit" class="btn primary" value="Conferma">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal hide fade" id="windowTitleDialog_acceptSP" style="display: none; ">
+    <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">
+            <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+        </a>
+        <h3>Accept study plan</h3>
+    </div>
+    <div class="modal-body">
+        Are you sure of accepting this study plan?<br />You can leave a comment (not required)
+        <br />
+        <form method="POST" action="@routes.Supervisors.acceptSP()">
+            <fieldset>
+                <input type="hidden" name="idStudente" value="@selectedStudent.userID">
+                <br />
+                <label for="comment">Comment (not required)</label>
+                <textarea name="comment-text" rows="5" cols="40"></textarea>
+            </fieldset>
+            <div class="actions">
+                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
+                <input type="submit" class="btn primary" value="Conferma">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Fine modal -->
+
+<!-- Parte dx-->
+<!--<div class="row-fluid">-->
+    <div class="span6">
+        <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
+       
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Course name</th>
+                    <th>Professor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(course <- selectedStudent.getStudyPlan()) {
+                    <tr>
+                        <td>@course.courseName</td>
+                        <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                        <td>
+                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                                <img src="@routes.Assets.at("images/details.png")" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <p align="center">
+            <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
+            <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
+        </p>
+    </div><!--span6/1 -->
+<!--</div>-->
+
+} {
+
+<!-- course modal -->
+
+@courseDetailsModal(selectedStudent.getStudyPlan())
+
+<!-- end of course modal -->
+
+<!-- right side -->
+
+<!--<div class="row-fluid">	  -->
+    <div class="span6">
+        <h2 align="center">@selectedStudent.fullName's career</h2> 
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Course name</th>
+                    <th>Professor</th>
+                    <th>Result</th>
+                    <th>Credits</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for(enrollment <- selectedStudent.getCoursesEnrollmentSet()) {
+                    <tr>
+                        <td>@enrollment.fetchCourse.courseID</td>
+                        <td>@enrollment.fetchCourse.courseName</td>
+                        <td>@if(enrollment.fetchCourse.professor != null)  { @enrollment.fetchCourse.getProfessor.lastName }</td>
+                        @if(enrollment.credits == enrollment.credits) {
+                            <td>Passed</td>
+                        } else {
+                            <td>Not passed</td>
+                        }
+                        <td>@enrollment.credits</td>
+                        <td>
+                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{enrollment.fetchCourse.courseID}">
+                                <img src="@routes.Assets.at("images/details.png")" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        <br />
+    </div><!--span1 -->
+<!--</div>-->
+
+} {
+ 
+<!-- script advisor_watchStudent -->
+
+}

@@ -39,53 +39,86 @@ public class UserCredentials extends Model {
     public static List<UserCredentials> all() {
       return find.all();
     }
-  
+
     public static void create(UserCredentials usercredentials) {
       usercredentials.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
+
+    public static Map<String,String> optionsForStudent() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(UserCredentials uc: UserCredentials.find.orderBy("userName").findList()) {
+          if (uc.getStudent() == null) //if uc not already took by student
+            options.put(uc.usercredentialID.toString(), uc.userName);
+        }
+        return options;
+    }
+
+    public static Map<String,String> optionsForSupervisor() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(UserCredentials uc: UserCredentials.find.orderBy("userName").findList()) {
+          if (uc.getSupervisor() == null) //if uc not already took by supervisor
+            options.put(uc.usercredentialID.toString(), uc.userName);
+        }
+        return options;
+    }
 
     public static UserCredentials authenticate(String username, String password) {
-        return find.where()
-            .eq("userName", username)
-            .eq("password", password)
-            .findUnique();
+      return find.where()
+        .eq("userName", username)
+        .eq("password", password)
+        .findUnique();
     }
 
-    public Student getStudent()
-    {
+    public Student getStudent() {
       if (this.studentsSet.size() > 1)
       {
-	throw new PersistenceException("There is more than one student for credential "+this);
+        throw new PersistenceException("There is more than one student for credential "+this);
       }
       else
       {
-	try {
-	  return (Student)this.studentsSet.toArray()[0];
-	}
-	catch (ArrayIndexOutOfBoundsException ex) {
-	  return null;
-	}
+        try {
+          return (Student)this.studentsSet.toArray()[0];
+        }
+        catch (ArrayIndexOutOfBoundsException ex) {
+          return null;
+        }
       }
     }
 
-    public Supervisor getSupervisor()
-    {
+    public Supervisor getSupervisor() {
       if (this.supervisorsSet.size() > 1)
       {
-	throw new PersistenceException("There is more than one supervisor for credential "+this);
+        throw new PersistenceException("There is more than one supervisor for credential "+this);
       }
       else
       {
-	try {
-	  return (Supervisor)this.supervisorsSet.toArray()[0];
-	}
-	catch (ArrayIndexOutOfBoundsException ex) {
-	  return null;
-	}
+        try {
+          return (Supervisor)this.supervisorsSet.toArray()[0];
+        }
+        catch (ArrayIndexOutOfBoundsException ex) {
+          return null;
+        }
       }
+    }
+
+    public boolean isAdmin()
+    {
+      return (this.userRol.role.equals("admin"));
+    }
+
+    public boolean isStudent()
+    {
+      return this.getStudent() != null;
+    }
+
+    public UserRole getRole()
+    {
+      UserRole ur = this.userRol;
+      ur.refresh(); //does nothing, force fetch from db
+      return ur;
     }
 }

@@ -22,7 +22,8 @@ pl2s = { "Students" : "Student",
          "Users" : "User",
          "FundingInstitutions" : "FundingInstitution",
          "Roles" : "Role",
-         "Collection" : "Set"}
+         "Collection" : "Set"
+         }
 
 regexs = [re.compile(r'/\*.*?\*/', flags=re.DOTALL),
           re.compile(r'public [\w<>]* set[\w]*\([\w\s<>]*\) \{.*?\}[\s]+',
@@ -81,6 +82,8 @@ for filename in os.listdir('.'):
     for pl in pl2s:
         files[filename] = files[filename].replace(pl,pl2s[pl])
         outputname = outputname.replace(pl,pl2s[pl])
+    if (filename == "Supervisors.java"):
+        files[filename] = files[filename].replace("studentsSet2", "studentsAdvisored");
 
     stream = open('../'+outputname, 'w')
     stream.write(
@@ -104,42 +107,35 @@ import play.data.validation.*;\n
     public static List<%s> all() {
       return find.all();
     }
-  
+
     public static void create(%s %s) {
       %s.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 """ % (outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5],outputname[:-5].lower(),outputname[:-5].lower()))
     if (filename == "Courses.java"):
         stream.write(
 """
-    public static List<Course> findCourseEnrolled(Set<CourseEnrollment> enrollments) {
-      List<Course> out = new ArrayList();
-      for (Course c : Course.find.all())
-	for (CourseEnrollment e : enrollments)
-	{
-	  if (c.coursesEnrollmentSet.contains(e))
-	    out.add(c);
-	}
-      return out;
-    }
-
-    public static List<Course> getStudyPlanFromEnrollments(Set<CourseEnrollment> enrollments) {
-      List<Course> out = new ArrayList();
-      int currentYear = -1;      
+    public static int AcademicYear()
+    {
+      int currentYear = -1;
       for (Course c : Course.find.all())
             if (c.academicYear > currentYear)
-                currentYear = c.academicYear;      
-      for (Course c : Course.find.all())
-	    for (CourseEnrollment e : enrollments)
-	    {
-	      if (c.coursesEnrollmentSet.contains(e) && c.academicYear==currentYear)
-	        out.add(c);
-	    }
-      return out;
+                currentYear = c.academicYear;
+      return currentYear;
+    }
+
+    public Supervisor getProfessor()
+    {
+      Supervisor s = this.professor;
+      if (s != null)
+      {
+	String a = s.firstName; //does nothing, force fetching from db
+      }
+      return s;
     }
 """)
     if (filename == "Supervisors.java"):
@@ -151,6 +147,13 @@ import play.data.validation.*;\n
             options.put(s.supervisorID.toString(), s.lastName);
         }
         return options;
+    }
+
+    public Set<Student> getStudentsAdvisored()
+    {
+      Set<Student> students = this.studentsAdvisored;
+      for (Student s : students) { String a = s.firstName; } //do nothing, force fetching from db
+      return students;
     }
 """)
     if (filename == "UsersCredentials.java"):
@@ -197,34 +200,52 @@ import play.data.validation.*;\n
       }
     }
 """)
-    if (filename == "Supervisors.java"):
-        stream.write(
-"""
-    public static Supervisor findProfessor(Course course) {
-      Supervisor out = null;
-      for (Supervisor s : Supervisor.find.all())
-	if (s.coursesSet.contains(course))
-	{
-	    out = s;
-	    break;
-	}
-      return out;
-    }
-""")
     if (filename == "Students.java"):
         stream.write(
 """
+    public Set<CourseEnrollment> getCoursesEnrollmentSet()
+    {
+      Set<CourseEnrollment> enrollments = this.coursesEnrollmentSet;
+      for (CourseEnrollment c : enrollments) {Integer s = c.credits;} //does nothing, force fetching from db
+      return enrollments;
+    }
+
     public List<Course> getStudyPlan()
     {
-      return Course.getStudyPlanFromEnrollments(this.coursesEnrollmentSet);
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      List<Course> studyPlan = new ArrayList();
+      int currentYear = Course.AcademicYear();
+      for (CourseEnrollment enrollment : enrollments)
+      {
+	if (enrollment.getCourse().academicYear == currentYear)
+	{
+	  studyPlan.add(enrollment.getCourse());
+	}
+      }
+      return studyPlan;
+    }
+""")
+    if (filename == "CoursesEnrollments.java"):
+        stream.write(
+"""
+    public Course getCourse()
+    {
+      Course c = this.course;
+      Integer a = c.credits; //does nothing, force fetching from db
+      return c;
+    }
+
+    public static List<Course> enrollmentsToCourses(Set<CourseEnrollment> enrollments)
+    {
+      List<Course> out = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+	out.add(enrollment.getCourse());
+      return out;
     }
 """)
     stream.write("}\n")
     stream.close()
     #print(files[filename])
-    
-
-    
 #print([k for k in files])
 
 

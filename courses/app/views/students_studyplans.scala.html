@@ -1,103 +1,62 @@
-@(user: UserCredentials, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
+@(user: UserCredentials, student: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course], displayAppReqModal: String)
 
 @students_base(user) {
 
-<li class="nav-header"><font size="4" face="Courier">TotaleCrediti</font></li>
-<li> <font size="3" face="Courier">Interni:</font></li>
-<li> <font size="3" face="Courier">Esterni:</font></li>
+<li class="nav-header"><font size="4" face="Courier">Credits in Study Plan</font></li>
+<li> <font size="3" face="Courier">Internal:</font></li>
+<p>
+  @student.internalCreditsSP
+</p>
+<li><font size="3" face="Courier">External:</font></li>
+<p>
+  @student.externalCreditsSP
+</p>
 
 } {
 
-<!-- Dialog del Nuovo Corso -->
+<!-- Modal -->
 
-@courseFormModal(courseForm)
-        
-<!-- Fine dialog del nuovo corso -->
+<div class="modal hide fade" id="windowTitleDialog_appreq" style="display: none; ">
 
+    <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Study Plan approval request</h3>
+  </div>
 
-<!-- Dialog dei Dettagli Corso -->
-
-@courseDetailsModal(courses)
-@courseDetailsModal(studyplan)
-        
-<!-- Fine dialog dei Dettagli Corso -->        
-      
-        
-<!---parte centrale -->
-
-<div class="row-fluid">	  
-    <div class="span6">
-              <h2>StudyPlan</h2>
-	      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome Corso</th>
-            <th>Docente</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-	  @for(course <- studyplan) {
-            <tr>
-	      <td>@course.courseID</td>
-              <td>@course.courseName</td>
-	      <td>@if(course.professor != null)  {
-                @course.getProfessor.lastName
-              }</td>
-              <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
-              <td><a href="/student/rmfromsp/@course.courseID"><img src="@routes.Assets.at("images/removeicon.gif")" /></a></td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    <p align="center">
-        <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
-        <a data-toggle="modal" href="#windowTitleDialog" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a></p>
-    <br>
-    <br>
-    <p align="right">
-        <button class="btn btn-large">Annulla</button>
-	<button class="btn btn-large">Conferma</button>
-        <button class="btn btn-large btn-primary">RichiediApprovazione</button>
-     </p>
-
-  </div><!--span1 -->
-  
-	      
-    <div class="span6">                     
-	    
+  <div class="modal-body">
+    <p>
+      @displayAppReqModal
+    </p>
+    <a data-dismiss="modal" href="#" class="btn btn-primary btn-large">Ok</a>
+  </div>
     
-	    
-              <h2>Lista Corsi</h2>
-	      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome Corso</th>
-            <th>Docente</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          @for(course <- courses) {
-            <tr>
-            
-	          <td>@course.courseID</td>
-              <td>@course.courseName</a></td>
-              <td>@if(course.professor != null)  {
-                @course.getProfessor.lastName
-              }</td>
-              <td><a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}"><img src="@routes.Assets.at("images/details.png")" /></a></td>
-              <td><a href="/student/addtosp/@course.courseID"><img src="@routes.Assets.at("images/addicon.png")" /></a></td>
-           </tr>
-         }
-        </tbody>
-      </table>
- <p align="right"><a class="btn btn-primary btn-large">Aggiungi</a></p>
- 
-    </div><!--span-->
-</div><!--row-->
-<!-- fine parte centrale -->
+</div>
+
+<!-- page body -->
+
+@common_editableSP(user, student, studyplan, courses, courseForm)
+
+} {
+
+<!-- script student_studyplans -->
+
+@if(courseForm.hasErrors) {
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog_newExternCourse').modal('show')
+  }
+  </script>
+} else {
+    @if(displayAppReqModal != "") {
+    <script language="JavaScript">
+    function autofun() {
+      $('#windowTitleDialog_appreq').modal('show')
+    }
+    </script>
+    }
+}
+
 }
 

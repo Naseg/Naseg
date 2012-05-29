@@ -1,0 +1,38 @@
+@(user: UserCredentials, course: Course, enrollForms: List[Form[CourseEnrollment]])
+
+@main {
+
+<!-- side part -->
+
+<ul class="nav nav-list">
+  <li class="nav-header"><font size="4" face="Courier">Info:</font></li>
+  <li> <font size="3" face="Courier">@course.courseName</font></li>
+  <li> <font size="3" face="Courier">Year: @course.academicYear</font></li>
+  <li> <font size="3" face="Courier">Credits: @course.credits</font></li>
+</ul>
+
+} {
+
+<!-- central part -->
+
+<div class="row-fluid">
+
+  <div class="span6">
+  
+    @examResultsform(course, enrollForms, routes.Professors.addResults(course.courseID.longValue))
+    
+  </div>
+  
+</div>
+
+} {
+
+<!-- authstate -->
+
+Logged in as: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+<!-- script professor_examResult -->
+
+}

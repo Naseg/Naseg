@@ -29,7 +29,8 @@ public class Trips implements Serializable {
     @Column(name = "academic_year_id")
     private Integer academicYearId;
     @Column(name = "Date_of_request")
-    private Integer dateofrequest;
+    @Temporal(TemporalType.DATE)
+    private Date dateofrequest;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Planned_start_date")
@@ -237,11 +238,11 @@ public class Trips implements Serializable {
         this.academicYearId = academicYearId;
     }
 
-    public Integer getDateofrequest() {
+    public Date getDateofrequest() {
         return dateofrequest;
     }
 
-    public void setDateofrequest(Integer dateofrequest) {
+    public void setDateofrequest(Date dateofrequest) {
         this.dateofrequest = dateofrequest;
     }
 

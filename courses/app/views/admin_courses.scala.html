@@ -1,4 +1,7 @@
-@(user: UserCredentials)
+@(user: UserCredentials, courses: List[Course], internalCourseForm: Form[Course], externalCourseForm: Form[Course])
+
+@import helper._
+@import helper.twitterBootstrap._
 
 @admin_base(user) {
 
@@ -6,28 +9,160 @@
 } {
 
 <div class="span6">
-			      <h2>ListaCorsi</h2>
-			      <table class="table table-bordered">
-			<thead>
-			  <tr>
-			    <th>Nome Corso</th>
-			    <th>Docente</th>
-			    <th>Periodo</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  
-			</tbody>
-		      </table>
-		    <p align="right">
-			<a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Aggiungi Nuovo Corso</a>
-		    <br>
-		    <br>
+  <h2>Courses</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Professor</th>
+        <th>Year</th>
+        <th>Start Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(course <- courses) {
+        <tr>
+          <td>@course.courseName</td>
+          <td>@if(course.getProfessor()!=null) {
+                @course.getProfessor().firstName @course.getProfessor().lastName
+                }</td>
+          <td>@course.academicYear</td>
+          <td>@course.printActualStartDate</td>
+          <td>
+            <a data-toggle="modal" href="@routes.Admins.courseDetails(course.courseID.longValue)">
+              <img src="@routes.Assets.at("images/details.png")" />
+            </a>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <p align="right">
+    <a data-toggle="modal" href="#windowTitleDialog_newInternalCourse" class="btn btn-primary btn-large">Add new inner course</a>
+    <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Add new extern course</a>
+    <a data-toggle="modal" href="@routes.Admins.oldcourses()" class="btn btn-primary btn-large">Show old courses</a>
+    <br />
+    <br />
 </div><!--span1 -->
 
 <div class="span6">
-		       <h2>Filtro</h2>
+  <h2>Filter</h2>
 </div>
 
+<!-- modal new internal course -->
+
+<div class="modal hide fade" id="windowTitleDialog_newInternalCourse" style="display: none; ">
+  <div class="modal-header">
+    <a href="#" class="close" data-dismiss="modal">
+      <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
+    </a>
+    <h3>Create new Internal Course</h3>
+  </div>
+  <div class="modal-body">
+    @helper.form(action = routes.Admins.newInternalCourse())  {
+      <fieldset>
+        @inputText(
+        internalCourseForm("courseName"),
+        '_label -> "Course name"
+        )
+
+        @inputText(
+        internalCourseForm("notes"), 
+        '_label -> "Notes", 
+        '_error -> internalCourseForm.globalError
+        )
+
+        @inputText(
+        internalCourseForm("institution"),
+        '_label -> "Institution"
+        )
+
+        @inputText(
+        internalCourseForm("place"),
+        '_label -> "Place"
+        )
+
+        @inputText(
+        internalCourseForm("plannedCoursePeriod"),
+        '_label -> "Planned course period"
+        )
+
+        @inputText(
+        internalCourseForm("url"),
+        '_label -> "Url"
+        )
+
+        @inputText(
+        internalCourseForm("credits"), 
+        '_label -> "Credits", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        internalCourseForm("academicYear"), 
+        '_label -> "Academic year", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        internalCourseForm("budgetedCost"), 
+        '_label -> "Budgeted cost", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @inputText(
+        internalCourseForm("actualCost"), 
+        '_label -> "Actual cost", 'class -> "mini",
+        '_showConstraints -> false
+        )
+
+        @select(
+        internalCourseForm("professor.supervisorID"), 
+        options(Supervisor.options),
+        '_default -> "--- Choose the professor ---",
+        '_label -> "Professors",
+        '_error -> internalCourseForm("professor").error.map(_.withMessage("Please select the professor"))
+        )
+
+        @checkbox(
+        internalCourseForm("isByUNITN"), 
+        '_label -> "Is a UNITN course",
+        '_showConstraints -> false)
+
+        @checkbox(
+        internalCourseForm("isPaid"), 
+        '_label -> "Is paid",
+        '_showConstraints -> false)
+
+        @checkbox(
+        internalCourseForm("isPaymentCompleted"), 
+        '_label -> "Payment completed",
+        '_showConstraints -> false)
+
+        @inputDate(
+        internalCourseForm("actualStartDate"),
+        '_label -> "Start Date (yyyy-mm-dd)"
+        )
+
+        <input type="hidden" value="0" name="areAllMarksDefined"/>
+        <input type="hidden" value="0" name="deleted"/>
+        <input type="hidden" value="1" name="isInManifesto"/>
+      </fieldset>
+    <div class="actions">
+      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+    </div>
+  }
+  </div>
+</div>
+
+} {
+
+
+
+} {
+
+<!-- script admin_courses -->
 
 }

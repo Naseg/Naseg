@@ -1,36 +1,56 @@
-@(user: UserCredentials, students: Set[Student])(sideContents: Html)(centralContents: Html)
+@(user: UserCredentials, students: List[Student])(sideContents: Html)(centralLeftContents: Html)(centralRightContents: Html)(script: Html)
 
 @main {
 
-<!---parte sx -->
+<!-- left side -->
 
-    <ul class="nav nav-list">
-        <li class="nav-header"><font size="4" face="Courier">Students</font></li>
-        </br>
-        @for(student <- students) {
-          	<li><font size="4" face="Courier">@student.fullName</font></li>
-	        <li><a data-toggle="modal" href="/supervisor/studyplan/@student.userID" ><font size="3" face="Courier"></font>StudyPlan</a></li>
-	        <li><a data-toggle="modal" href="/supervisor/career/@student.userID" ><font size="3" face="Courier"></font>Carriera</a></li>
-	        @sideContents
+<ul class="nav nav-list">
+  <li class="nav-header"><font size="4" face="Courier">Students</font></li>
+  <!-- show it only if there are pendent approval requests -->
+  @if(user.getSupervisor().getApprovalRequests() > 0) {
+    @if(user.getSupervisor().getApprovalRequests() == 1) {
+      <li>@user.getSupervisor().getApprovalRequests() pendent approval request</li>
+    } else {
+      <li>@user.getSupervisor().getApprovalRequests() pendent approval requests</li>
+    }
+  }
+  <br />
+  @for(student <- students) {
+    <li>
+      <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
+        @if(student.isPlanApproved == 0) {
+          <img align="center" src="@routes.Assets.at("images/incompleteSP.gif")" />
+        } else {
+          @if(student.isPlanApproved == 1) {
+          <img align="center" src="@routes.Assets.at("images/approvationrequestSP.png")" />
+          } else {
+          <img align="center" src="@routes.Assets.at("images/approvedSP.png")" />
+          <!------------------------------------>
+          }
         }
-        
-    </ul>
+        <font size="4" face="Courier">@student.fullName</font>
+      </a>
+    </li>
+    @sideContents
+  }
+</ul>
 
 } {
-<!---parte centrale -->
+<!---central part -->
 
 <div class="row-fluid">
-	@centralContents
-</div><!--Row-->
+  @centralLeftContents
+  @centralRightContents
+<div>
 
 } {
 
-Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+Logged in as: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
 
 } {
+ 
+<!-- script advisor_base -->
 
-<script language="JavaScript">
-    
-</script>
+@script
 
 }

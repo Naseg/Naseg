@@ -3,22 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /home                       controllers.SecuredApplication.index()
-GET     /provadb	                controllers.Application.provadb()
-POST    /newexterncourse            controllers.SecuredApplication.newExternCourse()
+GET     /                                   controllers.Application.index()
+GET     /home                               controllers.SecuredApplication.index()
 
 # Authentication
-#GET     /login                             controllers.Authentication.login()
+#GET    /login                              controllers.Authentication.login()
 POST    /login                              controllers.Authentication.authenticate()
 GET     /logout                             controllers.Authentication.logout()
 
 # Studente
 GET     /student                            controllers.Students.index()
-GET     /student/addtosp/:course            controllers.Students.addToStudyPlan(course: Long)
-GET     /student/rmfromsp/:course           controllers.Students.rmFromStudyPlan(course: Long)
+GET     /student/addtosp/:course/:idstud    controllers.Students.addToStudyPlan(course: Long, idstud: Long)
+GET     /student/rmfromsp/:course/:idstud   controllers.Students.rmFromStudyPlan(course: Long, idstud: Long)
 GET     /student/career                     controllers.Students.career()
 GET     /student/studyplan                  controllers.Students.studyplan()
+GET     /student/studyplan/appreq           controllers.Students.appreq()
+POST    /student/studyplan                  controllers.Students.newExternCourse()
 
 #Utility
 
@@ -27,17 +27,39 @@ GET		/emailMe							controllers.SecuredApplication.emailMeNow()
 
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
-GET     /supervisor/studyplan               controllers.Supervisors.studyplan(id: Long ?= -1)
-GET     /supervisor/studyplan/:id           controllers.Supervisors.studyplan(id: Long)
-GET     /supervisor/career                  controllers.Supervisors.career(id: Long ?= -1)
-GET     /supervisor/career/:id              controllers.Supervisors.career(id: Long)
+GET     /supervisor/watchstudent            controllers.Supervisors.watchStudent(id: Long ?= -1)
+GET     /supervisor/watchstudent/:id        controllers.Supervisors.watchStudent(id: Long)
+POST    /supervisor/watchstudent/acceptSP   controllers.Supervisors.acceptSP()
+POST    /supervisor/watchstudent/rejectSP   controllers.Supervisors.rejectSP()
 
 # Administration
 GET     /admin                              controllers.Admins.index()
-GET     /admin/course                       controllers.Admins.course()
-GET     /admin/professore                   controllers.Admins.professore()
-GET     /admin/student                      controllers.Admins.student()
+GET     /admin/courses                      controllers.Admins.courses()
+GET     /admin/course_details/:id           controllers.Admins.courseDetails(id: Long)
+POST    /admin/course_details/:id           controllers.Admins.editCourse(id: Long)
+POST    /admin/courses                      controllers.Admins.newInternalCourse()
+GET     /admin/oldcourses                   controllers.Admins.oldcourses()
+POST    /admin/supervisors                  controllers.Admins.newSupervisor()
+GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)
+GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
+POST    /admin/supervisors/:id              controllers.Admins.editSupervisor(id: Long)
+GET     /admin/students                     controllers.Admins.students()
+POST    /admin/students                     controllers.Admins.newStudent()
+GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
+POST    /admin/students/:id                 controllers.Admins.editStudentData(id: Long)
+GET     /admin/suspended_students           controllers.Admins.suspendedStudents()
+GET     /admin/suspend_student/:id          controllers.Admins.suspendStudent(id: Long)
+GET     /admin/unsuspend_student/:id        controllers.Admins.unsuspendStudent(id: Long)
+GET     /admin/credentials                  controllers.Admins.credentials()
+POST    /admin/credentials                  controllers.Admins.newUserCredential()
+POST    /admin/credentials/newrole          controllers.Admins.newUserRole()
+
+# Professor
+GET     /professor                          controllers.Professors.index()
+GET     /professor/examresults              controllers.Professors.courses()
+GET     /professor/examresults/:id          controllers.Professors.results(id: Long)
+POST    /professor/examresults/:id          controllers.Professors.addResults(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)
 

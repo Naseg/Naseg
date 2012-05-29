@@ -1,4 +1,4 @@
-@(courseForm: Form[Course])
+@(courseForm: Form[Course], submitController: play.api.mvc.Call)
 
 <div class="modal hide fade" id="windowTitleDialog_newcourse" style="display: none; ">
 
@@ -10,7 +10,7 @@
     </div>
     
     <div class="modal-body">
-        @courseform(courseForm)
+        @courseform(courseForm, submitController)
     </div>
     
 </div>

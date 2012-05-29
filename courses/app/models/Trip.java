@@ -19,7 +19,7 @@ public class Trip extends Model {
     @Column(name = "academic_year_id")
     public Integer academicYearId;
     @Column(name = "Date_of_request")
-    public Integer dateofrequest;
+    public Date dateofrequest;
     @NotNull
     @Column(name = "Planned_start_date")
     public Date plannedstartdate;
@@ -180,12 +180,12 @@ public class Trip extends Model {
     public static List<Trip> all() {
       return find.all();
     }
-  
+
     public static void create(Trip trip) {
       trip.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
 }

@@ -160,6 +160,11 @@ public class Students implements Serializable {
     private boolean deleted;
     @Column(name = "Italian_Taxpayer_Code")
     private Integer italianTaxpayerCode;
+    @Size(max = 255)
+    @Column(name = "photo_profile")
+    private String photoProfile;
+    @Column(name = "is_plan_approved")
+    private Short isPlanApproved;
     @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
     @ManyToOne(optional = false)
     private UsersCredentials user;
@@ -483,6 +488,22 @@ public class Students implements Serializable {
 
     public void setItalianTaxpayerCode(Integer italianTaxpayerCode) {
         this.italianTaxpayerCode = italianTaxpayerCode;
+    }
+
+    public String getPhotoProfile() {
+        return photoProfile;
+    }
+
+    public void setPhotoProfile(String photoProfile) {
+        this.photoProfile = photoProfile;
+    }
+
+    public Short getIsPlanApproved() {
+        return isPlanApproved;
+    }
+
+    public void setIsPlanApproved(Short isPlanApproved) {
+        this.isPlanApproved = isPlanApproved;
     }
 
     public UsersCredentials getUser() {

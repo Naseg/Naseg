@@ -63,7 +63,11 @@ public class Course extends Model {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "url")
-    public String url;
+    public String url;/*
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "votespage")
+    public String votespage;*/
     @NotNull
     @Column(name = "is_payment_completed")
     public boolean isPaymentCompleted;
@@ -92,6 +96,32 @@ public class Course extends Model {
       find.ref(id).delete();
     }
 
+    public List<CourseEnrollment> getCoursesEnrollment()
+    {
+      List<CourseEnrollment> out = new ArrayList(this.coursesEnrollmentSet);
+      for (CourseEnrollment ce : out)
+        ce.refresh(); //force fetching from db
+      return out;
+    }
+
+    public static List<Course> currentCourses() {
+      List<Course> out = new ArrayList();
+      int currentYear = Course.AcademicYear();
+      for (Course c: Course.all())
+        if (c.academicYear == currentYear)
+          out.add(c);
+      return out;
+    }
+
+    public static List<Course> oldCourses() {
+      List<Course> out = new ArrayList();
+      int currentYear = Course.AcademicYear();
+      for (Course c: Course.all())
+        if (c.academicYear < currentYear)
+          out.add(c);
+      return out;
+    }
+
     public static int AcademicYear()
     {
       int currentYear = -1;
@@ -101,10 +131,28 @@ public class Course extends Model {
       return currentYear;
     }
 
+    public String printActualStartDate() {
+      if (this.actualStartDate != null)
+        return new java.text.SimpleDateFormat("yyyy-MM-dd").format(this.actualStartDate);
+      else
+        return "";
+    }
+
     public Supervisor getProfessor()
     {
       Supervisor s = this.professor;
-      String a = s.firstName; //does nothing, force fetching from db
+      if (s != null)
+      {
+        String a = s.firstName;//does nothing, force fetching from db
+      }
       return s;
+    }
+
+    public String printType()
+    {
+      if (this.isInManifesto)
+        return "Internal";
+      else
+        return "External";
     }
 }

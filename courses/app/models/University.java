@@ -42,12 +42,20 @@ public class University extends Model {
     public static List<University> all() {
       return find.all();
     }
-  
+
     public static void create(University university) {
       university.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
+
+    public static Map<String,String> options() {
+      LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+      for(University u: University.find.orderBy("nameUniversity").findList()) {
+        options.put(u.universityID.toString(), u.nameUniversity);
+      }
+      return options;
+    }
 }

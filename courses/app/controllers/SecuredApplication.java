@@ -7,21 +7,15 @@ import views.html.*;
 
 import play.data.Form;
 
+/**
+ * Contains generic controllers for authenticated sessions
+ */
 @Security.Authenticated(Secured.class)
 public class SecuredApplication extends Controller {
-
-    static Form<Course> courseForm = form(Course.class);
-
+	
     public static Result index() {
-
-    //System.out.println("***REQ***\n" + request().username());
-    //System.out.println("username:" + request().username());
-    //System.out.println("uri:" + request().uri());
-
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-
     return ok(authIndex.render(uc,form(Authentication.Login.class)));
-
     }
 
     public static Result newExternCourse() {
@@ -60,7 +54,5 @@ public class SecuredApplication extends Controller {
 		Email msg= new Email("smpt.gmail.com");
     	return ok("spedita!");
     }
-    
-  
 }
 

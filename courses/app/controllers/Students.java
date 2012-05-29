@@ -7,94 +7,149 @@ import java.util.*;
 import models.*;
 import views.html.*;
 
+import play.data.Form;
+
 @Security.Authenticated(Secured.class)
 public class Students extends Controller {
+  static Form<Course> courseForm = form(Course.class);
 
-    public static Result index()
+  public static Result index() {
+    return redirect(routes.Students.studyplan());
+  }
+
+  public static Result addToStudyPlan(Long idCourse, Long idStudent) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
     {
-      return redirect(routes.Students.studyplan());
+      Student s = uc.getStudent();
+      s.addToStudyPlan(idCourse);
+      return redirect(
+        routes.Students.index());
     }
-
-    public static Result addToStudyPlan(Long idCourse)
+    else if (Secured.isAdmin(uc))
     {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
+      Student s = Student.find.byId(idStudent);
+      s.addToStudyPlan(idCourse);
+      return redirect(
+        routes.Admins.studentDetails(idStudent));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result rmFromStudyPlan(Long idCourse, Long idStudent) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      Student s = uc.getStudent();
+      s.rmFromStudyPlan(idCourse);
+      return redirect(
+        routes.Students.index());
+    }
+    else if (Secured.isAdmin(uc))
+    {
+      Student s = Student.find.byId(idStudent);
+      s.rmFromStudyPlan(idCourse);
+      return redirect(
+        routes.Admins.studentDetails(idStudent));
+    }
+    else
+      return unauthorized(forbidden.render());
+  }
+
+  public static Result studyplan() {
+    return Students.studyplan(courseForm,false,"");
+  }
+
+  public static Result studyplan(Form<Course> form, boolean badRequest, String appreqMsg) {
+    String username = request().username();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      Student student = uc.getStudent();
+      List<Course> studyPlan = student.getStudyPlan();
+      List<Course> coursesNotInSp = new ArrayList();
+      for (Course c: Course.currentCourses())
+        if (!studyPlan.contains(c))
+          coursesNotInSp.add(c);
+      if (badRequest)
+        return badRequest(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form, appreqMsg));
+      else
+        return ok(students_studyplans.render(uc,student,studyPlan, coursesNotInSp, form, appreqMsg));
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  public static Result career() {
+    String username = request().username();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      Student student = uc.getStudent();
+      List<CourseEnrollment> career = student.getEnrollmentsCareer();
+      return ok(students_careers.render(uc, career));
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  public static Result appreq() {
+    String username = request().username();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      Student student = uc.getStudent();
+      
+      if (student.isStudyPlanOk())
       {
-	Student s = uc.getStudent();
-	for (Course c : s.getStudyPlan())
-	{
-	  if (c.courseID == idCourse.intValue())
-	    return redirect(routes.Students.index());
-	}
-	Course c = Course.find.byId(idCourse);
-	CourseEnrollment ce = new CourseEnrollment();
-	ce.isFinished = false;
-	ce.credits = 3;
-	ce.student = s;
-	ce.course = c;
-	ce.qualification = "";
-	CourseEnrollment.create(ce);
-	return redirect(
-	  routes.Students.index());
+        student.approvalRequest();      
+        return Students.studyplan(courseForm,false,"Richiesta inviata correttamente.");
       }
       else
-	return unauthorized(forbidden.render());
-    }
-
-    public static Result rmFromStudyPlan(Long idCourse)
-    {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
       {
-	Student s = uc.getStudent();
-	for (CourseEnrollment ce : s.getCoursesEnrollmentSet())
-	{
-	  if (ce.getCourse().courseID == idCourse.intValue())
-	    ce.delete();
-	}
-	return redirect(
-	  routes.Students.index());
+        String msg = student.checkStudyPlan();
+        return Students.studyplan(courseForm,false,msg);
+      }
+      
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  public static Result newExternCourse() {
+    Form<Course> filledForm = courseForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      if (filledForm.hasErrors())
+      {
+        return Students.studyplan(filledForm,true,"");
       }
       else
-	return unauthorized(forbidden.render());
-    }
-
-    public static Result studyplan()
-    {
-      String username = request().username();
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-      if (Secured.isStudent(uc))
       {
-        Student student = uc.getStudent();
-	    List<Course> studyPlan = student.getStudyPlan();
-	    List<Course> coursesNotInSp = new ArrayList();
-	    for (Course c: Course.all())
-	      if (!studyPlan.contains(c))
-	          coursesNotInSp.add(c);
-            return ok(students_studyplans.render(uc,studyPlan, coursesNotInSp, SecuredApplication.courseForm));
-          }
-          else
-          {
-	    return unauthorized(forbidden.render());
+        Course newcourse = filledForm.get();
+        newcourse.academicYear = Course.AcademicYear();
+        newcourse.credits = 3;
+        newcourse.isInManifesto = false;
+        newcourse.notes = "external course";
+        newcourse.isbyUNITN = false;
+        newcourse.deleted = false;
+        Course.create(newcourse);
+
+        Students.addToStudyPlan(newcourse.courseID.longValue(),uc.getStudent().userID.longValue());
+        return redirect(routes.Students.studyplan());
       }
     }
-
-    public static Result career()
+    else
     {
-        String username = request().username();
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); //check security: uno user può falsificare la propria session?
-	if (Secured.isStudent(uc))
-        {
-            Student student = uc.getStudent();
-	    Set<CourseEnrollment> enrollments = student.getCoursesEnrollmentSet();
-            return ok(students_careers.render(uc, enrollments));
-        }
-        else
-        {
-            return unauthorized(forbidden.render());
-        }
+      return unauthorized(forbidden.render());
     }
-    
+  }
 }
-
-

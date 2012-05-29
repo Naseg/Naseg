@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import play.db.ebean.*;
+import play.db.ebean.Model.Finder;
 import play.data.format.*;
 import play.data.validation.*;
 
@@ -121,6 +122,11 @@ public class Student extends Model {
     public boolean deleted;
     @Column(name = "Italian_Taxpayer_Code")
     public Integer italianTaxpayerCode;
+    @Size(max = 255)
+    @Column(name = "photo_profile")
+    public String photoProfile;
+    @Column(name = "is_plan_approved")
+    public Short isPlanApproved;
     @JoinColumn(name = "user", referencedColumnName = "user_credential_ID")
     @ManyToOne(optional = false)
     public UserCredentials user;
@@ -172,8 +178,18 @@ public class Student extends Model {
     public Set<CourseEnrollment> getCoursesEnrollmentSet()
     {
       Set<CourseEnrollment> enrollments = this.coursesEnrollmentSet;
-      for (CourseEnrollment c : enrollments) {Integer s = c.credits;} //does nothing, force fetching from db
+      for (CourseEnrollment c : enrollments) {c.refresh();}//{Integer s = c.credits;} does nothing, force fetching from db
       return enrollments;
+    }
+
+    public String printIsPlanApproved()
+    {
+      if (this.isPlanApproved == null || this.isPlanApproved == 0)
+        return "Not yet completed";
+      else if (this.isPlanApproved == 1)
+        return "Waiting for approvation";
+      else
+        return "Approved";
     }
 
     public List<Course> getStudyPlan()
@@ -183,11 +199,205 @@ public class Student extends Model {
       int currentYear = Course.AcademicYear();
       for (CourseEnrollment enrollment : enrollments)
       {
-	if (enrollment.getCourse().academicYear == currentYear)
-	{
-	  studyPlan.add(enrollment.getCourse());
-	}
+        if (enrollment.fetchCourse().academicYear == currentYear)
+        {
+          studyPlan.add(enrollment.fetchCourse());
+        }
       }
       return studyPlan;
+    }
+
+    public List<CourseEnrollment> getEnrollmentsCareer()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      List<CourseEnrollment> career = new ArrayList();
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (enrollment.isFinished != null && enrollment.isFinished)
+        {
+          career.add(enrollment);
+        }
+      }
+      return career;
+    }
+
+    public String checkStudyPlan()
+    {
+      String out = "";
+      int internalCredits, externalCredits;
+      int internalInSP, externalInSP;
+      internalInSP = this.internalCreditsSP();
+      externalInSP = this.externalCreditsSP();
+      internalCredits = this.getInternalCredits();
+      externalCredits = this.getExternalCredits();
+      if (this.courseYear == 1)
+      {
+        if (internalInSP < 15)
+          out += "For the first year, you must have at least 5 internal course";
+      }
+      else if (this.courseYear == 2)
+      {
+      }
+      else if (this.courseYear == 3)
+      {
+        if (internalInSP + internalCredits < 15)
+          out += "You must have at least 15 credits at the end of your phd";
+        if (internalInSP + internalCredits + externalInSP + externalCredits < 24)
+          out += "Yout must have at least 24 credits at the end of your phd";
+      }
+      else
+      {
+        out += "Your course year is unrecognized.";
+      }
+      
+      return out;
+    }
+
+    public boolean isStudyPlanOk()
+    {
+      String out = this.checkStudyPlan();
+      if (out.compareTo("") == 0)
+        return true;
+      else
+        return false;
+    }
+
+    public int getInternalCredits()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      int credits = 0;
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (enrollment.fetchCourse().isInManifesto && enrollment.credits!=null)//if internal
+            credits += enrollment.credits;
+      }
+      return credits;
+    }
+
+    public int internalCreditsSP()
+    {
+      List<Course> sp = this.getStudyPlan();
+      int credits = 0;
+      for (Course c : sp)
+      {
+        if (c.isInManifesto && c.credits!=null)
+          credits += c.credits;
+      }
+      return credits;
+    }
+
+    public int getExternalCredits()
+    {
+      Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
+      int credits = 0;
+      for (CourseEnrollment enrollment : enrollments)
+      {
+        if (!enrollment.fetchCourse().isInManifesto && enrollment.credits!=null)//if internal
+            credits += enrollment.credits;
+      }
+      return credits;
+    }
+
+    public int externalCreditsSP()
+    {
+      List<Course> sp = this.getStudyPlan();
+      int credits = 0;
+      for (Course c : sp)
+      {
+        if (!c.isInManifesto && c.credits!=null)
+          credits += c.credits;
+      }
+      return credits;
+    }
+
+    public void addToStudyPlan(Long idCourse)
+    {
+      Course c = Course.find.byId(idCourse);
+      if (c==null)
+        return;
+      for (Course co : this.getStudyPlan())
+      {
+        if (co.courseID == idCourse.intValue())
+          return;
+      }
+      CourseEnrollment ce = new CourseEnrollment();
+      ce.isFinished = false;
+      ce.credits = 0;
+      ce.student = this;
+      ce.course = c;
+      ce.qualification = "";
+      CourseEnrollment.create(ce);
+    }
+
+    public void rmFromStudyPlan(Long idCourse)
+    {
+      for (CourseEnrollment ce : this.getCoursesEnrollmentSet())
+      {
+        if (ce.fetchCourse().courseID == idCourse.intValue())
+          ce.delete();
+      }
+    }
+
+    public void approvalRequest()
+    {
+      this.isPlanApproved = 1;
+      this.update();
+    }
+
+    public void acceptSP()
+    {
+      this.isPlanApproved = 2;
+      this.update();
+    }
+
+    public void rejectSP()
+    {
+      this.isPlanApproved = 0;
+      this.update();
+    }
+
+    public boolean waitingForApproval()
+    {
+      if (this.isPlanApproved!=null && this.isPlanApproved == 1)
+        return true;
+      else
+        return false;
+    }
+
+    public static List<Student> getNotSuspended()
+    {
+      List<Student> students = new ArrayList();
+      for (Student s: Student.all())
+      {
+        if (!s.isSuspended) //isSuspended is required
+        {
+          students.add(s);
+        }
+      }
+      return students;
+    }
+
+    public static List<Student> getSuspended()
+    {
+      List<Student> students = new ArrayList();
+      for (Student s: Student.all())
+      {
+        if (s.isSuspended) //isSuspended is required
+        {
+          students.add(s);
+        }
+      }
+      return students;
+    }
+
+    public void setSuspended(boolean b)
+    {
+      this.isSuspended = b;
+      this.update();
+    }
+
+    public boolean isSuspended()
+    {
+      return this.isSuspended;
     }
 }

@@ -7,34 +7,32 @@ import play.data.*;
 import models.*;
 import views.html.*;
 
+/**
+ * Contains the controllers for authenticating session
+ */
 public class Authentication extends Controller {
-  
-    // -- Authentication
-    
     public static class Login {
-        
+
         public String username;
         public String password;
-        
+
         public String validate() {
-            if(UserCredentials.authenticate(username, password) == null) {
+	  if(UserCredentials.authenticate(username, password) == null) {
                 return "Invalid user or password";
             }
             return null;
         }
-        
+
     }
-    
+
     /**
      * Handle login form submission.
      */
     public static Result authenticate() {
-    
-    
         Form<Login> loginForm = form(Login.class);
-        
+
         loginForm = loginForm.bindFromRequest();
-        
+
         if (loginForm.hasErrors())
         {
             return badRequest(nonAuthIndex.render(loginForm));
@@ -42,7 +40,7 @@ public class Authentication extends Controller {
         else
         {
             session("username", loginForm.get().username);
-            UserCredentials uc = UserCredentials.find.where().eq("userName", loginForm.get().username).findUnique(); 
+            UserCredentials uc = UserCredentials.find.where().eq("userName", loginForm.get().username).findUnique();
 	    if (Secured.isStudent(uc))
 	    {
 	      return redirect(
@@ -55,6 +53,18 @@ public class Authentication extends Controller {
 		routes.Supervisors.index()
 		);
 	    }
+	    else if (Secured.isAdmin(uc))
+	    {
+	      return redirect(
+		routes.Admins.index()
+		);
+	    }
+            else if (Secured.isProfessor(uc))
+            {
+              return redirect(
+                routes.Professors.index()
+		);
+            }
 	    else
 	    {
 	      return ok("You are not a student, nor a supervisor, nor an admin... Who are you?");

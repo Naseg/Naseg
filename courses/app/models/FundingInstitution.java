@@ -37,12 +37,20 @@ public class FundingInstitution extends Model {
     public static List<FundingInstitution> all() {
       return find.all();
     }
-  
+
     public static void create(FundingInstitution fundinginstitution) {
       fundinginstitution.save();
     }
 
     public static void delete(Long id) {
       find.ref(id).delete();
-    }    
+    }
+
+    public static Map<String,String> options() {
+      LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+      for(FundingInstitution fi: FundingInstitution.find.orderBy("name").findList()) {
+        options.put(fi.fundinginstitutionID.toString(), fi.name);
+      }
+      return options;
+    }
 }
