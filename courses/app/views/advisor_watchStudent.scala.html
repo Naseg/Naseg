@@ -50,7 +50,7 @@
             <fieldset>
                 <input type="hidden" name="idStudente" value="@selectedStudent.userID">
                 <br />
-                <label for="comment">Commento (opzionale)</label>
+                <label for="comment">Comment (not required)</label>
                 <textarea name="comment-text" rows="5" cols="40"></textarea>
             </fieldset>
             <div class="actions">
@@ -71,8 +71,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Nome Corso</th>
-                    <th>Docente</th>
+                    <th>Course name</th>
+                    <th>Professor</th>
                     <th></th>
                 </tr>
             </thead>
@@ -93,33 +93,33 @@
         <br />
         <br />
         <p align="center">
-            <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Rifiuta</button>
-            <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accetta</button>
+            <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
+            <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
         </p>
     </div><!--span6/1 -->
 <!--</div>-->
 
 } {
 
-<!-- Modal dei corsi -->
+<!-- course modal -->
 
 @courseDetailsModal(selectedStudent.getStudyPlan())
 
-<!-- Fine modal dei corsi -->
+<!-- end of course modal -->
 
-<!-- Parte dx-->
+<!-- right side -->
 
 <!--<div class="row-fluid">	  -->
     <div class="span6">
-        <h2 align="center">@selectedStudent.fullName's career</h2> <!-- inserire tag nome studente -->
+        <h2 align="center">@selectedStudent.fullName's career</h2> 
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nome Corso</th>
-                    <th>Docente</th>
-                    <th>Esito</th>
-                    <th>Crediti</th>
+                    <th>Course name</th>
+                    <th>Professor</th>
+                    <th>Result</th>
+                    <th>Credits</th>
                     <th></th>
                 </tr>
             </thead>
@@ -130,9 +130,9 @@
                         <td>@enrollment.fetchCourse.courseName</td>
                         <td>@if(enrollment.fetchCourse.professor != null)  { @enrollment.fetchCourse.getProfessor.lastName }</td>
                         @if(enrollment.credits == enrollment.credits) {
-                            <td>Passato</td>
+                            <td>Passed</td>
                         } else {
-                            <td>Non Passato</td>
+                            <td>Not passed</td>
                         }
                         <td>@enrollment.credits</td>
                         <td>

@@ -2,18 +2,18 @@
 
 @main {
 
-<!-- laterale -->
+<!-- side part -->
 
 <ul class="nav nav-list">
   <li class="nav-header"><font size="4" face="Courier">Info:</font></li>
   <li> <font size="3" face="Courier">@course.courseName</font></li>
-  <li> <font size="3" face="Courier">Anno: @course.academicYear</font></li>
-  <li> <font size="3" face="Courier">Crediti: @course.credits</font></li>
+  <li> <font size="3" face="Courier">Year: @course.academicYear</font></li>
+  <li> <font size="3" face="Courier">Credits: @course.credits</font></li>
 </ul>
 
 } {
 
-<!-- centrale -->
+<!-- central part -->
 
 <div class="row-fluid">
 
@@ -29,7 +29,7 @@
 
 <!-- authstate -->
 
-Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+Logged in as: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
 
 } {
 

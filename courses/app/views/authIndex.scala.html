@@ -8,25 +8,25 @@ Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout<
   @if(Secured.isSupervisor(user)) {
     <ul class="nav nav-list">
       <li class="nav-header"><font size="4" face="Courier">Advisor</font></li>
-      <li><a href="@routes.Supervisors.index()"><font size="3" face="Courier">Torna alla pagina advisor</font></a></li>
+      <li><a href="@routes.Supervisors.index()"><font size="3" face="Courier">Back to the advisor pages</font></a></li>
     </ul>
   }
   @if(Secured.isStudent(user)) {
     <ul class="nav nav-list">
-      <li class="nav-header"><font size="4" face="Courier">Studente</font></li>
-      <li><a href="@routes.Students.index()"><font size="3" face="Courier">Torna alla pagina studente</font></a></li>
+      <li class="nav-header"><font size="4" face="Courier">Student</font></li>
+      <li><a href="@routes.Students.index()"><font size="3" face="Courier">Back to the student pages</font></a></li>
     </ul>
   }
   @if(Secured.isProfessor(user)) {
     <ul class="nav nav-list">
       <li class="nav-header"><font size="4" face="Courier">Professor</font></li>
-      <li><a href="@routes.Professors.index()"><font size="3" face="Courier">Torna alla pagina professore</font></a></li>
+      <li><a href="@routes.Professors.index()"><font size="3" face="Courier">Back to the professor pages</font></a></li>
     </ul>
   }
   @if(Secured.isAdmin(user)) {
     <ul class="nav nav-list">
-      <li class="nav-header"><font size="4" face="Courier">Admin</font></li>
-      <li><a href="@routes.Admins.index()"><font size="3" face="Courier">Torna alla pagina amministratore</font></a></li>
+      <li class="nav-header"><font size="4" face="Courier">Administrator</font></li>
+      <li><a href="@routes.Admins.index()"><font size="3" face="Courier">Back to the administrator pages</font></a></li>
     </ul>
   }
 } {

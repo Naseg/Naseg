@@ -1,25 +1,25 @@
 @(user: UserCredentials, selectedStudent: Student, studyplan: List[Course], courses: List[Course], courseForm: Form[Course])
 
-<!-- Dialog del Nuovo Corso -->
+<!-- new course dialog -->
 
 @externCourseFormModal(courseForm, routes.Students.newExternCourse())
 
-<!-- Fine dialog del nuovo corso -->
+<!-- end of new course dialog -->
 
 
-<!-- Dialog dei Dettagli Corso -->
+<!-- course details dialog -->
 
 @courseDetailsModal(courses)
 @courseDetailsModal(studyplan)
 
-<!-- Fine dialog dei Dettagli Corso -->
+<!-- end of course details dialog -->
 
 <!---parte centrale -->
 
 <div class="row-fluid">
   <h2 align="center">@selectedStudent.fullName</h2>
   @if(user.isAdmin()) {
-    <a data-toggle="modal" href="#windowTitleDialog_studentDetails">Dettagli studente</a>
+    <a data-toggle="modal" href="#windowTitleDialog_studentDetails">Student details</a>
   }
 </div>
 
@@ -30,19 +30,19 @@
     <h2>StudyPlan
       @if(user.isStudent()) {
         @if(user.getStudent().isPlanApproved == 0 || user.getStudent().isPlanApproved == null) {
-          (In costruzione)
+          (In construction)
         } else {
           @if(user.getStudent().isPlanApproved == 1) {
-            (In attesa d'approvazione)
+            (Waiting for approval)
           } else {
             @if(user.getStudent().isPlanApproved == 2) {
-              (Approvato)
+              (Approved)
             }
           }
         }
       }
     </h2>
-    <!-- se è in richiesta d'approvazione o è accettato, tolgo le colonne per le modifiche -->
+    <!-- if is waiting for the advisor approval or is approved, it will take off the couloumns for modifing the study plan -->
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -76,12 +76,12 @@
     </table>
     <p align="center">
       @if(user.isStudent()) {
-      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Aggiungi Corso Esterno</a>
+      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Add extern course</a>
       }
       @if(user.isStudent()) {
-        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">Richiedi Approvazione</a>
+        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">ask for approval</a>
       }
-    </p><!-- aggiunto io (fabbo); mancava? -->
+    </p>
   </div><!--span1 -->
 
   <div class="span6">
