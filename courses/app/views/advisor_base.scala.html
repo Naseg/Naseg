@@ -9,9 +9,9 @@
   <!-- Mostrare SOLO se ci sono approvazioni in sospeso -->
   @if(user.getSupervisor().getApprovalRequests() > 0) {
     @if(user.getSupervisor().getApprovalRequests() == 1) {
-      <li>@user.getSupervisor().getApprovalRequests() richiesta di approvazione in sospeso</li>
+      <li>@user.getSupervisor().getApprovalRequests() appended approval request</li>
     } else {
-      <li>@user.getSupervisor().getApprovalRequests() richieste di approvazione in sospeso</li>
+      <li>@user.getSupervisor().getApprovalRequests() appended approval requests</li>
     }
   }
   <br />
