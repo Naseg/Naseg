@@ -2,7 +2,7 @@
 
 @main {
 
-<!---parte sx -->
+<!-- left side -->
 
 <ul class="nav nav-list">
   <li class="nav-header"><font size="4" face="Courier">Students</font></li>
@@ -18,12 +18,15 @@
   @for(student <- students) {
     <li>
       <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
-        @if(student.isPlanApproved == 1) {
-          <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
+        @if(student.isPlanApproved == 0) {
+          <img align="center" src="@routes.Assets.at("images/incompleteSP.gif")" />
         } else {
-          <!-- otherwise -->
-          <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
+          @if(student.isPlanApproved == 1) {
+          <img align="center" src="@routes.Assets.at("images/approvationrequestSP.png")" />
+          } else {
+          <img align="center" src="@routes.Assets.at("images/approvedSP.png")" />
           <!------------------------------------>
+          }
         }
         <font size="4" face="Courier">@student.fullName</font>
       </a>
