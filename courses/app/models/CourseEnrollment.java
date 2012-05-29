@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import play.db.ebean.Model.Finder;
 
 @Entity
 @Table(name = "courses_enrollments")

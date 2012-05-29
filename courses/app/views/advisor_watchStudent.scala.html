@@ -15,16 +15,16 @@
         <a href="#" class="close" data-dismiss="modal">
             <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
         </a>
-        <h3>Rifiuta Study Plan</h3>
+        <h3>Reject study plan</h3>
     </div>
     <div class="modal-body">
-        Inserisci un commento per rifiutare questo Study Plan; verrà inviato tramite e-mail allo studente.
+        Insert a comment for denying this study plan; it will be send to the student by e-mail
         <br/>
         <form method="POST" action="/supervisor/studyplan/rejectSP">
             <fieldset>
                 <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
                 <br />
-                <label for="comment">Commento (obbligatorio)</label>
+                <label for="comment">Comment (required)</label>
                 <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
             </fieldset>
             <br />
@@ -41,11 +41,10 @@
         <a href="#" class="close" data-dismiss="modal">
             <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
         </a>
-        <h3>Accetta Study Plan</h3>
+        <h3>Accept study plan</h3>
     </div>
     <div class="modal-body">
-        Sei certo di voler accettare questo Study Plan?<br/>
-        Puoi lasciare un commento (opzionale)
+        Are you sure of accepting this study plan?<br />You can leave a comment (not required)
         <br />
         <form method="POST" action="/supervisor/studyplan/acceptSP">
             <fieldset>

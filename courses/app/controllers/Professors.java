@@ -47,7 +47,7 @@ public class Professors extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     Supervisor s = uc.getSupervisor();
     Course course = Course.find.byId(id);
-    if (Secured.isProfessor(uc) && course.professor.supervisorID.equals(s.supervisorID))
+    if (Secured.isProfessor(uc) && course.getProfessor().supervisorID.equals(s.supervisorID))
     {
       if (badRequest)
         return badRequest(professor_examResults.render(uc,course,enrollForms.get(id)));
@@ -64,7 +64,7 @@ public class Professors extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     Supervisor s = uc.getSupervisor();
     Course course = Course.find.byId(courseId);
-    if (Secured.isProfessor(uc) && course.professor.supervisorID.equals(s.supervisorID))
+    if (Secured.isProfessor(uc) && course.getProfessor().supervisorID.equals(s.supervisorID))
     {
       if (filledForm.hasErrors())
       {

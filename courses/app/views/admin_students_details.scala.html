@@ -17,14 +17,14 @@
     <a href="#" class="close" data-dismiss="modal">
       <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
     </a>
-    <h3>Conferma operazione</h3>
+    <h3>Confirm operation</h3>
   </div>
   <div class="modal-body">
     <p>
-      Procedendo con l'operazione lo studente verrà sospeso. Continuare?
+      You're about to suspend this student: do you wish to continue?
     </p>
-    <a data-dismiss="modal" href="#" class="btn btn-large">Annulla</a>
-    <a href="@routes.Admins.suspendStudent(selectedStudent.userID.longValue)" class="btn btn-primary btn-large">Sospendi lo studente</a>
+    <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
+    <a href="@routes.Admins.suspendStudent(selectedStudent.userID.longValue)" class="btn btn-primary btn-large">Suspend student</a>
   </div>
 </div>
 
@@ -35,7 +35,7 @@
     
 <div>
   @if(selectedStudent.isSuspended() == false) {
-    <a data-toggle="modal" href="#studentDetails_confirmSuspendAction" class="btn">Sospendi studente</a>
+    <a data-toggle="modal" href="#studentDetails_confirmSuspendAction" class="btn">Suspend student</a>
   }
 </div>
 
