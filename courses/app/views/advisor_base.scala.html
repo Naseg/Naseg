@@ -6,23 +6,22 @@
 
 <ul class="nav nav-list">
   <li class="nav-header"><font size="4" face="Courier">Students</font></li>
-  <!-- Mostrare SOLO se ci sono approvazioni in sospeso -->
+  <!-- show it only if there are pendent approval requests -->
   @if(user.getSupervisor().getApprovalRequests() > 0) {
     @if(user.getSupervisor().getApprovalRequests() == 1) {
-      <li>@user.getSupervisor().getApprovalRequests() appended approval request</li>
+      <li>@user.getSupervisor().getApprovalRequests() pendent approval request</li>
     } else {
-      <li>@user.getSupervisor().getApprovalRequests() appended approval requests</li>
+      <li>@user.getSupervisor().getApprovalRequests() pendent approval requests</li>
     }
   }
   <br />
   @for(student <- students) {
     <li>
       <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
-        <!-- Se ha richieste d'approvazione -->
         @if(student.isPlanApproved == 1) {
           <img align="center" src="@routes.Assets.at("images/exclamationicon.png")" />
         } else {
-          <!-- altrimenti -->
+          <!-- otherwise -->
           <img align="center" src="@routes.Assets.at("images/normalicon.png")" />
           <!------------------------------------>
         }
@@ -34,7 +33,7 @@
 </ul>
 
 } {
-<!---parte centrale -->
+<!---central part -->
 
 <div class="row-fluid">
   @centralLeftContents
