@@ -7,10 +7,10 @@ import play.data.*;
 import models.*;
 import views.html.*;
 
+/**
+ * Contains the controllers for authenticating session
+ */
 public class Authentication extends Controller {
-
-    // -- Authentication
-
     public static class Login {
 
         public String username;
@@ -40,7 +40,7 @@ public class Authentication extends Controller {
         else
         {
             session("username", loginForm.get().username);
-            UserCredentials uc = UserCredentials.find.where().eq("userName", loginForm.get().username).findUnique(); 
+            UserCredentials uc = UserCredentials.find.where().eq("userName", loginForm.get().username).findUnique();
 	    if (Secured.isStudent(uc))
 	    {
 	      return redirect(
