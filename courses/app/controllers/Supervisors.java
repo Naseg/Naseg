@@ -7,82 +7,96 @@ import java.util.*;
 import models.*;
 import views.html.*;
 
+/**
+ * Contains the controllers for the role supervisor
+ */
 @Security.Authenticated(Secured.class)
 public class Supervisors extends Controller {
-    
-    public static Result index()
+  public static Result index() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isSupervisor(uc))
     {
-      UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique(); 
-      if (Secured.isSupervisor(uc))
+      return redirect(routes.Supervisors.watchStudent(-1));
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  /**
+   * Render page with information about the student with specified id
+   */
+  public static Result watchStudent(Long id) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isSupervisor(uc))
+    {
+      Supervisor supervisor = uc.getSupervisor();
+      List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
+      Student student;
+
+      if (students.size() == 0)
       {
-        return redirect(routes.Supervisors.watchStudent(-1));
+        return ok(advisor_nostudents.render(uc));
+      }
+      else if (id == -1)
+      {
+        student = (Student) students.toArray()[0];
       }
       else
       {
-	return unauthorized(forbidden.render());
+        student = Student.find.byId(id);
       }
+      return ok(advisor_watchStudent.render(uc, students, student));
     }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
 
-    public static Result watchStudent(Long id)
+  /**
+   * Accept the study plan of a student
+   */
+  public static Result acceptSP() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    Long idStudente;
+    Student student;
+    //should be sent to the student as confirmation
+    String comment = form().bindFromRequest().get("comment-text");
+    idStudente = Long.parseLong(form().bindFromRequest().get("idStudente"));
+    student = Student.find.byId(idStudente);
+    if (Secured.isSupervisor(uc) && student != null)
     {
-        UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
-        if (Secured.isSupervisor(uc))
-        {
-            Supervisor supervisor = uc.getSupervisor();
-            List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
-            Student student;
+      student.acceptSP();
+      return redirect(routes.Supervisors.watchStudent(idStudente));
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
 
-	        if (students.size() == 0)
-	        {
-	          return ok(advisor_nostudents.render(uc));
-	        }
-            else if (id == -1)
-            {
-                student = (Student) students.toArray()[0];
-            }
-            else
-            {
-                student = Student.find.byId(id); 
-            }
-            
-            return ok(advisor_watchStudent.render(uc, students, student));
-        }
-        else
-        {
-            return unauthorized(forbidden.render());
-        }
-    }
-    
-    public static Result acceptSP()
+  /**
+   * Reject the study plan of a student
+   */
+  public static Result rejectSP() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    Long idStudente;
+    Student student;
+    //should be sent to the student notifying the rejection
+    String comment = form().bindFromRequest().get("comment-text");
+    idStudente = Long.parseLong(form().bindFromRequest().get("idStudente"));
+    student = Student.find.byId(idStudente);
+    if (Secured.isSupervisor(uc) && student != null)
     {
-        Long idStudente;
-        Student student;
-        String comment = form().bindFromRequest().get("comment-text"); // va mandato per mail insieme alla notifica di approvazione
-        
-        idStudente = Long.parseLong(form().bindFromRequest().get("idStudente")); //fare controlli
-        
-        student = Student.find.byId(idStudente); //fare controlli
-        
-        student.acceptSP();
-        System.out.println("student.isPlanApproved: " + student.isPlanApproved);
-        
-        return redirect(routes.Supervisors.watchStudent(idStudente));
+      student.rejectSP();
+      return redirect(routes.Supervisors.watchStudent(idStudente));
     }
-    
-    public static Result rejectSP()
+    else
     {
-        Long idStudente;
-        Student student;
-        String comment = form().bindFromRequest().get("comment-text"); // va mandato per mail insieme alla notifica di approvazione
-        
-        idStudente = Long.parseLong(form().bindFromRequest().get("idStudente")); //fare controlli
-        
-        student = Student.find.byId(idStudente); //fare controlli
-        
-        student.rejectSP();
-        System.out.println("student.isPlanApproved: " + student.isPlanApproved);
-        
-        return redirect(routes.Supervisors.watchStudent(idStudente));
+      return unauthorized(forbidden.render());
     }
+  }
 }
 
