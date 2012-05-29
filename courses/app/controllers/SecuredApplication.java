@@ -12,13 +12,13 @@ import play.data.Form;
  */
 @Security.Authenticated(Secured.class)
 public class SecuredApplication extends Controller {
-	
+
     public static Result index() {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     return ok(authIndex.render(uc,form(Authentication.Login.class)));
     }
 
-    public static Result newExternCourse() {
+  /*public static Result newExternCourse() {
         Form<Course> filledForm = courseForm.bindFromRequest();  
               
         if(filledForm.hasErrors()) {
@@ -29,7 +29,7 @@ public class SecuredApplication extends Controller {
         }
         
         
-    }
+        }*/
     
     public static Result emailMeNow() {		
 		return emailMe("","","","","","gigi");
