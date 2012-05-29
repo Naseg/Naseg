@@ -20,7 +20,7 @@
     <div class="modal-body">
         Inserisci un commento per rifiutare questo Study Plan; verrà inviato tramite e-mail allo studente.
         <br/>
-        <form method="POST" action="/supervisor/studyplan/rejectSP">
+        <form method="POST" action="@routes.Supervisors.rejectSP()">
             <fieldset>
                 <input type="hidden" name="idStudente" id="id" value="@selectedStudent.userID">
                 <br />
@@ -47,7 +47,7 @@
         Sei certo di voler accettare questo Study Plan?<br/>
         Puoi lasciare un commento (opzionale)
         <br />
-        <form method="POST" action="/supervisor/studyplan/acceptSP">
+        <form method="POST" action="@routes.Supervisors.acceptSP()">
             <fieldset>
                 <input type="hidden" name="idStudente" value="@selectedStudent.userID">
                 <br />
