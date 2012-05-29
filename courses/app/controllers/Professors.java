@@ -9,6 +9,9 @@ import views.html.*;
 
 import play.data.Form;
 
+/**
+ * Contains the controllers for the role professor
+ */
 @Security.Authenticated(Secured.class)
 public class Professors extends Controller {
   static Map<Long,List<Form<CourseEnrollment>>> enrollForms = Collections.synchronizedMap(new HashMap());
@@ -18,6 +21,9 @@ public class Professors extends Controller {
     return redirect(routes.Professors.courses());
   }
 
+  /**
+   * Render page with information about the professor courses
+   */
   public static Result courses() {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isProfessor(uc))
@@ -30,6 +36,9 @@ public class Professors extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Overloading for method results (also prepare the forms needed)
+   */
   public static Result results(Long id) {
     Course course = Course.find.byId(id);
     List<Form<CourseEnrollment>> forms = new ArrayList<Form<CourseEnrollment>>();
@@ -43,6 +52,9 @@ public class Professors extends Controller {
     return Professors.results(id, false);
   }
 
+  /**
+   * Render page where the professor shold give qualifications to students
+   */
   public static Result results(Long id, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     Supervisor s = uc.getSupervisor();
@@ -58,6 +70,10 @@ public class Professors extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read data from post request for add a qualification for
+   * the course specified
+   */
   public static Result addResults(Long courseId) {
     Form<CourseEnrollment> filledForm = enrollForm.bindFromRequest();
     System.out.println(filledForm);
@@ -82,7 +98,6 @@ public class Professors extends Controller {
       }
       else
       {
-        //qui van presi i campi
         CourseEnrollment ce = filledForm.get();
         if (filledForm.data().get("passed") != null)
         {
