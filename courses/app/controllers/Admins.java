@@ -9,6 +9,9 @@ import views.html.*;
 
 import play.data.Form;
 
+/**
+ * Contains the controllers for the role admin
+ */
 @Security.Authenticated(Secured.class)
 public class Admins extends Controller {
   static Form<Course> courseForm = form(Course.class);
@@ -26,10 +29,16 @@ public class Admins extends Controller {
     return redirect(routes.Admins.courses());
   }
 
+  /**
+   * Overloading of method courses
+   */
   public static Result courses() {
     return Admins.courses(internalCourseForm,externalCourseForm,false);
   }
 
+  /**
+   * Renders the page for managing the course
+   */
   public static Result courses(Form<Course> intForm, Form<Course> extForm, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -45,12 +54,18 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Overloading for methond courseDetails
+   */
   public static Result courseDetails(Long id) {
     Course c = Course.find.byId(id);
     courseEditingForm = courseEditingForm.fill(c);
     return Admins.courseDetails(id,courseEditingForm,false);
   }
 
+  /**
+   * Renders the page for editing the details of a course
+   */
   public static Result courseDetails(Long id, Form<Course> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -64,6 +79,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read the data from POST requests for editing course data
+   */
   public static Result editCourse(Long id) {
     Form<Course> filledForm = courseEditingForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -87,6 +105,9 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Read the data from POST requests for creating new internal courses
+   */
   public static Result newInternalCourse() {
     Form<Course> filledForm = internalCourseForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -110,6 +131,9 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Renders page form managing old courses
+   */
   public static Result oldcourses() {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -122,12 +146,18 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Overloading for method studentDetails
+   */
   public static Result studentDetails(Long studentId) {
     Student student = Student.find.byId(studentId);
     studentFormEditing = studentFormEditing.fill(student);
     return Admins.studentDetails(studentId, studentFormEditing, false);
   }
 
+  /**
+   * Renders page for view and modify student data
+   */
   public static Result studentDetails(Long studentId, Form<Student> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -148,6 +178,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read data from POST request for editing student data
+   */
   public static Result editStudentData(Long studentId) {
     Form<Student> filledForm = studentFormEditing.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -170,10 +203,16 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Overloading for method students
+   */
   public static Result students() {
     return Admins.students(newStudentForm,false);
   }
 
+  /**
+   * Renders page for managing students
+   */
   public static Result students(Form<Student> form, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -190,6 +229,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read data from POST request for creating new students
+   */
   public static Result newStudent() {
     Form<Student> filledForm = newStudentForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -217,6 +259,9 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Renders page form managing suspended students
+   */
   public static Result suspendedStudents() {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -229,7 +274,10 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
-  public static Result suspendStudent(Long id) {
+  /**
+   * Suspend the student with specified id
+   */
+   public static Result suspendStudent(Long id) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
@@ -241,6 +289,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Unsuspend the student with specified id
+   */ 
   public static Result unsuspendStudent(Long id) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -253,6 +304,10 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+
+  /**
+   * Overloading for method supervisors
+   */
   public static Result supervisors(Long id) {
     Supervisor s = Supervisor.find.byId(id);
     if (s!=null)
@@ -260,6 +315,9 @@ public class Admins extends Controller {
     return Admins.supervisors(id,supervisorForm,editSupervisorForm,false);
   }
 
+  /**
+   * Renders page for managing supervisors
+   */
   public static Result supervisors(Long id, Form<Supervisor> newForm, Form<Supervisor> editForm, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
 
@@ -276,6 +334,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read the data from POST requests for editing supervisor data
+   */
   public static Result editSupervisor(Long id) {
     Form<Supervisor> filledForm = editSupervisorForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -299,6 +360,9 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Read the data from POST requests for creating new supervisor
+   */
   public static Result newSupervisor() {
     Form<Supervisor> filledForm = supervisorForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -322,10 +386,16 @@ public class Admins extends Controller {
     }
   }
 
+  /**
+   * Overloading of method credentials
+   */
   public static Result credentials() {
     return Admins.credentials(ucForm,urForm,false);
   }
 
+  /**
+   * Renders the page for managing usercredentials
+   */
   public static Result credentials(Form<UserCredentials> userForm, Form<UserRole> roleForm, boolean badRequest) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
@@ -342,6 +412,9 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
   }
 
+  /**
+   * Read the data from POST requests for creating a new user credential
+   */
   public static Result newUserCredential() {
     Form<UserCredentials> filledForm = ucForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
@@ -365,6 +438,10 @@ public class Admins extends Controller {
     }
   }
 
+
+  /**
+   * Read the data from POST requests for creating a new user role
+   */
   public static Result newUserRole() {
     Form<UserRole> filledForm = urForm.bindFromRequest();
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
