@@ -1,5 +1,14 @@
 @(user: UserCredentials, courses: List[Course])
 
+@main {
+
+
+} {
+
+<!-- centrale -->
+
+<div class="row-fluid">
+  <div class="span6">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -24,4 +33,19 @@
       }
     </tbody>
   </table>
+  </div>
+</div>
+
+} {
+
+<!-- authstate -->
+
+Loggato come: @user.userName - <a href="@routes.Authentication.logout()">Logout</a>
+
+} {
+
+<!-- script professor_examResult -->
+
+}
+
 
