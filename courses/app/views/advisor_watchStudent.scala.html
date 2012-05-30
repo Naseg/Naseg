@@ -90,10 +90,12 @@
           </table>
           <br />
           <br />
-          <p align="center">
-              <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
-              <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
-          </p>
+          @if(selectedStudent.isPlanApproved == 1) {
+            <p align="center">
+                <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
+                <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
+            </p>
+          }
         } else {
           <br />
           <br />
@@ -158,4 +160,4 @@
  
 <!-- script advisor_watchStudent -->
 
-}class="actions">
+}<!--class="actions"> -->

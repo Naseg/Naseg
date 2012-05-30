@@ -152,4 +152,17 @@ public class Students extends Controller {
       return unauthorized(forbidden.render());
     }
   }
+  
+  public static Result modifyStudyplan() {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isStudent(uc))
+    {
+      uc.getStudent().rejectSP();
+      return  studyplan() ;
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
 }

@@ -19,6 +19,7 @@ GET     /student/career                     controllers.Students.career()
 GET     /student/studyplan                  controllers.Students.studyplan()
 GET     /student/studyplan/appreq           controllers.Students.appreq()
 POST    /student/studyplan                  controllers.Students.newExternCourse()
+GET     /student/modifyStudyplan            controllers.Students.modifyStudyplan()
 
 #Utility
 
