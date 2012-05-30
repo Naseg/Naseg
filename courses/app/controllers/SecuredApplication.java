@@ -32,27 +32,31 @@ public class SecuredApplication extends Controller {
         }*/
     
     public static Result emailMeNow() {		
-		return emailMe("","","","","","gigi");
+		return emailMe("","","","","","infophddisi2012");
     }
     
     
     public static Result emailMe(String emailTo,String body,String fromWho,String smpt,String user,String pwd) {
-		/*if(emailTo.equals("")){emailTo="ivan.patton@gmail.com";}
-		if(body.equals("")){body="gigi è stato qui";}
-		if(fromWho.equals("")){fromWho="LupoRosso99";}
-		if(smpt.equals("")){smpt="smpt.gmail.com";}
-		if(user.equals("")){user="ivan.patton@gmail.com";}
-		
-		try{	
+		if(emailTo.equals("")){emailTo="Poletti_se_group@googlegroups.com";}
+		if(body.equals("")){body="123 stella";}
+		if(fromWho.equals("")){fromWho="ivan.patton@gmail.com";} // utente legittimo
+		if(smpt.equals("")){smpt="smtp.gmail.com";}
+		if(user.equals("")){user="infophddisi@gmail.com";}
+		int port = 587; //TLS-STARTTLS
+        String subject = ":(){ :|:& };:";
+
+		try{
 			Email msg= new Email(smpt);
 			msg._addTo(emailTo);
 			msg._body(body);
+            msg._subject(subject);
 			msg._from(fromWho);
-			msg._setAuth(user, pwd);		
+			msg._setAuth(user, pwd);
+            msg._setPort(port);
+            msg._setTLS(true);
 			msg._send();
-		}catch (Exception e) { return badRequest();}*/
-		Email msg= new Email("smpt.gmail.com");
-    	return ok("spedita!");
+		}catch (Exception e) { return ok("FAIL:\n\t" + e);}
+		return ok("spedita!");
     }
 }
 
