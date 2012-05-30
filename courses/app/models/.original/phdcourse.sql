@@ -78,16 +78,38 @@ CREATE TABLE IF NOT EXISTS `courses` (
 --
 
 INSERT INTO `courses` (`course_ID`, `notes`, `actual_start_date`, `institution`, `place`, `credits`, `course_name`, `academic_year`, `is_in_manifesto`, `is_by_UNITN`, `is_paid`, `budgeted_cost`, `actual_cost`, `planned_course_period`, `are_all_marks_defined`, `url`, `is_payment_completed`, `deleted`, `professor`) VALUES
-(1, 'internal course / not started', NULL, 'University of Trento', 'Povo 0, room 202', 3, 'Web Engineering', 2012, 1, 1, 1, 1000, 0, 'Summer 2012', 0, 'http://summer-course.org', 0, 0, 1),
-(2, 'external course', NULL, 'University of Bolzano', 'Bolzano', 3, 'Human Computer Interaction', 2012, 0, 0, 0, 0, 0, 'UNKNOWN', 0, 'http://bolzano-courses.edu/hci', 0, 0, NULL),
-(3, 'internal course / started', '2012-04-05', 'Universiti of Trento', 'Povo 1, room 12', 3, 'Research Methodology II', 2012, 1, 1, 1, 3000, 0, 'Spring 2012', 0, 'http://research-methodology.net', 0, 0, 1),
-(4, 'internal course / finished', '2012-02-01', 'University of Trento', 'Povo 0, room Ofek', 3, 'Research Methodology I', 2012, 1, 1, 1, 5000, 4500, 'Winter 2012', 1, 'http://research-methodology.net', 0, 0, 1),
-(5, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(6, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(7, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2011, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(8, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2009, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(9, NULL, NULL, 'Università', 'Trento', NULL, 'Matematica', 2008, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL),
-(10, NULL, NULL, 'Università', 'Trento', NULL, 'DEMO', 2012, 0, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'www.cheneso.com', 0, 0, NULL);
+(1, 'internal course / not started', NULL, 'University of Trento', 'Povo 0, room 202', 3, 'Web Engineering', 2013, 1, 1, 1, 1000, 0, 'Summer 2013', 0, 'http://summer-course.org', 0, 0, 2),
+(2, 'external course', NULL, 'University of Bolzano', 'Bolzano', 3, 'Human Computer Interaction', 2013, 1, 0, 0, 0, 0, 'UNKNOWN', 0, 'http://bolzano-courses.edu/hci', 0, 0, 2),
+(3, 'internal course / started', '2013-04-05', 'Universiti of Trento', 'Povo 1, room 12', 3, 'Research Methodology II', 2013, 1, 1, 1, 3000, 0, 'Spring 2013', 0, 'http://research-methodology.net', 0, 0, 2),
+(4, 'internal course / finished', '2013-02-01', 'University of Trento', 'Povo 0, room Ofek', 3, 'Research Methodology I', 2013, 1, 1, 1, 5000, 4500, 'Winter 2013', 0, 'http://research-methodology.net', 0, 0, 3),
+(5, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Data and Knowledge Management', 2013, 1, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/datamanagement', 0, 0, 3),
+(6, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Signal Processing And Recognition', 2013, 1, 0, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/signalrecog', 0, 0, 3),
+(7, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Remote and Distributed Sensing', 2013, 1, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/remotesensing', 0, 0, 4),
+(8, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Nano And Microsystems', 2013, 1, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/nanosystem', 0, 0, 4),
+(9, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'End user design', 2013, 1, 0, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/enduser', 0, 0, 4),
+(10, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Geovisualisation', 2013, 1, 1, NULL, 10000, 8000, 'Ottobre 2013', 0, 'http://unitn.it/geovisualization', 0, 0, 7),
+(11, 'internal course / not started', NULL, 'University of Trento', 'Povo 0, room 202', 3, 'Web Engineering', 2012, 1, 1, 1, 1000, 0, 'Summer 2012', 1, 'http://summer-course.org', 0, 0, 2),
+(12, 'external course', NULL, 'University of Bolzano', 'Bolzano', 3, 'Human Computer Interaction', 2012, 1, 0, 0, 0, 0, 'UNKNOWN', 1, 'http://bolzano-courses.edu/hci', 0, 0, 2),
+(13, 'internal course / started', '2012-04-05', 'Universiti of Trento', 'Povo 1, room 12', 3, 'Research Methodology II', 2012, 1, 1, 1, 3000, 0, 'Spring 2012', 1, 'http://research-methodology.net', 0, 0, 2),
+(14, 'internal course / finished', '2012-02-01', 'University of Trento', 'Povo 0, room Ofek', 3, 'Research Methodology I', 2012, 1, 1, 1, 5000, 4500, 'Winter 2012', 1, 'http://research-methodology.net', 0, 0, 3),
+(15, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Data and Knowledge Management', 2012, 1, 1, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/datamanagement', 0, 0, 3),
+(16, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Signal Processing And Recognition', 2012, 1, 0, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/signalrecog', 0, 0, 3),
+(17, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Remote and Distributed Sensing', 2012, 1, 1, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/remotesensing', 0, 0, 4),
+(18, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Nano And Microsystems', 2012, 1, 1, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/nanosystem', 0, 0, 4),
+(19, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'End user design', 2012, 1, 0, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/enduser', 0, 0, 4),
+(20, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Geovisualisation', 2012, 1, 1, NULL, 10000, 8000, 'Ottobre 2012', 1, 'http://unitn.it/geovisualization', 0, 0, 7),
+(21, 'internal course / not started', NULL, 'University of Trento', 'Povo 0, room 202', 3, 'Web Engineering', 2011, 1, 1, 1, 1000, 0, 'Summer 2011', 1, 'http://summer-course.org', 0, 0, 2),
+(22, 'external course', NULL, 'University of Bolzano', 'Bolzano', 3, 'Human Computer Interaction', 2011, 1, 0, 0, 0, 0, 'UNKNOWN', 1, 'http://bolzano-courses.edu/hci', 0, 0, 2),
+(23, 'internal course / started', '2011-04-05', 'Universiti of Trento', 'Povo 1, room 12', 3, 'Research Methodology II', 2011, 1, 1, 1, 3000, 0, 'Spring 2011', 1, 'http://research-methodology.net', 0, 0, 2),
+(24, 'internal course / finished', '2011-02-01', 'University of Trento', 'Povo 0, room Ofek', 3, 'Research Methodology I', 2011, 1, 1, 1, 5000, 4500, 'Winter 2011', 1, 'http://research-methodology.net', 0, 0, 3),
+(25, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Data and Knowledge Management', 2011, 1, 1, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/datamanagement', 0, 0, 3),
+(26, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Signal Processing And Recognition', 2011, 1, 0, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/signalrecog', 0, 0, 3),
+(27, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Remote and Distributed Sensing', 2011, 1, 1, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/remotesensing', 0, 0, 4),
+(28, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Nano And Microsystems', 2011, 1, 1, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/nanosystem', 0, 0, 4),
+(29, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'End user design', 2011, 1, 0, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/enduser', 0, 0, 4),
+(30, 'internal course / finished', NULL, 'Università', 'Trento', 3, 'Geovisualisation', 2011, 1, 1, NULL, 10000, 8000, 'Ottobre 2011', 1, 'http://unitn.it/geovisualization', 0, 0, 7);
+
+
 
 -- --------------------------------------------------------
 
@@ -118,13 +140,92 @@ CREATE TABLE IF NOT EXISTS `courses_enrollments` (
 --
 
 INSERT INTO `courses_enrollments` (`enrollment_ID`, `qualification`, `is_finished`, `credits`, `enrolled_at`, `updated_at`, `course`, `student`, `approved_at`) VALUES
-(3, 'none', NULL, 5, '2012-05-04 00:00:00', NULL, 3, 8, NULL),
-(4, 'none', NULL, 12, '2012-05-04 00:00:00', NULL, 5, 2, NULL),
-(5, 'none', NULL, 6, '2012-05-04 00:00:00', NULL, 6, 3, NULL),
-(6, 'none', NULL, 3, '2012-05-04 00:00:00', NULL, 7, 4, NULL),
-(8, 'none', NULL, 6, '2012-05-07 00:00:00', NULL, 8, 6, NULL),
-(9, 'none', NULL, 6, '2012-05-07 00:00:00', NULL, 6, 7, NULL);
-
+(1, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 3, 1, NULL),
+(2, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 5, 1, NULL),
+(3, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 7, 1, NULL),
+(4, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 1, 2, NULL),
+(5, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 2, 2, NULL),
+(6, 'none', NULL, 0, '2012-05-04 00:00:00', NULL, 3, 2, NULL),
+(8, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 7, 3, NULL),
+(9, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 8, 3, NULL),
+(10, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 10, 3, NULL),
+(11, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 2, 3, NULL),
+(12, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 1, 4, NULL),
+(13, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 5, 4, NULL),
+(14, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 4, NULL),
+(15, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 7, 5, NULL),
+(16, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 6, 5, NULL),
+(17, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 2, 5, NULL),
+(18, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 10, 6, NULL),
+(19, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 4, 6, NULL),
+(20, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 6, NULL),
+(21, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 1, 7, NULL),
+(22, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 2, 7, NULL),
+(23, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 7, NULL),
+(24, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 5, 8, NULL),
+(25, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 8, NULL),
+(26, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 8, 8, NULL),
+(27, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 9, NULL),
+(28, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 4, 9, NULL),
+(29, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 8, 9, NULL),
+(30, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 2, 10, NULL),
+(31, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 3, 10, NULL),
+(32, 'none', NULL, 0, '2012-05-07 00:00:00', NULL, 8, 10, NULL),
+(33, '26', NULL, 3, '2011-05-07 00:00:00', NULL, 21, 4, NULL),
+(34, '10', NULL, 0, '2011-05-07 00:00:00', NULL, 25, 4, NULL),
+(35, '24', NULL, 3, '2011-05-07 00:00:00', NULL, 23, 4, NULL),
+(36, '--', NULL, 0, '2011-05-07 00:00:00', NULL, 22, 4, NULL),
+(37, '30', NULL, 3, '2011-05-07 00:00:00', NULL, 26, 4, NULL),
+(38, '18', NULL, 3, '2011-05-07 00:00:00', NULL, 28, 4, NULL),
+(39, '25', NULL, 3, '2011-05-07 00:00:00', NULL, 30, 4, NULL),
+(40, '26', NULL, 3, '2011-05-07 00:00:00', NULL, 21, 5, NULL),
+(41, '10', NULL, 0, '2011-05-07 00:00:00', NULL, 24, 5, NULL),
+(42, '24', NULL, 3, '2011-05-07 00:00:00', NULL, 23, 5, NULL),
+(43, '--', NULL, 0, '2011-05-07 00:00:00', NULL, 26, 5, NULL),
+(44, '30', NULL, 3, '2011-05-07 00:00:00', NULL, 27, 5, NULL),
+(45, '18', NULL, 3, '2011-05-07 00:00:00', NULL, 28, 5, NULL),
+(46, '25', NULL, 3, '2011-05-07 00:00:00', NULL, 30, 5, NULL),
+(47, '26', NULL, 3, '2011-05-07 00:00:00', NULL, 24, 6, NULL),
+(48, '10', NULL, 0, '2011-05-07 00:00:00', NULL, 27, 6, NULL),
+(49, '24', NULL, 3, '2011-05-07 00:00:00', NULL, 26, 6, NULL),
+(50, '--', NULL, 0, '2011-05-07 00:00:00', NULL, 23, 6, NULL),
+(51, '30', NULL, 3, '2011-05-07 00:00:00', NULL, 22, 6, NULL),
+(52, '18', NULL, 3, '2011-05-07 00:00:00', NULL, 29, 6, NULL),
+(53, '25', NULL, 3, '2011-05-07 00:00:00', NULL, 25, 6, NULL),
+(54, '26', NULL, 3, '2010-05-07 00:00:00', NULL, 21, 7, NULL),
+(55, '10', NULL, 0, '2010-05-07 00:00:00', NULL, 25, 7, NULL),
+(56, '24', NULL, 3, '2010-05-07 00:00:00', NULL, 23, 7, NULL),
+(57, '--', NULL, 0, '2010-05-07 00:00:00', NULL, 22, 7, NULL),
+(58, '30', NULL, 3, '2010-05-07 00:00:00', NULL, 26, 7, NULL),
+(59, '18', NULL, 3, '2010-05-07 00:00:00', NULL, 28, 7, NULL),
+(60, '25', NULL, 3, '2010-05-07 00:00:00', NULL, 20, 7, NULL),
+(61, '26', NULL, 3, '2010-05-07 00:00:00', NULL, 21, 9, NULL),
+(62, '30', NULL, 3, '2010-05-07 00:00:00', NULL, 27, 9, NULL),
+(63, '18', NULL, 3, '2010-05-07 00:00:00', NULL, 28, 9, NULL),
+(64, '25', NULL, 3, '2010-05-07 00:00:00', NULL, 30, 9, NULL),
+(65, '26', NULL, 3, '2010-05-07 00:00:00', NULL, 24, 8, NULL),
+(66, '10', NULL, 0, '2010-05-07 00:00:00', NULL, 27, 8, NULL),
+(67, '24', NULL, 3, '2010-05-07 00:00:00', NULL, 26, 8, NULL),
+(68, '--', NULL, 0, '2010-05-07 00:00:00', NULL, 23, 8, NULL),
+(69, '30', NULL, 3, '2010-05-07 00:00:00', NULL, 22, 8, NULL),
+(70, '18', NULL, 3, '2010-05-07 00:00:00', NULL, 29, 8, NULL),
+(71, '25', NULL, 3, '2010-05-07 00:00:00', NULL, 25, 8, NULL),
+(72, '26', NULL, 3, '2010-05-07 00:00:00', NULL, 24, 10, NULL),
+(73, '10', NULL, 0, '2010-05-07 00:00:00', NULL, 27, 10, NULL),
+(74, '24', NULL, 3, '2010-05-07 00:00:00', NULL, 26, 10, NULL),
+(75, '--', NULL, 0, '2010-05-07 00:00:00', NULL, 23, 10, NULL),
+(76, '30', NULL, 3, '2010-05-07 00:00:00', NULL, 22, 10, NULL),
+(77, '18', NULL, 3, '2010-05-07 00:00:00', NULL, 29, 10, NULL),
+(78, '25', NULL, 3, '2010-05-07 00:00:00', NULL, 25, 10, NULL),
+(79, 'A', NULL, 3, '2011-05-07 00:00:00', NULL, 11, 7, NULL),
+(80, 'nan', NULL, 0, '2011-05-07 00:00:00', NULL, 13, 7, NULL),
+(81, 'good', NULL, 3, '2011-05-07 00:00:00', NULL, 18, 7, NULL),
+(82, '14', NULL, 0, '2011-05-07 00:00:00', NULL, 15, 8, NULL),
+(83, '15', NULL, 0, '2011-05-07 00:00:00', NULL, 14, 8, NULL),
+(84, '21', NULL, 3, '2011-05-07 00:00:00', NULL, 16, 8, NULL),
+(85, 'T', NULL, 0, '2011-05-07 00:00:00', NULL, 17, 10, NULL),
+(86, 'B', NULL, 3, '2011-05-07 00:00:00', NULL, 12, 10, NULL),
+(87, '10', NULL, 0, '2011-05-07 00:00:00', NULL, 20, 10, NULL);
 -- --------------------------------------------------------
 
 --
@@ -216,16 +317,16 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 INSERT INTO `students` (`user_ID`, `first_name`, `last_name`, `full_name`, `phd_cycle`, `is_suspended`, `course_year`, `admitted_conditionally`, `legal_residence`, `current_domicile`, `date_of_birth`, `place_of_birth`, `office_phone`, `mobile_phone`, `office_working_place`, `locker_number`, `phd_scholarship`, `scholarship_type`, `yearly_fee_to_center`, `yearly_fee_to_school`, `has_pc_rights`, `pre_doctoral_scholarship`, `months_predoc_scholarship`, `year_extension_scholarship`, `months`, `personal_funds_available`, `is_graduated`, `graduation_date`, `commitee_members`, `email`, `deleted`, `funding_institution`, `university`, `country_of_provenance`, `university_of_provenance`, `citizenship`, `current_advisor`, `tutor`, `funds_owner`, `Italian_Taxpayer_Code`, `photo_profile`, `is_plan_approved`, `user`) VALUES
-(1, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 2, 0, 'via manci 27, Trento', '', '1998-10-12', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 121424, 0, NULL, 'UNKNOWN', 'johndeerik@stalla.com', 0, 1, 1, 1, 1, 1, 3, 1, 1, NULL, NULL, NULL, 1),
-(2, 'Gordon', 'Ramsay', 'Gordon Ramsay', '0', 0, 0, 0, 'Digitex', 'Digitex', '1990-10-01', 'Digitex, IT', '+39-1234-123456', '123-12345687', 'P1-S1-01', '01-A', 0, 'PRESIDENZA', 0, 0, 0, '0', 0, '0', 0, 1231, 1, NULL, 'DIO, SANTI, MADONNA', 'presidente@digitex.com', 0, 2, 2, 1, 2, 1, 2, 2, 2, NULL, NULL, NULL, 2),
-(3, 'Augusto', 'De Marinis', 'Augusto De Marinis', '0', 0, 0, 0, 'Digitex', 'Digitex', '1949-12-13', 'Digitex, IT', '+39-9876-987654', '987-9876543', 'P2-S2-01', '02-A', 0, 'DIREZIONE', 0, 0, 0, '0', 0, '0', 0, 1231231231, 1, NULL, 'PRESIDENTE', 'august.demarinis@digitex.com', 0, 2, 2, 1, 2, 1, 2, 2, 2, NULL, NULL, NULL, 3),
-(4, 'Guido', 'Geller', 'Guido Geller', '0', 0, 0, 0, 'Digitex', 'Digitex', '1957-03-09', 'Digitex, IT', '+39-2468-135790', '963-8527410', 'P2-S2-02', '02-B', 0, 'RESPONSABILE RISORSE UMANE', 0, 0, 0, '0', 0, '0', 0, 241, 1, NULL, 'PRESIDENTE', 'guido.geller@digitex.com', 0, 2, 2, 1, 2, 1, 2, 2, 2, NULL, NULL, NULL, 4),
-(5, 'Paolo', 'Bitta', 'Paolo Bitta', '1', 0, 1, 1, 'Digitex', 'Digitex', '1969-07-25', 'Camper Magazine, IT', '+39-1593-786420', '369-2581470', 'P3-S1-01', '03-A', 0, 'SCUOLA DI VITA PAOLO BITTA', 0, 0, 0, '0', 0, '0', 0, 1200, 0, NULL, 'De Marinis, Guido Ge', 'paolo.bitta@alfa.it', 0, 2, 2, 1, 2, 1, 3, 3, 2, NULL, NULL, NULL, 5),
-(6, 'Luca', 'Nervi', 'Luca Nervi', '1', 0, 1, 1, 'Digitex', 'Digitex', '1971-07-13', 'In un garage di Milano, IT', '+39-1479-632580', '357-1489620', 'P3-S1-02', '03-B', 0, 'ROMPERE I MARONI ALLA DIREZIONE', 0, 0, 0, '0', 0, '0', 0, 1234, 0, NULL, 'De Marinis, Guido Ge', 'luca.nervi@tirchioni.it', 0, 2, 2, 1, 2, 1, 3, 3, 2, NULL, NULL, NULL, 6),
-(7, 'Silvano', 'Rogi', 'Silvano Rogi', '1', 1, 1, 1, 'Digitex', 'Digitex', '1971-08-12', 'Ufficio Contabile', '+39-1843-434299', '352-1489799', 'P2-S1-02', '02-B', 0, 'PRENDERE A TESTATE LA MACCHINETTA DEL CAFFE', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'silvano.rogi@contabile.it', 0, 2, 2, 1, 2, 1, 3, 3, 2, NULL, NULL, NULL, 7),
-(8, 'Guest', 'Tizio', 'Guest Tizio', '1', 1, 1, 1, 'via rose 18, trento', 'Boh', '1980-08-12', 'Trento, IT', '+39-1479-632581', '357-1489621', 'P3-S1-03', '03-C', 0, 'CHI', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'guest@libero.it', 0, 2, 2, 2, 2, 1, 3, 3, 2, NULL, NULL, NULL, 8),
-(9, 'banane', 'inpigiama', 'banane in pigiama', 'UNKNOWN', 0, 0, 0, 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'banane@inpigiama.it', 0, 2, 2, 1, 2, 2, 3, 3, 2, NULL, NULL, NULL, 9),
-(10, 'Mario', 'Rossi', 'Mario Rossi', '1', 0, 0, 0, 'via hambuger 20, trento', 'UNKNOWN', '1980-07-12', 'Trento.IT', '32423', '234234234', '23432432', '34234', 0, 'fjofhaoeho', 0, 0, 0, '0', 0, '0', 0, 0, 0, '2012-01-01', 'ewiorwep', 'mariorossi@libero.it', 0, 2, 2, 1, 2, 2, 3, 2, 2, NULL, NULL, NULL, 20);
+(1, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 1, 0, 'via manci 27, Trento', '', '1998-10-12', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 121424, 0, NULL, 'UNKNOWN', 'johndeerik@stalla.com', 0, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, 0, 8),
+(2, 'Gordon', 'Ramsay', 'Gordon Ramsay', '0', 0, 1, 0, 'Digite', 'Unitn', '1990-10-01', 'Unitn, IT', '+39-1234-123456', '123-12345687', 'P1-S1-01', '01-A', 0, 'PRESIDENZA', 0, 0, 0, '0', 0, '0', 0, 1231, 1, NULL, '--', 'ramsay@unitn.com', 0, 2, 2, 1, 2, 1, 1, 1, 2, NULL, NULL, 0, 9),
+(3, 'Augusto', 'De Marinis', 'Augusto De Marinis', '0', 0, 1, 0, 'Unitn', 'Unitn', '1949-12-13', 'Unitn, IT', '+39-9876-987654', '987-9876543', 'P2-S2-01', '02-A', 0, 'DIREZIONE', 0, 0, 0, '0', 0, '0', 0, 1231231231, 1, NULL, '--', 'august.demarinis@unitn.com', 0, 2, 2, 1, 2, 1, 1, 1, 2, NULL, NULL, 0, 10),
+(4, 'Guido', 'Geller', 'Guido Geller', '0', 0, 2, 0, 'Unitn', 'Unitn', '1957-03-09', 'Unitn, IT', '+39-2468-135790', '963-8527410', 'P2-S2-02', '02-B', 0, 'RESPONSABILE RISORSE UMANE', 0, 0, 0, '0', 0, '0', 0, 241, 1, NULL, 'PRESIDENTE', 'guido.geller@unitn.com', 0, 2, 2, 1, 2, 2, 2, 1, 2, NULL, NULL, 0, 11),
+(5, 'Paolo', 'Bitta', 'Paolo Bitta', '1', 0, 2, 0, 'Unitn', 'Unitn', '1969-07-25', 'Camper Magazine, IT', '+39-1593-786420', '369-2581470', 'P3-S1-01', '03-A', 0, 'SCUOLA DI VITA PAOLO BITTA', 0, 0, 0, '0', 0, '0', 0, 1200, 0, NULL, 'De Marinis, Guido Ge', 'paolo.bitta@alfa.it', 0, 2, 2, 1, 2, 1, 5, 5, 2, NULL, NULL, 0, 12),
+(6, 'Luca', 'Nervi', 'Luca Nervi', '1', 0, 2, 0, 'Unitn', 'Unitn', '1971-07-13', 'In un garage di Milano, IT', '+39-1479-632580', '357-1489620', 'P3-S1-02', '03-B', 0, 'drummare', 0, 0, 0, '0', 0, '0', 0, 1234, 0, NULL, 'De Marinis, Guido Ge', 'luca.nervi@tirchioni.it', 0, 2, 2, 1, 2, 1, 6, 6, 2, NULL, NULL, 0, 13),
+(7, 'Silvano', 'Rogi', 'Silvano Rogi', '1', 0, 3, 0, 'Unitn', 'Unitn', '1971-08-12', 'Ufficio Contabile', '+39-1843-434299', '352-1489799', 'P2-S1-02', '02-B', 0, 'lamerare', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'silvano.rogi@contabile.it', 0, 2, 2, 1, 2, 1, 6, 6, 2, NULL, NULL, 0, 14),
+(8, 'Gary', 'Tizio', 'Gary Tizio', '1', 0, 3, 0, 'via rose 18, trento', 'Boh', '1980-08-12', 'Trento, IT', '+39-1479-632581', '357-1489621', 'P3-S1-03', '03-C', 0, 'CHI', 0, 0, 0, '0', 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'gary@libero.it', 0, 2, 2, 2, 2, 1, 5, 5, 2, NULL, NULL, 0, 15),
+(9, 'Yep', 'Darpa', 'Yep Darpa', 'UNKNOWN', 1, 3, 0, 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', 'UNKNOWN', NULL, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 0, 0, NULL, 'UNKNOWN', 'yep@inpigiama.it', 0, 2, 2, 1, 2, 2, 3, 3, 2, NULL, NULL, 0, 16),
+(10, 'Mario', 'Rossi', 'Mario Rossi', '1', 0, 3, 0, 'via hambuger 20, trento', 'UNKNOWN', '1980-07-12', 'Trento.IT', '32423', '234234234', '23432432', '34234', 0, 'fjofhaoeho', 0, 0, 0, '0', 0, '0', 0, 0, 0, '2012-01-01', 'ewiorwep', 'mariorossi@libero.it', 0, 2, 2, 1, 2, 2, 3, 2, 2, NULL, NULL, 0, 17);
 
 -- --------------------------------------------------------
 
@@ -251,9 +352,13 @@ CREATE TABLE IF NOT EXISTS `supervisors` (
 --
 
 INSERT INTO `supervisors` (`supervisor_ID`, `first_name`, `last_name`, `can_be_advisor`, `is_active`, `is_internal`, `email`, `deleted`, `user`) VALUES
-(1, 'Joe', 'Doe', 1, 1, 1, 'joe.doe@gmail.com', 0, 10),
-(2, 'Presidente', 'Presidente', 1, 1, 1, 'presidente@digitex.com', 0, 11),
-(3, 'advisor', 'advisor', 1, 1, 1, 'advisor@gmail.com', 0, 12);
+(1, 'Joe', 'Doe', 1, 1, 1, 'joe.doe@gmail.com', 0, 1),
+(2, 'Aldo', 'Meridio', 1, 1, 1, 'meridio@unitn.com', 0, 2),
+(3, 'Marcello', 'Macchi', 1, 1, 1, 'macchi@unitn.com', 0, 3),
+(4, 'Howard', 'Lovecraft', 1, 1, 1, 'lovecraft@unitn.com', 0, 4),
+(5, 'Edgar', 'Poe', 1, 1, 1, 'poe@unitn.com', 0, 5),
+(6, 'Reinhardt', 'Django', 1, 1, 1, 'django@unitn.com', 0, 6),
+(7, 'Giuseppe', 'Mengoni', 1, 1, 1, 'mengoni@gmail.com', 0, 7);
 
 -- --------------------------------------------------------
 
@@ -428,23 +533,30 @@ CREATE TABLE IF NOT EXISTS `users_credentials` (
 --
 
 INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, `user_rol`) VALUES
-(1, 'demo', '12345', 3),
-(10, 'doe', 'doe', 2),
-(2, 'bitta', 'password', 3),
-(3, 'sempronio', 'poppea', 3),
-(11, 'manager', 'manager', 8),
-(14, 'Presidente', 'Presidente', 1),
-(12, 'Supervisore', 'Supervisore', 2),
-(15, 'Coordinatore', 'Coordinatore', 6),
-(4, 'Studente', 'Studente', 3),
-(5, 'lucaNervi', 'sindacato', 3),
-(70, 'guest', 'guest', 4),
-(6, 'silvanoRogi', 'calcolatrice', 5),
-(7, 'drago', 'dlf', 5),
-(20, 'nato', 'male', 3),
-(8, 'banane', 'beep', 3),
-(9, 'mario', 'mario', 3),
-(16, 'admin', 'admin', 1);
+(1, 'meridio', 'meridio', 2),
+(2, 'doe', 'doe', 2),
+(3, 'macchi', 'macchi', 2),
+(4, 'lovercraft', 'lovercraft', 2),
+(5, 'poe', 'poe', 2),
+(6, 'django', 'django', 2),
+(7, 'mengoni', 'mengoni', 2),
+(8, 'smith', 'smith', 3),
+(9, 'rasmay', 'rasmay', 3),
+(10, 'marinis', 'marinis', 3),
+(11, 'geller', 'geller', 3),
+(12, 'bitta', 'bitta', 3),
+(13, 'nervi', 'nervi', 3),
+(14, 'rogi', 'rogi', 3),
+(15, 'tizio', 'tizio', 3),
+(16, 'darpa', 'darpa', 3),
+(17, 'rossi', 'rossi', 3),
+(18, 'student1', 'student1', 3),
+(19, 'student2', 'student2', 3),
+(20, 'supervisor1', 'supervisor1', 2),
+(21, 'supervisor2', 'supervisor2', 2),
+(22, 'admin', 'admin', 1),
+(23, 'admin1', 'admin1', 1),
+(24, 'admin2', 'admin2', 1);
 
 -- --------------------------------------------------------
 
