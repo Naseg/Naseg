@@ -88,6 +88,17 @@ public class Supervisor extends Model {
       return out;
     }
 
+    public List<Course> getCurrentCourses() {
+      List<Course> out = new ArrayList();
+      for (Course c: this.coursesSet)
+      {
+        c.refresh();  // force fetching from db
+        if (!c.areAllMarksDefined)
+          out.add(c);
+      }
+      return out;
+    }
+
     public static Map<String,String> options() {
         LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
         for(Supervisor s: Supervisor.find.orderBy("lastName").findList()) {
