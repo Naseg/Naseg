@@ -1,36 +1,33 @@
-/**
- * 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package controllers;
-import org.apache.commons.mail.*;
+
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.MultiPartEmail;
-
-
-import play.mvc.Controller;
-
-
-
+import org.apache.commons.mail.*;
+import java.lang.Object;
 /**
  * @author ivan
  *
  */
-public class Email extends Controller{
-	
+public class Email {
+
 	public MultiPartEmail email = new MultiPartEmail();
-	
+
 	public String workingDir;
-	
+
 	public Email(String path, String smtp) {
 		this.email.setHostName(smtp);
 		workingDir = path; // utile solo con gli allegati
 	}
-	
+
 	public Email(String smtp) {
 		this.email.setHostName(smtp);
 		workingDir = ""; // utile solo con gli allegati
 	}
-	
+
 	public Email _setPort(Object port) throws EmailException {
 		this.email.setSmtpPort(Integer.valueOf(port.toString()));
 		return this;
@@ -39,7 +36,7 @@ public class Email extends Controller{
 	/**
 	 * Set the FROM field of the email to use the specified address and the
 	 * specified personal name.
-	 * 
+	 *
 	 * @param fAddr
 	 * @param fName
 	 * @return
@@ -52,7 +49,7 @@ public class Email extends Controller{
 
 	/**
 	 * Set the FROM field of the email to use the specified address.
-	 * 
+	 *
 	 * @param fAddr
 	 * @return
 	 * @throws EmailException
@@ -65,7 +62,7 @@ public class Email extends Controller{
 	/**
 	 * Add a recipient TO to the email using the specified address and the
 	 * specified personal name.
-	 * 
+	 *
 	 * @param tAddr
 	 * @param tName
 	 * @return
@@ -78,7 +75,7 @@ public class Email extends Controller{
 
 	/**
 	 * Add a recipient TO to the email.
-	 * 
+	 *
 	 * @param tAddr
 	 * @return
 	 * @throws EmailException
@@ -91,7 +88,7 @@ public class Email extends Controller{
 	/**
 	 * Add a recipient CC to the email using the specified address and the
 	 * specified personal name.
-	 * 
+	 *
 	 * @param tAddr
 	 * @param tName
 	 * @return
@@ -104,7 +101,7 @@ public class Email extends Controller{
 
 	/**
 	 * Add a recipient CC to the email.
-	 * 
+	 *
 	 * @param tAddr
 	 * @return
 	 * @throws EmailException
@@ -117,7 +114,7 @@ public class Email extends Controller{
 	/**
 	 * Add a blind BCC recipient to the email using the specified address and
 	 * the specified personal name.
-	 * 
+	 *
 	 * @param tAddr
 	 * @param tName
 	 * @return
@@ -130,7 +127,7 @@ public class Email extends Controller{
 
 	/**
 	 * Add a blind BCC recipient to the email.
-	 * 
+	 *
 	 * @param tAddr
 	 * @return
 	 * @throws EmailException
@@ -142,7 +139,7 @@ public class Email extends Controller{
 
 	/**
 	 * Set the email subject.
-	 * 
+	 *
 	 * @param subject
 	 * @return
 	 * @throws EmailException
@@ -154,7 +151,7 @@ public class Email extends Controller{
 
 	/**
 	 * Define the content of the mail.
-	 * 
+	 *
 	 * @param body
 	 * @return
 	 * @throws EmailException
@@ -166,7 +163,7 @@ public class Email extends Controller{
 
 	/**
 	 * Sends the email.
-	 * 
+	 *
 	 * @return
 	 * @throws EmailException
 	 */
@@ -184,7 +181,7 @@ public class Email extends Controller{
 
 	/**
 	 * Sets the userName and password if authentication is needed.
-	 * 
+	 *
 	 * @param userName
 	 * @param password
 	 * @return
@@ -196,8 +193,22 @@ public class Email extends Controller{
 		return this;
 	}
 
+        /**
+	 * Sets the userName and password if authentication is needed.
+	 *
+	 * @param userName
+	 * @param password
+	 * @return
+	 * @throws EmailException
+	 */
+	public Email _setTLS(boolean tlsBoolean)
+			throws EmailException {
+		this.email.setTLS(tlsBoolean);
+		return this;
+	}
+
 	/**
-	 * 
+	 *
 	 * @param path
 	 * @param name
 	 * @param description
@@ -205,10 +216,10 @@ public class Email extends Controller{
 	 * @throws EmailException
 	 */
 	// bisogna importare anche : import org.apache.commons.io.FilenameUtils;
-	
+
 	/*public Email _addAttachment(Object path, Object name, Object description)
 			throws EmailException {
-		
+
 		String pathString = FilenameUtils.concat(this.workingDir, path.toString());
 		EmailAttachment attachment = new EmailAttachment();
 		attachment.setPath(pathString);
@@ -221,13 +232,13 @@ public class Email extends Controller{
 	}*/
 
 	/**
-	 * 
+	 *
 	 * @param path
 	 * @return
 	 * @throws EmailException
 	 */
 	/*public Email _addAttachment(Object path) throws EmailException {
-		
+
 		String pathString = FilenameUtils.concat(this.workingDir, path.toString());
 		EmailAttachment attachment = new EmailAttachment();
 		attachment.setPath(pathString);
