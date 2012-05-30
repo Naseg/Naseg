@@ -7,7 +7,7 @@
 
 
 } {
-<div class="span6">
+
   <h2>Supervisors</h2>
   <table class="table table-bordered">
     <thead>
@@ -34,10 +34,12 @@
         }
     </tbody>
   </table>
-  <a data-toggle="modal" href="#windowTitleDialog_newSupervisor" class="btn btn-primary">Create new supervisor</a>
+  <p align ="center">
+   <a data-toggle="modal" href="#windowTitleDialog_newSupervisor" class="btn btn-primary">Create new supervisor</a>
+  </p> 
   <br />
   <br />
-</div><!--span1 -->
+
 
 @if(supervisorId != -1) {
   @if(user.isAdmin()) {
@@ -121,8 +123,8 @@
         <input type="hidden" value="@editSupervisorForm("supervisorID").value" name="supervisorID"/>
       </fieldset>
     <div class="actions">
-      <a href="@routes.Admins.supervisors(supervisorId)" class="btn btn-large">Cancel</a> <!-- reload the page to obtain non-modified data -->
-      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+      <a href="@routes.Admins.supervisors(supervisorId)" class="btn">Cancel</a> <!-- reload the page to obtain non-modified data -->
+      <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   }
   </div>
@@ -184,8 +186,8 @@
         )
       </fieldset>
     <div class="actions">
-      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+      <a data-dismiss="modal" href="#" class="btn">Cancel</a>
+      <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   }
   </div>
