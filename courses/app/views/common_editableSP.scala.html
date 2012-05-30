@@ -14,7 +14,7 @@
 
 <!-- end of course details dialog -->
 
-<!---parte centrale -->
+<!--- central part of the page -->
 
 <div class="row-fluid">
   <h2 align="center">@selectedStudent.fullName</h2>
@@ -30,7 +30,7 @@
     <h2>StudyPlan
       @if(user.isStudent()) {
         @if(user.getStudent().isPlanApproved == 0 || user.getStudent().isPlanApproved == null) {
-          (In construction)
+          (In defining)
         } else {
           @if(user.getStudent().isPlanApproved == 1) {
             (Waiting for approval)
@@ -42,7 +42,7 @@
         }
       }
     </h2>
-    <!-- if is waiting for the advisor approval or is approved, it will take off the couloumns for modifing the study plan -->
+    <!-- if is waiting for approval or it is approved, it will remove the couloumns to modify the study plan -->
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -79,7 +79,7 @@
       <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Add extern course</a>
       }
       @if(user.isStudent()) {
-        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">ask for approval</a>
+        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">Ask for approval</a>
       }
     </p>
   </div><!--span1 -->

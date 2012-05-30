@@ -81,7 +81,9 @@ public class UserCredentials extends Model {
       else
       {
         try {
-          return (Student)this.studentsSet.toArray()[0];
+          Student s = (Student)this.studentsSet.toArray()[0];
+          s.refresh();
+          return s;
         }
         catch (ArrayIndexOutOfBoundsException ex) {
           return null;

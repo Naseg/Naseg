@@ -29,7 +29,7 @@ public class Professors extends Controller {
     if (Secured.isProfessor(uc))
     {
       Supervisor s = uc.getSupervisor();
-      List<Course> courses = s.getCoursesSet();
+      List<Course> courses = s.getCurrentCourses();
       return ok(professor_courses.render(uc, courses));
     }
     else

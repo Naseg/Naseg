@@ -18,7 +18,7 @@
         <h3>Reject study plan</h3>
     </div>
     <div class="modal-body">
-        Insert a comment for denying this study plan; it will be send to the student by e-mail
+        Insert a comment to reject this study plan; it will be send to the student by e-mail
         <br/>
         <form method="POST" action="@routes.Supervisors.rejectSP()">
             <fieldset>
@@ -28,9 +28,9 @@
                 <textarea name="comment-text" id="comment" rows="5" cols="40"></textarea>
             </fieldset>
             <br />
-            <div class="actions">
-                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
-                <input type="submit" class="btn primary" value="Conferma">
+            <div> 
+                <input data-dismiss="modal" type="button" class="btn btn-large" value="Cancel">
+                <input type="submit" class="btn btn-large btn-primary" value="Confirm">
             </div>
         </form>
     </div>
@@ -54,48 +54,53 @@
                 <textarea name="comment-text" rows="5" cols="40"></textarea>
             </fieldset>
             <div class="actions">
-                <input data-dismiss="modal" type="button" class="btn primary" value="Annulla">
-                <input type="submit" class="btn primary" value="Conferma">
+                <input data-dismiss="modal" type="button" class="btn primary" value="Cancel">
+                <input type="submit" class="btn primary" value="Confirm">
             </div>
         </form>
     </div>
 </div>
 
-<!-- Fine modal -->
-
-<!-- Parte dx-->
-<!--<div class="row-fluid">-->
+<div class="row-fluid">
     <div class="span6">
         <h2 align="center">@selectedStudent.fullName's Study Plan</h2>
        
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Course name</th>
-                    <th>Professor</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(course <- selectedStudent.getStudyPlan()) {
-                    <tr>
-                        <td>@course.courseName</td>
-                        <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
-                        <td>
-                            <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
-                                <img src="@routes.Assets.at("images/details.png")" />
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <br />
-        <br />
-        <p align="center">
-            <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
-            <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
-        </p>
+       @if(selectedStudent.isPlanApproved > 0) {
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>Course name</th>
+                      <th>Professor</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @for(course <- selectedStudent.getStudyPlan()) {
+                      <tr>
+                          <td>@course.courseName</td>
+                          <td>@if(course.professor != null)  { @course.getProfessor.lastName }</td>
+                          <td>
+                              <a data-toggle="modal" href="#windowTitleDialog_coursedetails-@{course.courseID}">
+                                  <img src="@routes.Assets.at("images/details.png")" />
+                              </a>
+                          </td>
+                      </tr>
+                  }
+              </tbody>
+          </table>
+          <br />
+          <br />
+          <p align="center">
+              <button data-toggle="modal" href="#windowTitleDialog_rejectSP" class="btn btn-large">Reject</button>
+              <button data-toggle="modal" href="#windowTitleDialog_acceptSP" class="btn btn-large">Accept</button>
+          </p>
+        } else {
+          <br />
+          <br />
+          <p>
+            This student has not defined his study plan yet.
+          </p>
+        }
     </div><!--span6/1 -->
 <!--</div>-->
 
@@ -147,10 +152,10 @@
         <br />
         <br />
     </div><!--span1 -->
-<!--</div>-->
+</div>
 
 } {
  
 <!-- script advisor_watchStudent -->
 
-}
+}class="actions">
