@@ -8,7 +8,7 @@
 
 } {
 
-<!-- center of the page -->
+<!-- center of page -->
 
 <div class="span6">
   <h2>Students</h2>
@@ -30,20 +30,17 @@
       }
     </tbody>
   </table>
-  <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Warn latecomer students</a>
+  <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Warn students who haven’t yet presented the study plan</a>
   <a data-toggle="modal" href="#windowTitleDialog_newStudent" class="btn btn-primary">Create new student</a>
   <a data-toggle="modal" href="@routes.Admins.suspendedStudents" class="btn btn-primary">View suspended students</a>
   <br />
   <br />
 </div><!--span1 -->
 
-<!--- LA RIMOZIONE DEI CORSI VERRA GESTITA NEL MODAL DETTAGLI -->
 <div class="span6">
   <h2>Filter</h2>
 </div>
 } {
-
-<!-- modal mail a studenti ritardatari -->
 
 <div class="modal hide fade" id="windowTitleDialog_mailtoSR" style="display: none; ">
 
@@ -51,12 +48,12 @@
     <a href="#" class="close" data-dismiss="modal">
       <img src="@routes.Assets.at("images/logounitn.jpg")"  height = "90" width = "90" />
     </a>
-    <h3>Notification to the latecomer students</h3>
+    <h3>Notification to students who haven’t yet presented the study plan</h3>
   </div>
   
   <div class="modal-body">
     <p>
-      With this form, you're about to send a notification by e-mail to urge all students who haven't defined a study plan yet.<br />Do you wish to continue?
+      This form will send a notification by e-mail to urge all the students who haven't defined a study plan yet.<br />Do you wish to continue?
     </p>
     <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
     <a data-dismiss="modal" href="#" class="btn btn-primary btn-large">Send notification</a>
