@@ -108,7 +108,7 @@ public class Students extends Controller {
       if (student.isStudyPlanOk())
       {
         student.approvalRequest();      
-        return Students.studyplan(courseForm,false,"Richiesta inviata correttamente.");
+        return Students.studyplan(courseForm,false,"Your approval request has been sent!");
       }
       else
       {

@@ -30,6 +30,7 @@ GET		/emailMe							controllers.SecuredApplication.emailMeNow()
 GET     /supervisor                         controllers.Supervisors.index()
 GET     /supervisor/watchstudent            controllers.Supervisors.watchStudent(id: Long ?= -1)
 GET     /supervisor/watchstudent/:id        controllers.Supervisors.watchStudent(id: Long)
+GET     /supervisor/externcourses/:id       controllers.Supervisors.externCourses(id: Long)
 POST    /supervisor/watchstudent/acceptSP   controllers.Supervisors.acceptSP()
 POST    /supervisor/watchstudent/rejectSP   controllers.Supervisors.rejectSP()
 

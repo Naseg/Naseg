@@ -56,6 +56,37 @@ public class Supervisors extends Controller {
   }
 
   /**
+   * Render page for giving extern courses marks
+   */
+  public static Result externCourses(Long id) {
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isSupervisor(uc))
+    {
+      Supervisor supervisor = uc.getSupervisor();
+      List<Student> students = new ArrayList(supervisor.getStudentsAdvisored());
+      Student student;
+
+      if (students.size() == 0)
+      {
+        return ok(advisor_nostudents.render(uc));
+      }
+      else if (id == -1)
+      {
+        student = (Student) students.toArray()[0];
+      }
+      else
+      {
+        student = Student.find.byId(id);
+      }
+      return ok(professor_courses.render(uc, student.getExternCourses()));
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  /**
    * Accept the study plan of a student
    */
   public static Result acceptSP() {
