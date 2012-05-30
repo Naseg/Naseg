@@ -9,30 +9,36 @@
 
 <div class="row-fluid">
   <div class="span6">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Course Name</th>
-        <th>Year</th>
-        <th>Start Date</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for(course <- courses) {
+  @if(courses.size > 0) {
+    <table class="table table-bordered">
+      <thead>
         <tr>
-          <td>@course.courseName</td>
-          <td>@course.academicYear</td>
-          <td>@course.printActualStartDate</td>
-          <td>
-            <a data-toggle="modal" href="@routes.Professors.results(course.courseID.longValue)">
-              <img src="@routes.Assets.at("images/details.png")" />
-            </a>
-          </td>
+          <th>Course Name</th>
+          <th>Year</th>
+          <th>Start Date</th>
+          <th></th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for(course <- courses) {
+          <tr>
+            <td>@course.courseName</td>
+            <td>@course.academicYear</td>
+            <td>@course.printActualStartDate</td>
+            <td>
+              <a data-toggle="modal" href="@routes.Professors.results(course.courseID.longValue)">
+                <img src="@routes.Assets.at("images/details.png")" />
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } else {
+    <p>
+      You do not have any course yet.
+    </p>
+  }
   </div>
 </div>
 
