@@ -182,6 +182,18 @@ public class Student extends Model {
       return enrollments;
     }
 
+    public List<Course> getExternCourses()
+    {
+      List<Course> out = new ArrayList();
+      Set<CourseEnrollment> enrollments = this.coursesEnrollmentSet;
+      for (CourseEnrollment ce : enrollments) {
+        Course c = ce.fetchCourse();
+        if (!c.isInManifesto)
+          out.add(c);
+      }
+      return out;
+    }
+
     public String printIsPlanApproved()
     {
       if (this.isPlanApproved == null || this.isPlanApproved == 0)
