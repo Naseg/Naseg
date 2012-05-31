@@ -26,7 +26,11 @@
           <td>@course.courseName</td>
           <td>@if(course.getProfessor()!=null) {
                 @course.getProfessor().firstName @course.getProfessor().lastName
-                }</td>
+              } else {
+                @if(course.isInManifesto == false) {
+                  (extern)
+                }
+              }</td>
           <td>@course.academicYear</td>
           <td>@course.printActualStartDate</td>
           <td>
@@ -40,11 +44,15 @@
   </table>
   <p align="center">
     <a data-toggle="modal" href="#windowTitleDialog_newInternalCourse" class="btn btn-primary">Add new inner course</a>
-    <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary ">Add new extern course</a> 
+    <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary ">Add new extern course</a> 
     <a data-toggle="modal" href="@routes.Admins.oldcourses()" class="btn btn-primary ">Show old courses</a></p>
     <br />
     <br />
 <!--</div><!--span1 --> 
+
+<!-- modal new external course -->
+
+@externCourseFormModal(externalCourseForm, routes.Admins.newExternalCourse())
 
 <!-- modal new internal course -->
 
@@ -160,5 +168,21 @@
 } {
 
 <!-- script admin_courses -->
+
+@if(internalCourseForm.hasErrors) {
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog_newInternalCourse').modal('show')
+  }
+  </script>
+} else {
+    @if(externalCourseForm.hasErrors) {
+    <script language="JavaScript">
+    function autofun() {
+      $('#windowTitleDialog_newExternCourse').modal('show')
+    }
+    </script>
+    }
+}
 
 }
