@@ -99,6 +99,12 @@ public class Supervisors extends Controller {
     student = Student.find.byId(idStudente);
     if (Secured.isSupervisor(uc) && student != null)
     {
+      //send email
+      String body = "";
+      String subject = "RE: Request for study plan APPROVAL";
+      SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);     
+      
+      
       student.acceptSP();
       return redirect(routes.Supervisors.watchStudent(idStudente));
     }
@@ -121,6 +127,12 @@ public class Supervisors extends Controller {
     student = Student.find.byId(idStudente);
     if (Secured.isSupervisor(uc) && student != null)
     {
+      //send email
+      String body = "";
+      String subject = "RE: Request for study plan APPROVAL";
+      //email of advisor must be valid
+      SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);
+      
       student.rejectSP();
       return redirect(routes.Supervisors.watchStudent(idStudente));
     }

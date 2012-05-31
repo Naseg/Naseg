@@ -107,8 +107,14 @@ public class Students extends Controller {
       
       if (student.isStudyPlanOk())
       {
-        student.approvalRequest();      
-        return Students.studyplan(courseForm,false,"Your approval request has been sent!");
+        student.approvalRequest();
+        
+        //send email
+        String body = "";
+        String subject = "Request for study plan APPROVAL";
+        String msg = SecuredApplication.emailMeNow(uc.getSupervisor().email,body,subject,student.email);
+        
+        return Students.studyplan(courseForm,false,msg);
       }
       else
       {
