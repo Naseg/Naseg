@@ -101,8 +101,8 @@ public class Supervisors extends Controller {
     {
       //send email
       String body = "Study plan ACCEPTED!\n\n" + comment;
-      String subject = "RE: Request for study plan APPROVAL";
-      SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);     
+      String subject = "ACCEPT";
+      SecuredApplication.emailMe(student.email, body, subject, uc.getSupervisor().email);     
       
       
       student.acceptSP();
@@ -129,9 +129,9 @@ public class Supervisors extends Controller {
     {
       //send email
       String body = "Study plan REJECTED!\n\n" + comment;
-      String subject = "RE: Request for study plan APPROVAL";
+      String subject = "REJECT";
       //email of advisor must be valid
-      SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);
+      SecuredApplication.emailMe(student.email, body, subject, uc.getSupervisor().email);
       
       student.rejectSP();
       return redirect(routes.Supervisors.watchStudent(idStudente));

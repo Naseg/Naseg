@@ -32,6 +32,13 @@ public class Email {
 		this.email.setSmtpPort(Integer.valueOf(port.toString()));
 		return this;
 	}
+	
+	public boolean checkAddress(String emailAddress){
+		//String[] emailArray=emailAddress.split("@");
+		//emailArray
+		//emailAddress[1]=
+		return true;
+	}
 
 	/**
 	 * Set the FROM field of the email to use the specified address and the
@@ -201,9 +208,18 @@ public class Email {
 	 * @return
 	 * @throws EmailException
 	 */
-	public Email _setTLS(boolean tlsBoolean)
+	public Email _setAuthProtocol(String AuthProtocol)
 			throws EmailException {
-		this.email.setTLS(tlsBoolean);
+		
+		this.email.setTLS(false);
+		this.email.setSSL(false);
+		
+		if(AuthProtocol.equals("TLS")){
+			this.email.setTLS(true);
+		}else if(AuthProtocol.equals("SSL")){
+			this.email.setSSL(true);
+		}
+		
 		return this;
 	}
 
