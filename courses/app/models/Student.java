@@ -223,9 +223,11 @@ public class Student extends Model {
     {
       Set<CourseEnrollment> enrollments = this.getCoursesEnrollmentSet();
       List<CourseEnrollment> career = new ArrayList();
+      int currentYear = Course.AcademicYear();
       for (CourseEnrollment enrollment : enrollments)
       {
-        if (enrollment.isFinished != null && enrollment.isFinished)
+        //if (enrollment.isFinished != null && enrollment.isFinished)
+        if (enrollment.fetchCourse().academicYear < currentYear)
         {
           career.add(enrollment);
         }
