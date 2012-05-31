@@ -100,7 +100,7 @@ public class Supervisors extends Controller {
     if (Secured.isSupervisor(uc) && student != null)
     {
       //send email
-      String body = "";
+      String body = "Study plan ACCEPTED!\n\n" + comment;
       String subject = "RE: Request for study plan APPROVAL";
       SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);     
       
@@ -128,7 +128,7 @@ public class Supervisors extends Controller {
     if (Secured.isSupervisor(uc) && student != null)
     {
       //send email
-      String body = "";
+      String body = "Study plan REJECTED!\n\n" + comment;
       String subject = "RE: Request for study plan APPROVAL";
       //email of advisor must be valid
       SecuredApplication.emailMeNow(student.email, body, subject, uc.getSupervisor().email);

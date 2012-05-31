@@ -49,19 +49,21 @@ public class SecuredApplication extends Controller {
     	    	
     	//load cfg from courses/public/Email/Email.cfg
     	//File cfg_email= new File("");
-    	
-		if(emailTo.equals("")){return "recipient address missing";}
-		if(body.equals("")){body="";}
-		if(fromWho.equals("")){fromWho="infophddisi@gmail.com";}
-		if(smpt.equals("")){smpt="smtp.gmail.com";}
-		if(user.equals("")){user="infophddisi@gmail.com";}
-		int port = 587; //TLS-STARTTLS
-        if(subject.equals("")){subject = "INFO phd disi";}
-        if(pwd.equals("")){pwd="infophddisi2012";} 
+    	try{
+    		
+    		if(emailTo==null){return "recipient address missing";}	
+    		else if(emailTo.equals("")){return "recipient address missing";}
+    		if(body.equals("")){body="";}
+    		if(fromWho.equals("")){fromWho="infophddisi@gmail.com";}
+    		if(smpt.equals("")){smpt="smtp.gmail.com";}
+    		if(user.equals("")){user="infophddisi@gmail.com";}
+    		int port = 587; //TLS-STARTTLS
+    		if(subject.equals("")){subject = "INFO phd disi";}
+    		if(pwd.equals("")){pwd="infophddisi2012";} 
 
-        body = body + "\n\n\nEmail generata automaticamente. Non rispondere a questo indirizzo";
+    		body = body + "\n\n\nEmail generata automaticamente.\n Non rispondere a questo indirizzo";
         
-		try{
+		
 			Email msg= new Email(smpt);
 			msg._addTo(emailTo);
 			msg._body(body);

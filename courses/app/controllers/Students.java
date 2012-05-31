@@ -112,7 +112,7 @@ public class Students extends Controller {
         //send email
         String body = "";
         String subject = "Request for study plan APPROVAL";
-        String msg = SecuredApplication.emailMeNow(uc.getSupervisor().email,body,subject,student.email);
+        String msg = SecuredApplication.emailMeNow(student.currentAdvisor.email,body,subject,student.email);        
         
         return Students.studyplan(courseForm,false,msg);
       }
