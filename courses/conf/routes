@@ -23,9 +23,6 @@ GET     /student/modifyStudyplan            controllers.Students.modifyStudyplan
 
 #Utility
 
-GET		  /email/:a/:b/:c/:d/:e/:f			      controllers.SecuredApplication.emailMe(a: String, b:String, c:String, d:String, e:String, f:String)
-GET		  /emailMe							              controllers.SecuredApplication.emailMeNow()
-
 # Supervisor
 GET     /supervisor                         controllers.Supervisors.index()
 GET     /supervisor/watchstudent            controllers.Supervisors.watchStudent(id: Long ?= -1)
