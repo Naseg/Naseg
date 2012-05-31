@@ -8,6 +8,7 @@ import models.*;
 import views.html.*;
 
 import play.data.Form;
+import scala.util.parsing.combinator.testing.Str;
 
 /**
  * Contains the controllers for the role admin
@@ -499,4 +500,42 @@ public class Admins extends Controller {
       return unauthorized(forbidden.render());
     }
   }
+  
+  public static Result warnStudents(){
+	  UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+	  System.out.println("\n\n\n\n\n______________________________________");
+	  
+	  if (Secured.isAdmin(uc))
+	    {
+		  
+		  
+		  List<Student> students = Student.getNotSuspended();
+		  int countOK=0;
+		  int countFail=0;
+		  String result="";
+		  String cannotreach="";
+		  for(Student student:students){
+			  if(student.isPlanApproved==0){
+				  result = SecuredApplication.emailMe(student.email, "", "NOTIFICATION","");
+				  if(result.contains("ERROR")){
+					  countFail++;
+					  cannotreach += student.fullName + " - " + student.email + result+"\n";
+				  }
+				  else {
+					  countOK++;
+				  }
+			  }
+		  }
+		  result = "" + countOK + " emails correctly sent\n" + countFail + " emails can't be send\n";
+		  if(!cannotreach.equals("")){
+			  result = result + "the following names are unreachable:\n" + cannotreach;
+		  }
+	      return ok(result);
+	    }
+	    else
+	    {
+	      return unauthorized(forbidden.render());
+	    }	  
+  }
+  
 }

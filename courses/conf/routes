@@ -44,6 +44,7 @@ GET     /admin/supervisors                  controllers.Admins.supervisors(id: L
 GET     /admin/supervisors/:id              controllers.Admins.supervisors(id: Long)
 POST    /admin/supervisors/:id              controllers.Admins.editSupervisor(id: Long)
 GET     /admin/students                     controllers.Admins.students()
+GET 	/admin/students/warn				controllers.Admins.warnStudents()
 POST    /admin/students                     controllers.Admins.newStudent()
 GET     /admin/students/:id                 controllers.Admins.studentDetails(id: Long)
 POST    /admin/students/:id                 controllers.Admins.editStudentData(id: Long)
