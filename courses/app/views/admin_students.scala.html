@@ -10,7 +10,6 @@
 
 <!-- center of page -->
 
-<div class="span6">
   <h2>Students</h2>
   <table class="table table-bordered">
     <thead>
@@ -30,16 +29,15 @@
       }
     </tbody>
   </table>
-  <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Warn students who haven’t yet presented the study plan</a>
-  <a data-toggle="modal" href="#windowTitleDialog_newStudent" class="btn btn-primary">Create new student</a>
-  <a data-toggle="modal" href="@routes.Admins.suspendedStudents" class="btn btn-primary">View suspended students</a>
+  
+  <p align="center">
+    <a data-toggle="modal" href="#windowTitleDialog_newStudent" class="btn btn-primary">Create new student</a>
+    <a data-toggle="modal" href="@routes.Admins.suspendedStudents" class="btn btn-primary">View suspended students</a>
+    <a data-toggle="modal" href="#windowTitleDialog_mailtoSR" class="btn btn-primary">Warn students who haven’t yet presented the study plan</a>
+  </p>
   <br />
   <br />
-</div><!--span1 -->
 
-<div class="span6">
-  <h2>Filter</h2>
-</div>
 } {
 
 <div class="modal hide fade" id="windowTitleDialog_mailtoSR" style="display: none; ">
@@ -55,8 +53,8 @@
     <p>
       This form will send a notification by e-mail to urge all the students who haven't defined a study plan yet.<br />Do you wish to continue?
     </p>
-    <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-    <a data-dismiss="modal" href="#" class="btn btn-primary btn-large">Send notification</a>
+    <a data-dismiss="modal" href="#" class="btn">Cancel</a>
+    <a data-dismiss="modal" href="#" class="btn btn-primary">Send notification</a>
   </div>
 </div>
 
@@ -223,8 +221,8 @@
         <input type="hidden" value="---" name="commiteeMembers"/>
       </fieldset>
     <div class="actions">
-      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+      <a data-dismiss="modal" href="#" class="btn">Cancel</a>
+      <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   }
   </div>

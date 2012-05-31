@@ -8,7 +8,7 @@
 
 } {
 
-<div class="span6">
+<!-- <div class="span6"> -->
   <h2>Courses</h2>
   <table class="table table-bordered">
     <thead>
@@ -26,7 +26,11 @@
           <td>@course.courseName</td>
           <td>@if(course.getProfessor()!=null) {
                 @course.getProfessor().firstName @course.getProfessor().lastName
-                }</td>
+              } else {
+                @if(course.isInManifesto == false) {
+                  (extern)
+                }
+              }</td>
           <td>@course.academicYear</td>
           <td>@course.printActualStartDate</td>
           <td>
@@ -38,17 +42,17 @@
       }
     </tbody>
   </table>
-  <p align="right">
-    <a data-toggle="modal" href="#windowTitleDialog_newInternalCourse" class="btn btn-primary btn-large">Add new inner course</a>
-    <a data-toggle="modal" href="#windowTitleDialog_newcourse" class="btn btn-primary btn-large">Add new extern course</a>
-    <a data-toggle="modal" href="@routes.Admins.oldcourses()" class="btn btn-primary btn-large">Show old courses</a>
+  <p align="center">
+    <a data-toggle="modal" href="#windowTitleDialog_newInternalCourse" class="btn btn-primary">Add new inner course</a>
+    <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary ">Add new extern course</a> 
+    <a data-toggle="modal" href="@routes.Admins.oldcourses()" class="btn btn-primary ">Show old courses</a></p>
     <br />
     <br />
-</div><!--span1 -->
+<!--</div><!--span1 --> 
 
-<div class="span6">
-  <h2>Filter</h2>
-</div>
+<!-- modal new external course -->
+
+@externCourseFormModal(externalCourseForm, routes.Admins.newExternalCourse())
 
 <!-- modal new internal course -->
 
@@ -150,8 +154,8 @@
         <input type="hidden" value="1" name="isInManifesto"/>
       </fieldset>
     <div class="actions">
-      <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-      <input type="submit" class="btn btn-large btn-primary" value="Submit">
+      <a data-dismiss="modal" href="#" class="btn">Cancel</a>
+      <input type="submit" class="btn btn-primary" value="Submit">
     </div>
   }
   </div>
@@ -164,5 +168,21 @@
 } {
 
 <!-- script admin_courses -->
+
+@if(internalCourseForm.hasErrors) {
+  <script language="JavaScript">
+  function autofun() {
+    $('#windowTitleDialog_newInternalCourse').modal('show')
+  }
+  </script>
+} else {
+    @if(externalCourseForm.hasErrors) {
+    <script language="JavaScript">
+    function autofun() {
+      $('#windowTitleDialog_newExternCourse').modal('show')
+    }
+    </script>
+    }
+}
 
 }

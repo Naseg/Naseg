@@ -23,8 +23,8 @@
     <p>
       If you proceed with this operation you will suspend this student: do you wish to continue?
     </p>
-    <a data-dismiss="modal" href="#" class="btn btn-large">Cancel</a>
-    <a href="@routes.Admins.suspendStudent(selectedStudent.userID.longValue)" class="btn btn-primary btn-large">Suspend the student</a>
+    <a data-dismiss="modal" href="#" class="btn ">Cancel</a>
+    <a href="@routes.Admins.suspendStudent(selectedStudent.userID.longValue)" class="btn btn-primary ">Suspend the student</a>
   </div>
 </div>
 
@@ -35,7 +35,9 @@
     
 <div>
   @if(selectedStudent.isSuspended() == false) {
-    <a data-toggle="modal" href="#studentDetails_confirmSuspendAction" class="btn">Suspend student</a>
+  <p align="left">
+    <a data-toggle="modal" href="#studentDetails_confirmSuspendAction" class="btn btn-primary">Suspend student</a>
+  </p>  
   }
 </div>
 

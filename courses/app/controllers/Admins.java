@@ -132,6 +132,39 @@ public class Admins extends Controller {
   }
 
   /**
+   * Read the data from POST requests for creating new external courses
+   */
+  public static Result newExternalCourse() {
+    Form<Course> filledForm = externalCourseForm.bindFromRequest();
+    UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
+    if (Secured.isAdmin(uc))
+    {
+      System.out.println(filledForm);
+      if (filledForm.hasErrors())
+      {
+        System.out.println("Errore");
+        return Admins.courses(internalCourseForm,filledForm,true);
+      }
+      else
+      {
+        Course newcourse = filledForm.get();
+        newcourse.academicYear = Course.AcademicYear();
+        newcourse.credits = 3;
+        newcourse.isInManifesto = false;
+        newcourse.notes = "external course";
+        newcourse.isbyUNITN = false;
+        newcourse.deleted = false;
+        Course.create(newcourse);
+        return redirect(routes.Admins.courses());
+      }
+    }
+    else
+    {
+      return unauthorized(forbidden.render());
+    }
+  }
+
+  /**
    * Renders page form managing old courses
    */
   public static Result oldcourses() {

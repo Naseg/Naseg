@@ -59,15 +59,36 @@ public class Professors extends Controller {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     Supervisor s = uc.getSupervisor();
     Course course = Course.find.byId(id);
-    if (Secured.isProfessor(uc) && course.getProfessor().supervisorID.equals(s.supervisorID))
+    
+    if (course.isInManifesto)
     {
-      if (badRequest)
-        return badRequest(professor_examResults.render(uc,course,enrollForms.get(id)));
+      if (Secured.isProfessor(uc) && course.getProfessor().supervisorID.equals(s.supervisorID))
+      {
+        if (badRequest)
+          return badRequest(professor_examResults.render(uc,course,enrollForms.get(id)));
+        else
+          return ok(professor_examResults.render(uc,course,enrollForms.get(id)));
+      }
       else
-        return ok(professor_examResults.render(uc,course,enrollForms.get(id)));
+        return unauthorized(forbidden.render());
     }
     else
-      return unauthorized(forbidden.render());
+    {
+      if (Secured.isSupervisor(uc))
+      {
+        List<Student> students = new ArrayList(uc.getSupervisor().getStudentsAdvisored());
+        List<Form<CourseEnrollment>> enrolls = enrollForms.get(id);
+        
+        /* va fatto in modo che l'advisor possa mettere voti solo ai suoi studenti */
+      
+        if (badRequest)
+          return badRequest(professor_examResults.render(uc,course,enrolls));
+        else
+          return ok(professor_examResults.render(uc,course,enrolls));
+      }
+      else
+        return unauthorized(forbidden.render());
+    }
   }
 
   /**

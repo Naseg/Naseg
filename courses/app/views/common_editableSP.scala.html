@@ -50,7 +50,13 @@
           <th>Professor</th>
           <th>Type</th>
           <th>Start Date</th>
-          <th></th>
+          @if(user.isStudent()) {
+            @if(user.getStudent().isPlanApproved == 0) {
+              <th></th>
+            }
+          } else {
+            <th></th>
+          }
         </tr>
       </thead>
       <tbody>
@@ -65,23 +71,49 @@
                 <img src="@routes.Assets.at("images/details.png")" />
               </a>
             </td>
-            <td>
-              <a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID">
-                <img src="@routes.Assets.at("images/removeicon.gif")" />
-              </a>
-            </td>
+            @if(user.isStudent()) {
+              @if(user.getStudent().isPlanApproved == 0) {
+                <td>
+                  <a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID">
+                    <img src="@routes.Assets.at("images/removeicon.gif")" />
+                  </a>
+                </td>
+              }
+            } else {
+              <td>
+                  <a href="/student/rmfromsp/@course.courseID/@selectedStudent.userID">
+                    <img src="@routes.Assets.at("images/removeicon.gif")" />
+                  </a>
+                </td>
+            }
           </tr>
         }
       </tbody>
     </table>
-    <p align="center">
-      @if(user.isStudent()) {
-      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary btn-large">Add extern course</a>
+    @if(user.isStudent()) {
+      @if(user.getStudent().isPlanApproved == 0) {
+      <p align="center">
+          @if(user.isStudent()) {
+            <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary ">Add extern course</a>
+          }
+          @if(user.isStudent()) {
+            <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary ">Ask for approval</a></p>
+           }
+      </p>
+      } else {
+        @if(user.getStudent().isPlanApproved == 2) {
+          <p align="center">
+            @if(user.isStudent()) {
+              <a data-toggle="modal" href="@routes.Students.modifyStudyplan()" class="btn btn-primary ">Modify study plan</a>
+            }
+          </p>  
+        } 
       }
-      @if(user.isStudent()) {
-        <a data-toggle="modal" href="@routes.Students.appreq()" class="btn btn-primary btn-large">Ask for approval</a>
-      }
-    </p>
+    } else {
+     <p align="center">
+      <a data-toggle="modal" href="#windowTitleDialog_newExternCourse" class="btn btn-primary ">Add extern course</a>
+     </p>
+    }
   </div><!--span1 -->
 
   <div class="span6">
@@ -113,11 +145,21 @@
                 <img src="@routes.Assets.at("images/details.png")" />
               </a>
             </td>
-            <td>
-              <a href="/student/addtosp/@course.courseID/@selectedStudent.userID">
-                <img src="@routes.Assets.at("images/addicon.png")" />
-              </a>
-            </td>
+            @if(user.isStudent()) {
+              @if(user.getStudent().isPlanApproved == 0) {
+                <td>
+                  <a href="/student/addtosp/@course.courseID/@selectedStudent.userID">
+                    <img src="@routes.Assets.at("images/addicon.png")" />
+                  </a>
+                </td>
+              }
+           } else {
+                <td>
+                  <a href="/student/addtosp/@course.courseID/@selectedStudent.userID">
+                    <img src="@routes.Assets.at("images/addicon.png")" />
+                  </a>
+                </td>
+           }
           </tr>
         }
       </tbody>

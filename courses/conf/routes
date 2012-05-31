@@ -19,6 +19,7 @@ GET     /student/career                     controllers.Students.career()
 GET     /student/studyplan                  controllers.Students.studyplan()
 GET     /student/studyplan/appreq           controllers.Students.appreq()
 POST    /student/studyplan                  controllers.Students.newExternCourse()
+GET     /student/modifyStudyplan            controllers.Students.modifyStudyplan()
 
 #Utility
 
@@ -36,6 +37,7 @@ GET     /admin/courses                      controllers.Admins.courses()
 GET     /admin/course_details/:id           controllers.Admins.courseDetails(id: Long)
 POST    /admin/course_details/:id           controllers.Admins.editCourse(id: Long)
 POST    /admin/courses                      controllers.Admins.newInternalCourse()
+POST    /admin/externcourse                 controllers.Admins.newExternalCourse()
 GET     /admin/oldcourses                   controllers.Admins.oldcourses()
 POST    /admin/supervisors                  controllers.Admins.newSupervisor()
 GET     /admin/supervisors                  controllers.Admins.supervisors(id: Long ?= -1)

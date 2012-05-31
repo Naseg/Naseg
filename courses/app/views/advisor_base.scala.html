@@ -17,19 +17,27 @@
   <br />
   @for(student <- students) {
     <li>
-      <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
-        @if(student.isPlanApproved == 0) {
-          <img align="center" src="@routes.Assets.at("images/incompleteSP.gif")" />
-        } else {
-          @if(student.isPlanApproved == 1) {
-          <img align="center" src="@routes.Assets.at("images/approvationrequestSP.png")" />
-          } else {
-          <img align="center" src="@routes.Assets.at("images/approvedSP.png")" />
-          <!------------------------------------>
-          }
-        }
-        <font size="4" face="Courier">@student.fullName</font>
-      </a>
+      <font size="4" face="Courier">@student.fullName</font>
+      <ul>
+        <li>
+          <a data-toggle="modal" href="@routes.Supervisors.watchStudent(student.userID.longValue())">
+            @if(student.isPlanApproved == 0) {
+              <img align="center" src="@routes.Assets.at("images/incompleteSP.gif")" />
+            } else {
+              @if(student.isPlanApproved == 1) {
+              <img align="center" src="@routes.Assets.at("images/approvationrequestSP.png")" />
+              } else {
+              <img align="center" src="@routes.Assets.at("images/approvedSP.png")" />
+              <!------------------------------------>
+              }
+            }
+            Study Plan
+          </a>
+        </li>
+        <li>
+          <a href="@routes.Supervisors.externCourses(student.userID.longValue)">Extern courses results</a>
+        </li>
+      </ul>
     </li>
     @sideContents
   }
