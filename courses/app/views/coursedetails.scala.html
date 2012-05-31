@@ -6,7 +6,7 @@
 
 <div class="row" >
     <div class="span 4">
-        <p> Professor name </p>
+        <p><b> Professor name :</b></p>
     </div>
 
 
@@ -17,20 +17,9 @@
     </div>
 </div>
 
-<div class="row" >
-    <div class="span 4">
-        <p> course ID </p>
-    </div>
-
-
-    <div class="span 8">
-        <p> @{course.courseID} </p>
-    </div>
-</div>
-
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Starting date </p>
+        <p><b> Starting date :</b> </p>
     </div>
 
 
@@ -41,7 +30,7 @@
 
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Classroom </p>
+        <p> <b>Classroom :</b> </p>
     </div>
 
 
@@ -52,7 +41,7 @@
 
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Credits </p>
+        <p><b> Credits :</b> </p>
     </div>
 
 
@@ -63,7 +52,7 @@
 
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Academic year </p>
+        <p> <b>Academic year :</b> </p>
     </div>
 
 
@@ -74,7 +63,7 @@
 
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Web site </p>
+        <p> <b>Web site :</b></p>
     </div>
 
 
@@ -86,29 +75,30 @@
 @if(course.isPaymentCompleted) {
     <div class="row-fluid" >
         <div class="span 4">
-            <p> Paymend made </p>
+            <p><b> Payment made </b> </p>
         </div>
     </div>
 } else {
     <div class="row-fluid" >
         <div class="span 4">
-            <p> Paymend not made </p>
+            <p><b> Payment not made </b></p>
         </div>
     </div>
 }
 
 <div class="row-fluid" >
     <div class="span 4">
-        <p> Course notes </p>
-<!-- <p> Institution     @{course.institution} </p> -->
-<!--<p> isInManifesto     @{course.isInManifesto} </p>
-<p> isByUnitn @{course.isbyUNITN} </p>
-<p> isPaid @{course.isPaid} </p>
-<!-- <p> BudgetedCost     @{course.budgetedCost} </p>
-<!--<p> plannedCoursePeriod   @{course.plannedCoursePeriod} </p>
-<p> PagamentoCompletato     @{course.isPaymentCompleted} </p>
-<p> Cancellato     @{course.deleted} </p>
-<p> areAllMarksDefined     @{course.areAllMarksDefined} </p>-->
+        <p><b> Course notes :</b> </p>
+        
+  <!-- <p> Institution     @{course.institution} </p> -->
+  <!--<p> isInManifesto     @{course.isInManifesto} </p>
+  <p> isByUnitn @{course.isbyUNITN} </p>
+  <p> isPaid @{course.isPaid} </p>
+  <!-- <p> BudgetedCost     @{course.budgetedCost} </p>
+  <!--<p> plannedCoursePeriod   @{course.plannedCoursePeriod} </p>
+  <p> PagamentoCompletato     @{course.isPaymentCompleted} </p>
+  <p> Cancellato     @{course.deleted} </p>
+  <p> areAllMarksDefined     @{course.areAllMarksDefined} </p>-->
     </div>
     <div class="span 8">
         <p> @{course.notes}  </p> 
