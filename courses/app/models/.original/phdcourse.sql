@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `students` (
 --
 
 INSERT INTO `students` (`user_ID`, `first_name`, `last_name`, `full_name`, `phd_cycle`, `is_suspended`, `course_year`, `admitted_conditionally`, `legal_residence`, `current_domicile`, `date_of_birth`, `place_of_birth`, `office_phone`, `mobile_phone`, `office_working_place`, `locker_number`, `phd_scholarship`, `scholarship_type`, `yearly_fee_to_center`, `yearly_fee_to_school`, `has_pc_rights`, `pre_doctoral_scholarship`, `months_predoc_scholarship`, `year_extension_scholarship`, `months`, `personal_funds_available`, `is_graduated`, `graduation_date`, `commitee_members`, `email`, `deleted`, `funding_institution`, `university`, `country_of_provenance`, `university_of_provenance`, `citizenship`, `current_advisor`, `tutor`, `funds_owner`, `Italian_Taxpayer_Code`, `photo_profile`, `is_plan_approved`, `user`) VALUES
-(1, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 1, 0, 'via manci 27, Trento', '', '1998-10-12', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 121424, 0, NULL, 'UNKNOWN', 'johndeerik@stalla.com', 0, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, 0, 8),
+(1, 'John Erik', 'Smith', 'John E. Smith', '28', 0, 1, 0, 'via manci 27, Trento', '', '1998-10-12', 'New York, NY, USA', '123-456789', '1231-23456', 'P1-S5-14', '27-A', 0, 'UNKNOWN', 0, 0, 0, NULL, 0, '0', 0, 121424, 0, NULL, 'UNKNOWN', 'pollo1_91@yahoo.it', 0, 1, 1, 1, 1, 1, 1, 1, 1, NULL, NULL, 0, 8),
 (2, 'Gordon', 'Ramsay', 'Gordon Ramsay', '0', 0, 1, 0, 'Digite', 'Unitn', '1990-10-01', 'Unitn, IT', '+39-1234-123456', '123-12345687', 'P1-S1-01', '01-A', 0, 'PRESIDENZA', 0, 0, 0, '0', 0, '0', 0, 1231, 1, NULL, '--', 'ramsay@unitn.com', 0, 2, 2, 1, 2, 1, 1, 1, 2, NULL, NULL, 0, 9),
 (3, 'Augusto', 'De Marinis', 'Augusto De Marinis', '0', 0, 1, 0, 'Unitn', 'Unitn', '1949-12-13', 'Unitn, IT', '+39-9876-987654', '987-9876543', 'P2-S2-01', '02-A', 0, 'DIREZIONE', 0, 0, 0, '0', 0, '0', 0, 1231231231, 1, NULL, '--', 'august.demarinis@unitn.com', 0, 2, 2, 1, 2, 1, 1, 1, 2, NULL, NULL, 0, 10),
 (4, 'Guido', 'Geller', 'Guido Geller', '0', 0, 2, 0, 'Unitn', 'Unitn', '1957-03-09', 'Unitn, IT', '+39-2468-135790', '963-8527410', 'P2-S2-02', '02-B', 0, 'RESPONSABILE RISORSE UMANE', 0, 0, 0, '0', 0, '0', 0, 241, 1, NULL, 'PRESIDENTE', 'guido.geller@unitn.com', 0, 2, 2, 1, 2, 2, 2, 1, 2, NULL, NULL, 0, 11),
@@ -352,8 +352,8 @@ CREATE TABLE IF NOT EXISTS `supervisors` (
 --
 
 INSERT INTO `supervisors` (`supervisor_ID`, `first_name`, `last_name`, `can_be_advisor`, `is_active`, `is_internal`, `email`, `deleted`, `user`) VALUES
-(1, 'Joe', 'Doe', 1, 1, 1, 'joe.doe@gmail.com', 0, 1),
-(2, 'Aldo', 'Meridio', 1, 1, 1, 'meridio@unitn.com', 0, 2),
+(1, 'Joe', 'Doe', 1, 1, 1, 'pole.matteo@gmail.com', 0, 1),
+(2, 'Aldo', 'Meridio', 1, 1, 1, 'ggg@gmail.com', 0, 2),
 (3, 'Marcello', 'Macchi', 1, 1, 1, 'macchi@unitn.com', 0, 3),
 (4, 'Howard', 'Lovecraft', 1, 1, 1, 'lovecraft@unitn.com', 0, 4),
 (5, 'Edgar', 'Poe', 1, 1, 1, 'poe@unitn.com', 0, 5),
@@ -533,8 +533,8 @@ CREATE TABLE IF NOT EXISTS `users_credentials` (
 --
 
 INSERT INTO `users_credentials` (`user_credential_ID`, `user_name`, `password`, `user_rol`) VALUES
-(1, 'meridio', 'meridio', 2),
-(2, 'doe', 'doe', 2),
+(2, 'meridio', 'meridio', 2),
+(1, 'doe', 'doe', 2),
 (3, 'macchi', 'macchi', 2),
 (4, 'lovercraft', 'lovercraft', 2),
 (5, 'poe', 'poe', 2),

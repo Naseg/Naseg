@@ -110,7 +110,7 @@ public class Students extends Controller {
         student.approvalRequest();
         
         //send email
-        String body = "";
+        String body = "I've defined my study plan. Please check it!\n\n";
         String subject = "Request for study plan APPROVAL";
         String msg = SecuredApplication.emailMeNow(student.currentAdvisor.email,body,subject,student.email);        
         
