@@ -352,7 +352,7 @@ CREATE TABLE IF NOT EXISTS `supervisors` (
 --
 
 INSERT INTO `supervisors` (`supervisor_ID`, `first_name`, `last_name`, `can_be_advisor`, `is_active`, `is_internal`, `email`, `deleted`, `user`) VALUES
-(1, 'Joe', 'Doe', 1, 1, 1, 'pole.matteo@gmail.com', 0, 1),
+(1, 'Joe', 'Doe', 1, 1, 1, 'ehnoo@gmail.com', 0, 1),
 (2, 'Aldo', 'Meridio', 1, 1, 1, 'ggg@gmail.com', 0, 2),
 (3, 'Marcello', 'Macchi', 1, 1, 1, 'macchi@unitn.com', 0, 3),
 (4, 'Howard', 'Lovecraft', 1, 1, 1, 'lovecraft@unitn.com', 0, 4),
