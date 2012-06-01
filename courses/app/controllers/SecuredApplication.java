@@ -44,20 +44,21 @@ public class SecuredApplication extends Controller {
     		if(subject==null){subject="INFO phd disi";}
     		
     		if(subject.equals("REQUEST")){
-    			subject=Configuration.root().getString("email.subject.SPrequest").toString();
-    			body = Configuration.root().getString("email.body.SPrequest").toString();
-    			sendReport=Configuration.root().getString("email.subject.student").toString();
+    			subject=Configuration.root().getString("email.subject.SPrequest").toString();    			
+    			body = Configuration.root().getString("email.body.SPrequest").toString();    			
+    			sendReport=Configuration.root().getString("email.sendReport.student").toString();    			
     		}else if(subject.equals("REJECT")){
     			subject=Configuration.root().getString("email.subject.SPrejected").toString();
-    			sendReport=Configuration.root().getString("email.subject.advisor").toString();
+    			sendReport=Configuration.root().getString("email.sendReport.advisor").toString();
     		}else if(subject.equals("ACCEPT")){
     			subject=Configuration.root().getString("email.subject.SPapproved").toString();
-    			sendReport=Configuration.root().getString("email.subject.advisor").toString();
+    			sendReport=Configuration.root().getString("email.sendReport.advisor").toString();
     		}else if(subject.equals("NOTIFICATION")){
     			subject=Configuration.root().getString("email.subject.SPnotification").toString();
-    			sendReport=Configuration.root().getString("email.subject.admin").toString();
+    			sendReport=Configuration.root().getString("email.sendReport.admin").toString();
     			body=Configuration.root().getString("email.body.SPnotification").toString();
     		}
+    		  		
     		
     		authprotocol = Configuration.root().getString("email.authProtocol").toString();;
     		port = Integer.parseInt(Configuration.root().getString("email.port"));
@@ -74,7 +75,7 @@ public class SecuredApplication extends Controller {
 			msg._setAuth(user, pwd);
             msg._setPort(port);
             msg._setAuthProtocol(authprotocol);
-			msg._send();
+			msg._send();			
 		}catch (Exception e) { return "ERROR: an error has occoured while trying to send the email.\n\t" + e;}
 		
 		return sendReport;
