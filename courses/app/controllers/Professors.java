@@ -141,6 +141,7 @@ public class Professors extends Controller {
           }
           else
             ce.credits = 0;
+          ce.isFinished = true;
           ce.update();
           return redirect(routes.Professors.results(courseId));
         }
@@ -175,6 +176,7 @@ public class Professors extends Controller {
           }
           else
             ce.credits = 0;
+          ce.isFinished = true;
           ce.update();
           return redirect(routes.Professors.results(courseId));
         }

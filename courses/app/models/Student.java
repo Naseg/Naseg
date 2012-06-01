@@ -226,8 +226,7 @@ public class Student extends Model {
       int currentYear = Course.AcademicYear();
       for (CourseEnrollment enrollment : enrollments)
       {
-        //if (enrollment.isFinished != null && enrollment.isFinished)
-        if (enrollment.fetchCourse().academicYear < currentYear)
+        if (enrollment.isFinished != null && enrollment.isFinished)
         {
           career.add(enrollment);
         }
