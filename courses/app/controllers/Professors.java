@@ -56,7 +56,7 @@ public class Professors extends Controller {
       Supervisor s = uc.getSupervisor();
       for (CourseEnrollment enrollment : course.getCoursesEnrollment())
       {
-        if (s.getStudentsAdvisored().contains(enrollment.getStudent())) {
+        if (s.getStudentsAdvisored().contains(enrollment.fetchStudent())) {
           Form<CourseEnrollment> f = form(CourseEnrollment.class);
           f = f.fill(enrollment);
           forms.add(f);
