@@ -241,13 +241,13 @@ public class Admins extends Controller {
    * Overloading for method students
    */
   public static Result students() {
-    return Admins.students(newStudentForm,false);
+    return Admins.students(newStudentForm,false,"");
   }
 
   /**
    * Renders page for managing students
    */
-  public static Result students(Form<Student> form, boolean badRequest) {
+  public static Result students(Form<Student> form, boolean badRequest, String popup) {
     UserCredentials uc = UserCredentials.find.where().eq("userName",request().username()).findUnique();
     if (Secured.isAdmin(uc))
     {
@@ -255,9 +255,9 @@ public class Admins extends Controller {
       Collections.sort(students,new Comparators.StudentCompareByName());
       Collections.sort(students,new Comparators.StudentCompareByStudyPlan());
       if (badRequest)
-        return badRequest(admin_students.render(uc,students,form));
+        return badRequest(admin_students.render(uc,students,form,popup));
       else
-        return ok(admin_students.render(uc,students,form));
+        return ok(admin_students.render(uc,students,form,popup));
     }
     else
       return unauthorized(forbidden.render());
@@ -275,7 +275,7 @@ public class Admins extends Controller {
       if (filledForm.hasErrors())
       {
         System.out.println("Errore");
-        return Admins.students(filledForm,true);
+        return Admins.students(filledForm,true,"");
       }
       else
       {
@@ -530,7 +530,7 @@ public class Admins extends Controller {
 		  if(!cannotreach.equals("")){
 			  result = result + "the following names are unreachable:\n" + cannotreach;
 		  }
-	      return ok(result);
+	      return Admins.students(newStudentForm,false,result);
 	    }
 	    else
 	    {
